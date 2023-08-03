@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard | Uplon - Responsive Bootstrap 4 Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Responsive bootstrap 4 admin template" name="description">
+    <meta content="Coderthemes" name="author">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../../static/assets\images\favicon.ico">
+
+    <!-- App css -->
+    <link href="../../static/assets\css\bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
+    <link href="../../static/assets\css\icons.min.css" rel="stylesheet" type="text/css">
+    <link href="../../static/assets\css\app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<!-- Begin page -->
+<div id="wrapper">
+
+
+    <!-- Topbar Start -->
+    <div class="navbar-custom" th:insert="layout/nav.html :: header">
+
+    </div>
+    <!-- end Topbar -->
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="left-side-menu" th:insert="layout/slidebar.html :: header">
+
+    </div>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-center">
+                                <h1 class="page-title" style="text-align: center; font-size: 200%">Thêm thông tin nhân viên</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-box" style="display: flex;justify-content:center ">
+
+
+                                    <div class="col-xl-12">
+                                        <div class="dataTables_filter">
+                                            <div class="row">
+                                                <form th:action="@{/nhan-vien/add}" th:object="${nhanvien}" method="post" class="row form-row justify-content-between">
+                                                    <div class="col-xl-12">
+                                                        <div class="mb-4">
+                                                            <label class="form-label" style="color: black">Mã</label>
+                                                            <input type="text" class="form-control" th:field="*{maNhanVien}"/>
+                                                        </div>
+                                                        <div class="mb-4">
+                                                            <label class="form-label" style="color: black">Tên</label>
+                                                            <input type="text" class="form-control" th:field="*{tenNhanVien}"/>
+                                                        </div>
+                                                        <div class="mb-4">
+                                                            <label class="form-label" style="color: black">SĐT</label>
+                                                            <input type="text" class="form-control" th:field="*{sdt}"/>
+                                                        </div>
+                                                        <div class="mb-4">
+                                                            <label class="form-label" style="color: black">Email</label>
+                                                            <input type="text" class="form-control" th:field="*{email}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-12">
+                                                        <div class="mb-4">
+                                                            <label class="form-label" style="color: black">Địa chỉ</label>
+                                                            <input type="text" class="form-control" th:field="*{diaChi}"/>
+                                                        </div>
+                                                        <div class="mb-4">
+                                                            <label class="form-label" style="color: black">Ngày sinh</label>
+                                                            <input type="date" class="form-control" th:field="*{ngaySinh}"/>
+                                                        </div>
+                                                        <div class="mb-4">
+                                                            <label class="form-label" style="color: black">Người tạo</label>
+                                                            <input type="text" class="form-control" th:field="*{nguoiTao}"/>
+                                                        </div>
+                                                        <div class="mb-4">
+                                                            <label class="form-label" style="color: black">Người sửa</label>
+                                                            <input type="text" class="form-control" th:field="*{nguoiSua}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-12">
+                                                        <div class="mb-4">
+                                                            <label class="form-label" style="color: black">Mật khẩu</label>
+                                                            <input type="text" class="form-control" th:field="*{matKhau}"/>
+                                                        </div>
+                                                        <div class="md-4">
+                                                            <label for="validationCustom04" class="form-label" style="color: black">Trạng
+                                                                Thái</label>
+                                                            <select class="form-select" id="validationCustom04" th:field="*{trangThai}">
+                                                                <option th:value="1">Hoạt động</option>
+                                                                <option th:value="0">Ngừng hoạt động</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="button" class="btn btn-default" data-dismiss="modal"
+                                                               value="Cancel">
+                                                        <input type="submit" class="btn btn-success" value="Add">
+                                                    </div>
+                                                </form>
+                                                <!-- end row -->
+
+
+                                            </div><!-- end col -->
+                                        </div>
+                                        <!-- end row -->
+
+
+                                    </div>
+                                    <!-- end row -->
+
+                                </div> <!-- end container-fluid -->
+
+                            </div> <!-- end content -->
+
+
+                            <!-- Footer Start -->
+                            <!--                        <footer class="footer">-->
+                            <!--                            <div class="container-fluid">-->
+                            <!--                                <div class="row">-->
+                            <!--                                    <div class="col-md-12">-->
+                            <!--                                        2016 - 2019 &copy; Uplon theme by <a href="">Coderthemes</a>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                        </footer>-->
+                            <!-- end Footer -->
+
+                        </div>
+
+                        <!-- ============================================================== -->
+                        <!-- End Page content -->
+                        <!-- ============================================================== -->
+
+                    </div>
+                    <!-- END wrapper -->
+
+                    <!--&lt;!&ndash; Right Sidebar &ndash;&gt;-->
+                    <!-- Right bar overlay-->
+                    <div class="rightbar-overlay"></div>
+
+                    <!--<a href="javascript:void(0);" class="right-bar-toggle demos-show-btn">-->
+                    <!--    <i class="mdi mdi-settings-outline mdi-spin"></i> &nbsp;Choose Demos-->
+                    <!--</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Vendor js -->
+    <script src="../../static/assets\js\vendor.min.js"></script>
+
+    <!--Morris Chart-->
+    <script src="../../static/assets\libs\morris-js\morris.min.js"></script>
+    <script src="../../static/assets\libs\raphael\raphael.min.js"></script>
+
+    <!-- Dashboard init js-->
+    <script src="../../static/assets\js\pages\dashboard.init.js"></script>
+
+    <!-- App js -->
+    <script src="../../static/assets\js\app.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+</body>
+</html>

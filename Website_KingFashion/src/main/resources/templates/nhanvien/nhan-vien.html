@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard | Uplon - Responsive Bootstrap 4 Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Responsive bootstrap 4 admin template" name="description">
+    <meta content="Coderthemes" name="author">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../../static/assets\images\favicon.ico">
+
+    <!-- App css -->
+    <link href="../../static/assets\css\bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
+    <link href="../../static/assets\css\icons.min.css" rel="stylesheet" type="text/css">
+    <link href="../../static/assets\css\app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<!-- Begin page -->
+<div id="wrapper">
+
+
+    <!-- Topbar Start -->
+    <div class="navbar-custom" th:insert="layout/nav.html :: header">
+
+    </div>
+    <!-- end Topbar -->
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="left-side-menu" th:insert="layout/slidebar.html :: header">
+
+    </div>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-center">
+                                <h1 class="page-title" style="text-align: center; font-size: 200%">Nhân viên</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-box">
+                                    <div class="col-xl-12">
+                                        <div class="dataTables_filter">
+                                            <form th:object="${nhanvien}" th:action="@{/nhan-vien/search}"
+                                                  class="row form-row justify-content-between">
+                                                <label>Tên:
+                                                    <input
+                                                            type="search" class="form-control form-control-sm"
+                                                            placeholder="" aria-controls="datatable-buttons"
+                                                            style="width: 300px" th:field="*{tenNhanVien}">
+                                                </label>
+                                                <label>SĐT:
+                                                    <input
+                                                            type="search" class="form-control form-control-sm"
+                                                            placeholder="" aria-controls="datatable-buttons"
+                                                            style="width: 300px" th:field="*{sdt}">
+                                                </label>
+                                                <label>Email:
+                                                    <input
+                                                            type="search" class="form-control form-control-sm"
+                                                            placeholder="" aria-controls="datatable-buttons"
+                                                            style="width: 300px" th:field="*{email}">
+                                                </label>
+                                                <label>Địa chỉ:
+                                                    <input
+                                                            type="search" class="form-control form-control-sm"
+                                                            placeholder="" aria-controls="datatable-buttons"
+                                                            style="width: 300px" th:field="*{diaChi}">
+                                                </label>
+                                                <div class="col-3">
+                                                    <button type="submit"
+                                                            class="btn btn-success waves-effect waves-light">Lọc
+                                                    </button>
+                                                </div>
+                                                <div class="col-3">
+                                                    <a type="button" class="btn btn-primary add"
+                                                       href="/nhan-vien/view-add">Thêm nhân viên</a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-box">
+                                    <div class="row">
+                                        <div class="col-sm-12" id="voucher-list">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <td>#</td>
+                                                    <td>Mã</td>
+                                                    <td>Tên</td>
+                                                    <td>SĐT</td>
+                                                    <td>Email</td>
+                                                    <td>Địa chỉ</td>
+                                                    <td>Ngày sinh</td>
+                                                    <td>Trạng thái</td>
+                                                    <td>Action</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="nv, row : ${list.content}">
+                                                    <th scope="row" th:text="${row.index + 1}"></th>
+                                                    <td th:text="${nv.maNhanVien}"></td>
+                                                    <td th:text="${nv.tenNhanVien}"></td>
+                                                    <td th:text="${nv.sdt}"></td>
+                                                    <td th:text="${nv.email}"></td>
+                                                    <td th:text="${nv.diaChi}"></td>
+                                                    <td th:text="${nv.ngaySinh}"></td>
+                                                    <td th:if="${nv.trangThai == 1}">Hoạt động</td>
+                                                    <td th:if="${nv.trangThai == 0}">Không hoạt động</td>
+                                                    <td>
+                                                        <a class="edit"
+                                                           th:href="@{view-update/{id}(id=${nv.id})}"
+                                                        ><i
+                                                                class="material-icons"
+                                                                data-toggle="tooltip"
+                                                                title="Edit">&#xE254;</i></a>
+                                                        <a th:href="@{delete/{id}(id=${nv.id})}" class="delete"><i
+                                                                class="material-icons"
+                                                                data-toggle="tooltip"
+                                                                title="Delete">&#xE872;</i></a>
+                                                    </td>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12" style="display: flex; justify-content: center">
+                                            <nav aria-label="Page navigation example"
+                                                 class="flex">
+                                                <ul class="pagination">
+                                                    <li class="page-item"
+                                                        th:classappend="${list.number == 0} ? disabled">
+                                                        <a class="page-link"
+                                                           th:href="@{/nhan-vien/hien-thi(page=${list.number - 1})}">
+                                                            Previous
+                                                        </a>
+                                                    </li>
+                                                    <li class="page-item"
+                                                        th:each="pageNumber : ${#numbers.sequence(0, list.totalPages - 1)}">
+                                                        <a class="page-link"
+                                                           th:href="@{/nhan-vien/hien-thi(page=${pageNumber})}"
+                                                           th:text="${pageNumber + 1}"
+                                                           th:classappend="${pageNumber == list.number} ? active">
+                                                        </a>
+                                                    </li>
+                                                    <li class="page-item"
+                                                        th:classappend="${list.number == list.totalPages - 1} ? disabled">
+                                                        <a class="page-link"
+                                                           th:href="@{/nhan-vien/hien-thi(page=${list.number + 1})}">
+                                                            Next
+                                                        </a>
+                                                    </li>
+                                                </ul>
+
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+
+                    </div><!-- end col -->
+                </div>
+                <!-- end row -->
+
+
+            </div>
+            <!-- end row -->
+
+        </div> <!-- end container-fluid -->
+
+    </div> <!-- end content -->
+
+
+    <!-- Footer Start -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    2016 - 2019 &copy; Uplon theme by <a href="">Coderthemes</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end Footer -->
+
+</div>
+<!-- Vendor js -->
+<script src="../../static/assets\js\vendor.min.js"></script>
+
+<!--Morris Chart-->
+<script src="../../static/assets\libs\morris-js\morris.min.js"></script>
+<script src="../../static/assets\libs\raphael\raphael.min.js"></script>
+
+<!-- Dashboard init js-->
+<script src="../../static/assets\js\pages\dashboard.init.js"></script>
+
+<!-- App js -->
+<script src="../../static/assets\js\app.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+
+</body>
+</html>

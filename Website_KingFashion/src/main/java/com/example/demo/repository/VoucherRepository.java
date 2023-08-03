@@ -26,5 +26,5 @@ public interface VoucherRepository extends JpaRepository<Voucher, UUID> {
                          @Param("thoiGianBatDau") Date thoiGianBatDau, @Param("thoiGianKetThuc") Date thoiGianKetThuc, @Param("trangThai") Integer trangThai,
                          Pageable pageable);
 
-    List<Voucher> findByThoiGianKetThucBeforeAndTrangThaiNot(Date endDate, Integer status);
+    List<Voucher> findByThoiGianKetThucAfterAndTrangThaiNot(Date endDate, Integer status);
 }

@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -57,7 +58,7 @@ public class Voucher {
     @Column(name = "thoi_gian_bat_dau")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @NotNull(message = "Không được để trống")
-    @Past(message = "Không được đi đến tương lai")
+//    @Future(message = "Không được về quá khứ")
     @Temporal(TemporalType.TIMESTAMP)
     private Date thoiGianBatDau;
 
@@ -68,11 +69,9 @@ public class Voucher {
     private Date thoiGianKetThuc;
 
     @Column(name = "mo_ta")
-    @NotBlank(message = "Không được để trống")
     private String moTa;
 
     @Column(name = "trang_thai")
-    @NotNull(message = "Không được để trống")
     private Integer trangThai;
 
     @Column(name = "ngay_tao")

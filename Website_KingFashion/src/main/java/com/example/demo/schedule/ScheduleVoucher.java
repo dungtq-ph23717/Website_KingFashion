@@ -17,11 +17,14 @@ public class ScheduleVoucher {
 
     @Scheduled(fixedRate = 3000)
     public void updateVoucherStatus() {
-        List<Voucher> expiredVouchers = voucherRepository.findByThoiGianKetThucBeforeAndTrangThaiNot(new Date(),0);
+        Date currentDateTime = new Date();
+        List<Voucher> expiredVouchers = voucherRepository.findByThoiGianKetThucAfterAndTrangThaiNot(currentDateTime, 0);
         for (Voucher voucher : expiredVouchers) {
-            voucher.setTrangThai(0);
-            voucherRepository.save(voucher);
+            Date voucherEndTime = voucher.getThoiGianKetThuc();
+            if (voucherEndTime.after(currentDateTime) || voucherEndTime.equals(currentDateTime)) { // Kiểm tra nếu thời gian kết thúc >= thời gian hiện tại hoặc bằng thời gian hiện tại
+                voucher.setTrangThai(0);
+                voucherRepository.save(voucher);
+            }
         }
     }
-
 }

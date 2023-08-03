@@ -23,6 +23,8 @@ public class VoucherController {
     @Autowired
     private VoucherServiceImpl voucherService;
 
+    private Date date = new Date();
+
     @GetMapping("/hien-thi")
     public String hienThi(Model model, @RequestParam(name = "page", defaultValue = "0") Integer p, HttpSession session) {
         if (session.getAttribute("successMessage") != null) {
@@ -73,7 +75,13 @@ public class VoucherController {
         }
         String ma = "VOC" + new Random().nextInt(100000);
         voucher.setMa(ma);
-        voucher.setNgayTao(new Date());
+        voucher.setNgayTao(date);
+        if (voucher.getThoiGianBatDau().before(date)) {
+            voucher.setTrangThai(1);
+        }
+        if (voucher.getThoiGianBatDau().after(date)) {
+            voucher.setTrangThai(2);
+        }
         voucherService.add(voucher);
         session.setAttribute("successMessage", "Thêm thành công");
         return "redirect:/voucher/hien-thi";
@@ -81,10 +89,17 @@ public class VoucherController {
 
     @PostMapping("/update")
     public String update(@Valid @ModelAttribute("voucher") Voucher voucher, BindingResult result, Model model, HttpSession session) {
-        if (result.hasErrors()) {
+        if (result.hasErrors() || voucher.getThoiGianBatDau().after(voucher.getThoiGianKetThuc())) {
+            result.rejectValue("thoiGianKetThuc", null, "Ngày bắt đầu không được lớn hơn ngày kết thúc");
             return "voucher/update";
         }
-        voucher.setNgaySua(new Date());
+        voucher.setNgaySua(date);
+        if (voucher.getThoiGianBatDau().before(date)) {
+            voucher.setTrangThai(1);
+        }
+        if (voucher.getThoiGianBatDau().after(date)) {
+            voucher.setTrangThai(2);
+        }
         voucherService.add(voucher);
         session.setAttribute("successMessage", "Update thành công");
         return "redirect:/voucher/hien-thi";
