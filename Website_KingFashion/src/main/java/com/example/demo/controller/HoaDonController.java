@@ -30,8 +30,6 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/hoa-don/")
 public class HoaDonController {
-
-
     @Autowired
     private HoaDonService hoaDonService;
 
@@ -55,7 +53,6 @@ public class HoaDonController {
         return "hoadon/hoadon";
     }
 
-
     @GetMapping("view-hoa-don/{id}")
     public String viewHoaDon(@PathVariable UUID id, Model model) {
         HoaDon hoaDon = hoaDonService.detail(id);
@@ -64,6 +61,8 @@ public class HoaDonController {
         model.addAttribute("lshd1", lichSuHoaDon);
         return "/hoadon/hoa-don-chi-tiet";
     }
+
+
 
     @PostMapping("/export")
     public void exportToExcel(HttpServletResponse response) throws IOException {
