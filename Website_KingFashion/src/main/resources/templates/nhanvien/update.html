@@ -19,9 +19,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
-
 <body>
-
 <!-- Begin page -->
 <div id="wrapper">
     <!-- Topbar Start -->
@@ -44,7 +42,7 @@
                     <div class="col-12">
                         <div class="page-title-box">
                             <div class="page-title-center">
-                                <h1 class="page-title" style="text-align: center; font-size: 200%">Voucher</h1>
+                                <h1 class="page-title" style="text-align: center; font-size: 200%">Nhân Viên</h1>
                             </div>
                         </div>
                     </div>
@@ -56,77 +54,75 @@
                             <div class="col-12">
                                 <div class="card-box" style="display: flex;justify-content:center ">
                                     <div class="col-xl-12">
-                                        <form th:action="@{/nhan-vien/update(id=${nhanvien.id})}"
-                                              th:object="${nhanvien}" method="post"
-                                              class="row form-row justify-content-between">
-                                            <div class="col-xl-12">
-                                                <div class="mb-4">
-                                                    <label class="form-label" style="color: black">Mã</label>
-                                                    <input type="text" class="form-control"
-                                                           th:field="*{maNhanVien}"/>
+                                        <form class="row g-3" method="post" th:action="@{/nhan-vien/update(id=${nhanvien.id})}"
+                                              th:object="${nhanvien}">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Mã</label>
+                                                <input type="text" class="form-control" th:field="*{maTaiKhoan}">
+                                                <span th:errors="*{maTaiKhoan}"></span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Tên</label>
+                                                <input type="text" class="form-control" th:field="*{tenTaiKhoan}">
+                                                <span th:errors="*{tenTaiKhoan}"></span>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label">SĐT</label>
+                                                <input type="text" class="form-control" th:field="*{sdt}">
+                                                <span th:errors="*{sdt}"></span>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label">Email</label>
+                                                <input type="text" class="form-control" th:field="*{email}">
+                                                <span th:errors="*{email}"></span>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label">Địa chỉ</label>
+                                                <input type="text" class="form-control" th:field="*{diaChi}">
+                                                <span th:errors="*{diaChi}"></span>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label">Ngày sinh</label>
+                                                <input type="date" class="form-control" th:field="*{ngaySinh}">
+                                                <span th:errors="*{ngaySinh}"></span>
+                                            </div>
+
+<!--                                            <div class="col-12">-->
+<!--                                                <label class="form-label">Vai trò</label>-->
+<!--                                                <select class="form-select" aria-label="Default select example"-->
+<!--                                                        th:field="*{vaiTro.tenVaiTro}">-->
+<!--                                                    <option value="Nhân viên">Nhân viên</option>-->
+<!--                                                </select>-->
+<!--                                                <span th:errors="*{vaiTro}"></span>-->
+<!--                                            </div>-->
+                                            <div class="col-12">
+                                                <label class="form-label">Mật khẩu</label>
+                                                <input type="text" class="form-control" th:field="*{matKhau}">
+                                                <span th:errors="*{matKhau}"></span>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label">Trạng thái</label>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" id="flexRadioDefault1"
+                                                           th:field="*{trangThai}"
+                                                           th:value="1" checked>
+                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                        Hoạt động
+                                                    </label>
                                                 </div>
-                                                <div class="mb-4">
-                                                    <label class="form-label" style="color: black">Tên</label>
-                                                    <input type="text" class="form-control"
-                                                           th:field="*{tenNhanVien}"/>
-                                                </div>
-                                                <div class="mb-4">
-                                                    <label class="form-label" style="color: black">SĐT</label>
-                                                    <input type="text" class="form-control" th:field="*{sdt}"/>
-                                                </div>
-                                                <div class="mb-4">
-                                                    <label class="form-label" style="color: black">Email</label>
-                                                    <input type="text" class="form-control"
-                                                           th:field="*{email}"/>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" id="flexRadioDefault2"
+                                                           th:field="*{trangThai}"
+                                                           th:value="0">
+                                                    <label class="form-check-label" for="flexRadioDefault2">
+                                                        Không hoạt động
+                                                    </label>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-12">
-                                                <div class="mb-4">
-                                                    <label class="form-label" style="color: black">Địa
-                                                        chỉ</label>
-                                                    <input type="text" class="form-control"
-                                                           th:field="*{diaChi}"/>
-                                                </div>
-                                                <div class="mb-4">
-                                                    <label class="form-label" style="color: black">Ngày
-                                                        sinh</label>
-                                                    <input type="date" class="form-control"
-                                                           th:field="*{ngaySinh}"/>
-                                                </div>
-                                                <input type="hidden" th:field="*{ngayTao}"
-                                                       th:value="${nhanvien.ngayTao}"/>
-                                                <div class="mb-4">
-                                                    <label class="form-label" style="color: black">Người
-                                                        tạo</label>
-                                                    <input type="text" class="form-control"
-                                                           th:field="*{nguoiTao}"/>
-                                                </div>
-                                                <div class="mb-4">
-                                                    <label class="form-label" style="color: black">Người
-                                                        sửa</label>
-                                                    <input type="text" class="form-control"
-                                                           th:field="*{nguoiSua}"/>
-                                                </div>
+                                            <span th:errors="*{trangThai}"></span>
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-primary">Add</button>
                                             </div>
-                                            <div class="col-xl-12">
-                                                <div class="mb-4">
-                                                    <label class="form-label" style="color: black">Mật
-                                                        khẩu</label>
-                                                    <input type="text" class="form-control"
-                                                           th:field="*{matKhau}"/>
-                                                </div>
-                                                <div class="md-4">
-                                                    <label for="validationCustom04" class="form-label"
-                                                           style="color: black">Trạng
-                                                        Thái</label>
-                                                    <select class="form-select" id="validationCustom04"
-                                                            th:field="*{trangThai}">
-                                                        <option th:value="1">Hoạt động</option>
-                                                        <option th:value="0">Không hoạt động</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Update</button>
                                         </form>
                                     </div>
                                 </div>
@@ -155,17 +151,19 @@
     <!-- end Footer -->
 
 </div>
-<script src="../../static/assets\js\vendor.min.js"></script>
 
+<!--<img src="../../static/images/logo.jpg" alt="">-->
+
+<script src="../../static/assets\js\vendor.min.js"></script>
 <!--Morris Chart-->
 <script src="../../static/assets\libs\morris-js\morris.min.js"></script>
 <script src="../../static/assets\libs\raphael\raphael.min.js"></script>
 
 <!-- Dashboard init js-->
 <script src="../../static/assets\js\pages\dashboard.init.js"></script>
-
 <!-- App js -->
 <script src="../../static/assets\js\app.min.js"></script>
+<script src="../../static/js/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
 </body>
 </html>
