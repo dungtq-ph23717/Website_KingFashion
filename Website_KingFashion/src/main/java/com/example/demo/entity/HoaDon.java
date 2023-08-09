@@ -57,7 +57,7 @@ public class HoaDon {
     private Double tongTienSauKhiGiam;
 
     @Column(name = "trang_thai")
-    private Boolean trangThai;
+    private Integer trangThai;
 
     @Column(name = "ten_nguoi_nhan")
     private String tenNguoiNhan;

@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.HoaDon;
 import com.example.demo.entity.LichSuHoaDon;
 import com.example.demo.entity.TaiKhoan;
+import com.example.demo.entity.Voucher;
 import com.example.demo.service.HoaDonChiTietService;
 import com.example.demo.service.HoaDonService;
 import com.example.demo.service.LichSuHoaDonService;
@@ -30,8 +31,6 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/hoa-don/")
 public class HoaDonController {
-
-
     @Autowired
     private HoaDonService hoaDonService;
 
@@ -45,16 +44,16 @@ public class HoaDonController {
     private HoaDonChiTietService hoaDonChiTietService;
 
     @GetMapping("hien-thi")
-    public String hienThiHoaDon(Model model, @RequestParam(name = "page", defaultValue = "0") Integer pageNum) {
-        Page<HoaDon> hoaDonPage = hoaDonService.phanTrangHoaDon(pageNum, 5);
+    public String hienThiHoaDon(Model model, @RequestParam(name = "page", defaultValue = "0") Integer page) {
+        Page<HoaDon> hoaDonPage = hoaDonService.phanTrangHoaDon(page, 5);
         model.addAttribute("listHD", hoaDonPage);
-        List<LichSuHoaDon> lichSuHoaDons = lichSuHoaDonService.getAll();
-        model.addAttribute("listLSHD", lichSuHoaDons);
-        List<TaiKhoan> taiKhoans = taiKhoanService.getAll();
-        model.addAttribute("listTK", taiKhoans);
+        List<LichSuHoaDon> listLSHD = lichSuHoaDonService.getAll();
+        model.addAttribute("listLSHD", listLSHD);
+        List<TaiKhoan> listTK = taiKhoanService.getAll();
+        model.addAttribute("listTK", listTK);
+        model.addAttribute("searchHD", new HoaDon());
         return "hoadon/hoadon";
     }
-
 
     @GetMapping("view-hoa-don/{id}")
     public String viewHoaDon(@PathVariable UUID id, Model model) {
@@ -62,8 +61,17 @@ public class HoaDonController {
         model.addAttribute("hd1", hoaDon);
         List<LichSuHoaDon> lichSuHoaDon = lichSuHoaDonService.detail(hoaDon.getLichSuHoaDon().getId());
         model.addAttribute("lshd1", lichSuHoaDon);
-        return "/hoadon/hoa-don-chi-tiet";
+        return "hoadon/hoa-don-chi-tiet";
     }
+
+    @GetMapping("/search")
+    public String search(Model model,@ModelAttribute("searchHD") HoaDon hoaDon, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam("maHoaDon") String maHoaDon) {
+        Page<HoaDon> listHD = hoaDonService.searchHD(hoaDon.getMaHoaDon(), hoaDon.getTenNguoiNhan(), hoaDon.getTrangThai(), hoaDon.getNgayThanhToan(),
+                hoaDon.getTongTienSauKhiGiam(), hoaDon.getNgayDuKienNhan(), hoaDon.getNgayShip(), page, 5);
+        model.addAttribute("listHD", listHD);
+        return "hoadon/hoadon";
+    }
+
 
     @PostMapping("/export")
     public void exportToExcel(HttpServletResponse response) throws IOException {
