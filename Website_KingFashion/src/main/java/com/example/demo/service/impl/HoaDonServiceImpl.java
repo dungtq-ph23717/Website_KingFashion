@@ -25,12 +25,10 @@ public class HoaDonServiceImpl implements HoaDonService {
     }
 
     @Override
-    public Page<HoaDon> phanTrangHoaDon(Integer pageNum, Integer pageNo) {
-        Pageable pageable = PageRequest.of(pageNum, pageNo);
+    public Page<HoaDon> phanTrangHoaDon(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
         return hoaDonRepository.findAll(pageable);
     }
-
-
 
     @Override
     public List<HoaDon> getExcel() {
@@ -39,11 +37,17 @@ public class HoaDonServiceImpl implements HoaDonService {
 
     @Override
     public HoaDon detail(UUID id) {
-        return hoaDonRepository.getHoaDonById(id);
+        return hoaDonRepository.findById(id).orElse(null);
     }
 
     @Override
     public void add(HoaDon hoaDon) {
-       hoaDonRepository.save(hoaDon);
+        hoaDonRepository.save(hoaDon);
+    }
+
+    @Override
+    public Page<HoaDon> searchHD(String ma, String tenNguoiNhan, Integer trangThai, Date ngayThanhToan, Double tongTienSauKhiGiam, Date ngayNhanDK, Date ngayShip, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page,size);
+        return hoaDonRepository.searchHD(ma,tenNguoiNhan,trangThai,ngayThanhToan,tongTienSauKhiGiam,ngayNhanDK,ngayShip,pageable);
     }
 }
