@@ -21,7 +21,7 @@ public interface HoaDonRepository  extends JpaRepository<HoaDon, UUID> {
             "  AND (:tenNguoiNhan is null OR h.tenNguoiNhan LIKE lower(CONCAT('%', :tenNguoiNhan, '%')))\n" +
             "  AND (:trangThai is NULL OR h.trangThai = :trangThai)\n" +
             "  AND (:ngayThanhToan IS NULL OR h.ngayThanhToan = :ngayThanhToan)\n" +
-            "  AND (:tongTienSauKhiGiam is null OR h.tongTienSauKhiGiam <= :tongTienSauKhiGiam)\n" +
+            "  AND (:tongTienSauKhiGiam is null OR h.tongTienSauKhiGiam = :tongTienSauKhiGiam)\n" +
             "  AND (:ngayNhanDK IS NULL OR h.ngayDuKienNhan = :ngayNhanDK)\n" +
             "  AND (:ngayShip IS NULL OR h.ngayShip = :ngayShip)\n")
     Page<HoaDon> searchHD(@Param("maHoaDon") String maHoaDon, @Param("tenNguoiNhan") String tenNguoiNhan,
