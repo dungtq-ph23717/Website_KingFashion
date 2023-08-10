@@ -64,62 +64,73 @@
                                         </div>
                                         <form th:object="${search}" th:action="@{/khach-hang/search}"
                                               class="row form-row justify-content-between">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="row">
-                                                        <div class="col-2">
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-2 col-form-label">Mã: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" th:field="*{maTaiKhoan}">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-2">
+                                                                <div class="row mb-3">
+                                                                    <label class="col-sm-2 col-form-label">Mã: </label>
+                                                                    <div class="col-sm-6">
+                                                                        <input type="text" class="form-control"
+                                                                               th:field="*{maTaiKhoan}">
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-2 col-form-label">Tên: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" th:field="*{tenTaiKhoan}">
+                                                            <div class="col-2">
+                                                                <div class="row mb-3">
+                                                                    <label class="col-sm-2 col-form-label">Tên: </label>
+                                                                    <div class="col-sm-6">
+                                                                        <input type="text" class="form-control"
+                                                                               th:field="*{tenTaiKhoan}">
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-5 col-form-label">SĐT: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" th:field="*{sdt}">
+                                                            <div class="col-2">
+                                                                <div class="row mb-3">
+                                                                    <label class="col-sm-5 col-form-label">SĐT: </label>
+                                                                    <div class="col-sm-6">
+                                                                        <input type="text" class="form-control"
+                                                                               th:field="*{sdt}">
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-3">
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-5 col-form-label">Email: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" th:field="*{email}">
+                                                            <div class="col-3">
+                                                                <div class="row mb-3">
+                                                                    <label class="col-sm-5 col-form-label">Email: </label>
+                                                                    <div class="col-sm-6">
+                                                                        <input type="text" class="form-control"
+                                                                               th:field="*{email}">
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-5 col-form-label">Địa chỉ: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" th:field="*{diaChi}">
+                                                            <div class="col-2">
+                                                                <div class="row mb-3">
+                                                                    <label class="col-sm-5 col-form-label">Địa
+                                                                        chỉ: </label>
+                                                                    <div class="col-sm-6">
+                                                                        <input type="text" class="form-control"
+                                                                               th:field="*{diaChi}">
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-4">
-                                                            <div class="row mb-6">
-                                                                <label class="col-sm-5 col-form-label">Ngày sinh: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="date" name="" class="form-control" th:field="*{ngaySinh}">
+                                                            <div class="col-4">
+                                                                <div class="row mb-6">
+                                                                    <label class="col-sm-5 col-form-label">Ngày
+                                                                        sinh: </label>
+                                                                    <div class="col-sm-6">
+                                                                        <input type="date" name="" class="form-control"
+                                                                               th:field="*{ngaySinh}">
+                                                                    </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-3">
+                                                                <button type="submit" class="btn btn-primary">Lọc
+                                                                </button>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-3">
-                                                            <button type="submit" class="btn btn-primary">Lọc</button>
-                                                        </div>
-                                                    </div>
-                                                </div><!-- end col-->
+                                                    </div><!-- end col-->
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
@@ -179,18 +190,25 @@
                                                     <!--                    <li class="page-item" th:classappend="${list.number == 0} ? disabled">-->
                                                     <!--                        <a class="page-link" th:href="@{/vouchers(page=0, size=${list.size})}">First</a>-->
                                                     <!--                    </li>-->
-                                                    <li class="page-item" th:classappend="${list.number == 0} ? disabled">
-                                                        <a class="page-link" th:href="@{/khach-hang/hien-thi(page=${list.number - 1})}">
+                                                    <li class="page-item"
+                                                        th:classappend="${list.number == 0} ? disabled">
+                                                        <a class="page-link"
+                                                           th:href="@{/khach-hang/hien-thi(page=${list.number - 1})}">
                                                             Previous
                                                         </a>
                                                     </li>
-                                                    <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, list.totalPages - 1)}">
-                                                        <a class="page-link" th:href="@{/khach-hang/hien-thi(page=${pageNumber})}"
-                                                           th:text="${pageNumber + 1}" th:classappend="${pageNumber == list.number} ? active">
+                                                    <li class="page-item"
+                                                        th:each="pageNumber : ${#numbers.sequence(0, list.totalPages - 1)}">
+                                                        <a class="page-link"
+                                                           th:href="@{/khach-hang/hien-thi(page=${pageNumber})}"
+                                                           th:text="${pageNumber + 1}"
+                                                           th:classappend="${pageNumber == list.number} ? active">
                                                         </a>
                                                     </li>
-                                                    <li class="page-item" th:classappend="${list.number == list.totalPages - 1} ? disabled">
-                                                        <a class="page-link" th:href="@{/khach-hang/hien-thi(page=${list.number + 1})}">
+                                                    <li class="page-item"
+                                                        th:classappend="${list.number == list.totalPages - 1} ? disabled">
+                                                        <a class="page-link"
+                                                           th:href="@{/khach-hang/hien-thi(page=${list.number + 1})}">
                                                             Next
                                                         </a>
                                                     </li>
