@@ -37,6 +37,7 @@
     <div class="content-page">
         <div class="content">
 
+
             <!-- Start Content-->
             <div class="container-fluid">
 
@@ -50,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-<!--                 end page title -->
+                <!--                 end page title -->
                 <div class="row">
                     <div class="col-12">
 
@@ -60,76 +61,40 @@
                                     <div class="col-xl-12">
                                         <div class="dataTables_filter">
                                             <form action="/nhan-vien/view-add" method="get"
-                                                  style="float: right; margin-top: 20px">
+                                                  style="float: right; ">
                                                 <button type="submit" class="btn btn-success waves-effect waves-light"
                                                         style="float: right;">
                                                         <span class="btn-label"><i class="mdi mdi-plus"></i>
                                                         </span>Tạo Nhân Viên
                                                 </button>
                                             </form>
+
                                         </div>
-                                        <form th:object="${search}" th:action="@{/khach-hang/search}"
-                                              class="row form-row justify-content-between">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="row">
-                                                        <div class="col-2">
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-2 col-form-label">Mã: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" th:field="*{maTaiKhoan}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-2 col-form-label">Tên: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" th:field="*{tenTaiKhoan}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-5 col-form-label">SĐT: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" th:field="*{sdt}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-3">
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-5 col-form-label">Email: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" th:field="*{email}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-5 col-form-label">Địa chỉ: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" th:field="*{diaChi}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4">
-                                                            <div class="row mb-6">
-                                                                <label class="col-sm-5 col-form-label">Ngày sinh: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="date" name="" class="form-control" th:field="*{ngaySinh}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-3">
-                                                            <button type="submit" class="btn btn-primary">Lọc</button>
-                                                        </div>
-                                                    </div>
-                                                </div><!-- end col-->
-                                            </div>
+
+                                        <form th:object="${listtaikhoan}" th:action="@{/nhan-vien/serach}" method="get"
+                                              style="float:left">
+                                            <input type="text" name="keyword" th:value="${keyword}"
+                                                   placeholder="tim kiem cac thuoc tính...." size="30">
+                                            <button type="submit" class="btn btn-info"><img
+                                                    src="/static/image/search.svg"></button>
+                                            <button type="submit" class="btn btn-info"><img
+                                                    src="/static/image/arrow-clockwise.svg"></button>
                                         </form>
+                                        <form th:object="${listtaikhoan}" th:action="@{/nhan-vien/fiter-trangthai}" method="get"
+                                              style="text-align: center;margin-left:50px">
+
+                                            <label>Trạng Thái</label>
+                                            <label><input type="radio" name="trangThai" value="1" checked="true"/>Hoạt Động</label>
+                                            <label><input type="radio" name="trangThai" value="0"/>Khôn Hoạt
+                                                Động</label>
+                                            <button type="submit" class="btn btn-warning">Lọc</button>
+                                        </form>
+
+
                                     </div>
+
                                 </div>
+
                             </div>
                         </div>
 
@@ -223,7 +188,7 @@
                 <!-- end row -->
 
 
-           </div>
+            </div>
             <!-- end row -->
 
         </div> <!-- end container-fluid -->

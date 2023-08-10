@@ -96,4 +96,25 @@ public class TaiKhoanController {
 
         return "redirect:/nhan-vien/hien-thi";
     }
+    @GetMapping("/serach")
+    public String Serach(TaiKhoan taiKhoan, Model model, String keyword) {
+        if (keyword != null) {
+            List<TaiKhoan> listserach = taiKhoanService.getByKeyWord(keyword);
+            model.addAttribute("listtaikhoan", listserach);
+            return "nhanvien/nhan-vien";
+
+        }
+        return "redirect:/nhan-vien/hien-thi";
+    }
+
+    @GetMapping("/fiter-trangthai")
+    public String getFilteredtrangThai(@RequestParam(name = "trangThai") Integer trangthai, Model model) {
+        if (trangthai != null) {
+            List<TaiKhoan> taiKhoans = taiKhoanService.getTrangThai(trangthai);
+            model.addAttribute("listtaikhoan", taiKhoans);
+            return "nhanvien/nhan-vien";
+        }
+        return "redirect:/nhan-vien/hien-thi";
+    }
+
 }
