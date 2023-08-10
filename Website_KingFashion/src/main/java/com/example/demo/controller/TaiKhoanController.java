@@ -42,7 +42,6 @@ public class TaiKhoanController {
         model.addAttribute("listVaiTro",vaiTroService.getAll());
         Page<TaiKhoan> page=taiKhoanService.page(number,5);
         model.addAttribute("listtaikhoan",page);
-        model.addAttribute("search",new TaiKhoan());
         return "nhanvien/nhan-vien";
 
 
