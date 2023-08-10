@@ -41,11 +41,11 @@ public class HoaDon {
 
 
     @Column(name = "ngay_tao")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date ngayTao;
 
     @Column(name = "ngay_thanh_toan")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date ngayThanhToan;
 
 
@@ -69,20 +69,21 @@ public class HoaDon {
     @Column(name = "sdt")
     private String soDienThoai;
 
-    @Column(name = "ngay_du_kien_nhan")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date ngayDuKienNhan;
-
-
     @Column(name = "ngay_ship")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date ngayShip;
+
+    @Column(name = "ngay_du_kien_nhan")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date ngayDuKienNhan;
 
     @Column(name = "tien_ship")
     private Double tienShip;
 
     @Column(name = "ngay_sua")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date ngaySua;
 
 
@@ -93,7 +94,7 @@ public class HoaDon {
     private String nguoiNhanHoaDon;
 
     @Column(name = "ngay_nhan")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date ngayNhan;
 
     @Column(name = "ghi_chu")
