@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.entity.TaiKhoan;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Date;
 import java.util.List;
@@ -13,11 +15,14 @@ public interface TaiKhoanService {
 
     Page<TaiKhoan> page(Integer page, Integer size);
 
+
     Page<TaiKhoan> search(String ma, String ten, String sdt, String email, String diaChi, Date ngaySinh, Integer size, Integer page);
 
     TaiKhoan detail(UUID id);
 
-    void add(TaiKhoan taiKhoan);
+    TaiKhoan update(TaiKhoan taiKhoan);
+
+    TaiKhoan add(TaiKhoan taiKhoan);
 
     void delete(UUID id);
 

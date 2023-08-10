@@ -50,56 +50,89 @@
                         </div>
                     </div>
                 </div>
-                <!-- end page title -->
+<!--                 end page title -->
                 <div class="row">
                     <div class="col-12">
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card-box">
+                                <div class="card-box" style="display: flex;justify-content:center ">
                                     <div class="col-xl-12">
                                         <div class="dataTables_filter">
-                                            <form th:object="${nhanvien}" th:action="@{/nhan-vien/search}"
-                                                  class="row form-row justify-content-between">
-                                                <label>Tên:
-                                                    <input
-                                                            type="search" class="form-control form-control-sm"
-                                                            placeholder="" aria-controls="datatable-buttons"
-                                                            style="width: 300px" th:field="*{tenNhanVien}">
-                                                </label>
-                                                <label>SĐT:
-                                                    <input
-                                                            type="search" class="form-control form-control-sm"
-                                                            placeholder="" aria-controls="datatable-buttons"
-                                                            style="width: 300px" th:field="*{sdt}">
-                                                </label>
-                                                <label>Email:
-                                                    <input
-                                                            type="search" class="form-control form-control-sm"
-                                                            placeholder="" aria-controls="datatable-buttons"
-                                                            style="width: 300px" th:field="*{email}">
-                                                </label>
-                                                <label>Địa chỉ:
-                                                    <input
-                                                            type="search" class="form-control form-control-sm"
-                                                            placeholder="" aria-controls="datatable-buttons"
-                                                            style="width: 300px" th:field="*{diaChi}">
-                                                </label>
-                                                <div class="col-3">
-                                                    <button type="submit"
-                                                            class="btn btn-success waves-effect waves-light">Lọc
-                                                    </button>
-                                                </div>
-                                                <div class="col-3">
-                                                    <a type="button" class="btn btn-primary add"
-                                                       href="/nhan-vien/view-add">Thêm nhân viên</a>
-                                                </div>
+                                            <form action="/nhan-vien/view-add" method="get"
+                                                  style="float: right; margin-top: 20px">
+                                                <button type="submit" class="btn btn-success waves-effect waves-light"
+                                                        style="float: right;">
+                                                        <span class="btn-label"><i class="mdi mdi-plus"></i>
+                                                        </span>Tạo Nhân Viên
+                                                </button>
                                             </form>
                                         </div>
+                                        <form th:object="${search}" th:action="@{/khach-hang/search}"
+                                              class="row form-row justify-content-between">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-2">
+                                                            <div class="row mb-3">
+                                                                <label class="col-sm-2 col-form-label">Mã: </label>
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" class="form-control" th:field="*{maTaiKhoan}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <div class="row mb-3">
+                                                                <label class="col-sm-2 col-form-label">Tên: </label>
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" class="form-control" th:field="*{tenTaiKhoan}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <div class="row mb-3">
+                                                                <label class="col-sm-5 col-form-label">SĐT: </label>
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" class="form-control" th:field="*{sdt}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <div class="row mb-3">
+                                                                <label class="col-sm-5 col-form-label">Email: </label>
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" class="form-control" th:field="*{email}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <div class="row mb-3">
+                                                                <label class="col-sm-5 col-form-label">Địa chỉ: </label>
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" class="form-control" th:field="*{diaChi}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="row mb-6">
+                                                                <label class="col-sm-5 col-form-label">Ngày sinh: </label>
+                                                                <div class="col-sm-6">
+                                                                    <input type="date" name="" class="form-control" th:field="*{ngaySinh}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <button type="submit" class="btn btn-primary">Lọc</button>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- end col-->
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-12">
                                 <div class="card-box">
@@ -120,7 +153,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr th:each="nv, row : ${list.content}">
+                                                <tr th:each="nv, row : ${listtaikhoan}">
                                                     <th scope="row" th:text="${row.index + 1}"></th>
                                                     <td th:text="${nv.maTaiKhoan}"></td>
                                                     <td th:text="${nv.tenTaiKhoan}"></td>
@@ -132,12 +165,12 @@
                                                     <td th:if="${nv.trangThai == 0}">Không hoạt động</td>
                                                     <td>
                                                         <a class="edit"
-                                                           th:href="@{view-update/{id}(id=${nv.id})}"
+                                                           th:href="@{view1-update/{id}(id=${nv.id})}"
                                                         ><i
                                                                 class="material-icons"
                                                                 data-toggle="tooltip"
                                                                 title="Edit">&#xE254;</i></a>
-                                                        <a th:href="@{delete/{id}(id=${nv.id})}" class="delete"><i
+                                                        <a th:href="@{deletenhanvien/{id}(id=${nv.id})}" class="delete"><i
                                                                 class="material-icons"
                                                                 data-toggle="tooltip"
                                                                 title="Delete">&#xE872;</i></a>
@@ -150,34 +183,33 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12" style="display: flex; justify-content: center">
-                                            <nav aria-label="Page navigation example"
-                                                 class="flex">
+                                            <nav aria-label="Page navigation example" class="flex">
                                                 <ul class="pagination">
                                                     <li class="page-item"
-                                                        th:classappend="${list.number == 0} ? disabled">
+                                                        th:classappend="${listtaikhoan.number == 0} ? disabled">
                                                         <a class="page-link"
-                                                           th:href="@{/nhan-vien/hien-thi(page=${list.number - 1})}">
+                                                           th:href="@{/nhan-vien/hien-thi(page=${listtaikhoan.number - 1})}">
                                                             Previous
                                                         </a>
                                                     </li>
                                                     <li class="page-item"
-                                                        th:each="pageNumber : ${#numbers.sequence(0, list.totalPages - 1)}">
+                                                        th:each="pageNumber : ${#numbers.sequence(0, listtaikhoan.totalPages - 1)}">
                                                         <a class="page-link"
                                                            th:href="@{/nhan-vien/hien-thi(page=${pageNumber})}"
                                                            th:text="${pageNumber + 1}"
-                                                           th:classappend="${pageNumber == list.number} ? active">
+                                                           th:classappend="${pageNumber == listtaikhoan.number} ? active">
                                                         </a>
                                                     </li>
                                                     <li class="page-item"
-                                                        th:classappend="${list.number == list.totalPages - 1} ? disabled">
+                                                        th:classappend="${listtaikhoan.number == listtaikhoan.totalPages - 1} ? disabled">
                                                         <a class="page-link"
-                                                           th:href="@{/nhan-vien/hien-thi(page=${list.number + 1})}">
+                                                           th:href="@{/nhan-vien/hien-thi(page=${listtaikhoan.number + 1})}">
                                                             Next
                                                         </a>
                                                     </li>
                                                 </ul>
-
                                             </nav>
+
                                         </div>
                                     </div>
                                 </div>
@@ -191,7 +223,7 @@
                 <!-- end row -->
 
 
-            </div>
+           </div>
             <!-- end row -->
 
         </div> <!-- end container-fluid -->

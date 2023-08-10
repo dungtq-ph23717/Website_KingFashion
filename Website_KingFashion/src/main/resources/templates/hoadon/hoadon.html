@@ -1,22 +1,106 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:thnum="http://www.thymeleaf.org/extras/numbers">
 <head>
     <meta charset="utf-8">
-    <title>Dashboard | Uplon - Responsive Bootstrap 4 Admin Dashboard</title>
+    <title>Hóa Đơn</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Responsive bootstrap 4 admin template" name="description">
     <meta content="Coderthemes" name="author">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- App favicon -->
     <link rel="shortcut icon" href="../../static/assets\images\favicon.ico">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{../../static/css/style.css}"/>
 
     <!-- App css -->
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+          integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
     <link href="../../static/assets\css\bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
     <link href="../../static/assets\css\icons.min.css" rel="stylesheet" type="text/css">
     <link href="../../static/assets\css\app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        .search-date-input {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 6px;
+            font-size: 14px;
+            /*Thêm các thuộc tính khác tùy chỉnh kiểu dáng*/
+        }
+        .search-button {
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .search-button:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .search-button .btn-icon,
+        .search-button .separator,
+        .search-button .btn-text {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .search-button .separator {
+            margin: 0 5px;
+        }
+
+        .search-button .btn-icon i {
+            color: white;
+        }
+
+        .search-button .btn-text {
+            font-weight: bold;
+            color: white;
+        }
+
+        .search-button {
+            background-color: blue;
+            color: white;
+            border-color: blue;
+        }
+
+        .search-button .btn-icon,
+        .search-button .separator,
+        .search-button .btn-text {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .search-button .separator {
+            margin: 0 5px;
+            color: white;
+        }
+
+        .search-button .btn-icon i {
+            color: white;
+        }
+
+        .search-button .btn-text {
+            font-weight: bold;
+        }
+
+        .shadow-button {
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .shadow-button:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+    </style>
 
 </head>
 
@@ -51,18 +135,26 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box">
-                            <div class="page-title-center">
+                            <div style="float: left;margin-left: 530px;" class="page-title-center">
                                 <h1 class="page-title" style="text-align: center; font-size: 200%">Hóa Đơn </h1>
                             </div>
 
-                            <form th:action="@{/hoa-don/export}" method="post">
-                                <button type="submit" class="btn-success">Xuất Hóa Đơn</button>
-                            </form>
+                            <div style="width: 20px; height: 20px; float: left; margin-left: 520px; margin-top: 10px;">
+                                <form th:action="@{/hoa-don/export-excel}" method="post">
+                                    <button class="btn btn-labeled shadow-button"
+                                            style="background:#00ff80;border:1px solid black;" type="submit">
+                                        <a th:href="@{/hoa-don/export-excel}">
+                                            <img th:src="@{/static/image/printer.png}" width="25px" height="25px" alt=""
+                                                 srcset="">
+                                        </a>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
+
                     </div>
                 </div>
                 <!-- end page title -->
-
 
                 <div class="row">
                     <div class="col-12">
@@ -70,220 +162,266 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card-box" style="display: flex;justify-content:center ">
-
-
                                     <div class="col-xl-12">
-                                        <div class="dataTables_filter">
-                                            <label>Search:
-                                                <input
-                                                        type="search" class="form-control form-control-sm"
-                                                        placeholder="" aria-controls="datatable-buttons"
-                                                        style="width: 300px">
-                                            </label>
-                                            <button type="button" class="btn btn-success waves-effect waves-light">
-                                                        <span class="btn-label"><i class="mdi mdi-search-web"></i>
-                                                        </span>Tìm Kiếm
-                                            </button>
-                                            <button type="button" class="btn btn-success waves-effect waves-light">
-                                                        <span class="btn-label"><i class="mdi mdi-reload"></i>
-                                                        </span>Làm mới
-                                            </button>
+                                        <div style="padding:0 95px 0 95px;margin-left: 40px;" class="dataTables_filter">
 
-                                            Từ ngày<input type="date">
-                                            Đến ngày<input type="date">
-                                            <div class="row">
-                                                <div class="col-3">
-                                                    <div class="row mb-1">
-                                                        <label class="col-sm-2 col-form-label">Trạng Thái </label>
-                                                        <div class="col-sm-7">
-                                                            <select class="form-select"
-                                                                    aria-label="Default select example">
-                                                                <option value="1">Tất Cả</option>
-                                                                <option value="2">Đang Chờ Xác Nhận</option>
-                                                                <option value="3">Đã Hủy</option>
-                                                                <option value="3">Đã Hoàn Thành</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <form th:object="${searchHD}" th:action="@{/hoa-don/search}"
+                                                  id="search-form"
+                                                  class="row form-row justify-content-between">
 
-                                                <div class="col-3">
-                                                    <div class="row mb-1">
-                                                        <label class="col-sm-2 col-form-label">Loại Đơn </label>
-                                                        <div class="col-sm-7">
-                                                            <select class="form-select"
-                                                                    aria-label="Default select example">
-                                                                <option value="1">Tất Cả</option>
-                                                                <option value="2">Đặt Tại Quầy</option>
-                                                                <option value="3">Đặt Online</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <div class="col-12 row container">
 
-
-                                                <div class="col-3">
-                                                    <div class="row mb-1">
-                                                        <label class="col-sm-2 col-form-label">Sắp Xếp </label>
-                                                        <div class="col-sm-7">
-                                                            <select class="form-select"
-                                                                    aria-label="Default select example">
-                                                                <option value="1">Mặc Định</option>
-                                                                <option value="2">Mới Nhất</option>
-                                                                <option value="3">Cũ nhất</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="card-box">
-                                                        <div class="row">
-                                                            <div class="col-sm-12 col-md-6">
-
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                                <section class="navbar-expand-lg navbar-light bg-light">
-                                                                    <table class="table table-striped">
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <td>#</td>
-                                                                            <td>Mã</td>
-                                                                            <td>Ngày Thanh Toán</td>
-                                                                            <td>Tổng tiền sau giảm</td>
-                                                                            <td>Trạng Thái</td>
-                                                                            <td>Người nhận</td>
-                                                                            <td>Ngày Nhận DK</td>
-                                                                            <td>Ngày ship</td>
-                                                                            <td>Hành Động</td>
-
-
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        <tr th:each="hd,index : ${listHD.content}">
-                                                                            <td th:text="${index.count}"></td>
-                                                                            <td th:text="${hd.maHoaDon}"></td>
-                                                                            <td th:text="${hd.ngayThanhToan}"></td>
-                                                                            <td th:text="${hd.tongTienSauKhiGiam}"></td>
-                                                                            <td th:text="${hd.trangThai == 1 ? 'Đang chờ xác nhận'  : ( hd.trangThai==2 ? 'Đã hủy' : 'Đã hoàn thành')}" class="btn btn-warning">
-
-                                                                            </td>
-                                                                            <td th:text="${hd.tenNguoiNhan}"></td>
-                                                                            <td th:text="${hd.ngayDuKienNhan}"></td>
-                                                                            <td th:text="${hd.ngayShip}"></td>
-                                                                            <td>
-                                                                                <a class="view-hoa-don"
-                                                                                   th:href="@{view-hoa-don/{id}(id=${hd.id})}">
-                                                                                    <i class="material-icons"
-                                                                                       data-toggle="tooltip"
-                                                                                       title="Chi tiet">&#xE254;</i>
-                                                                                </a>
-                                                                            </td>
-
-
-                                                                        </tr>
-
-
-                                                                        </tbody>
-                                                                    </table>
-
-                                                                    <nav aria-label="Page navigation example"
-                                                                         class="flex">
-                                                                        <ul class="pagination">
-                                                                            <li class="page-item"
-                                                                                th:classappend="${listHD.number == 0} ? disabled">
-                                                                                <a class="page-link"
-                                                                                   th:href="@{/hoa-don/hien-thi(page=${listHD.number - 1})}">
-                                                                                    Previous
-                                                                                </a>
-                                                                            </li>
-                                                                            <li class="page-item"
-                                                                                th:each="pageNumber : ${#numbers.sequence(0, listHD.totalPages - 1)}">
-                                                                                <a class="page-link"
-                                                                                   th:href="@{/hoa-don/hien-thi(page=${pageNumber})}"
-                                                                                   th:text="${pageNumber + 1}"
-                                                                                   th:classappend="${pageNumber == listHD.number} ? active">
-                                                                                </a>
-                                                                            </li>
-                                                                            <li class="page-item"
-                                                                                th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled">
-                                                                                <a class="page-link"
-                                                                                   th:href="@{/hoa-don/hien-thi(page=${listHD.number + 1})}">
-                                                                                    Next
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </nav>
-                                                                </section>
-
-
-                                                                <!-- end row -->
-
-
-                                                                <!-- end row -->
-
-
-                                                                <!-- row -->
-
-                                                            </div> <!-- end container-fluid -->
-
-                                                        </div> <!-- end content -->
-
-
-                                                        <!-- Footer Start -->
-                                                        <footer class="footer">
-                                                            <div class="container-fluid">
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        2016 - 2019 &copy; Uplon theme by <a href="">Coderthemes</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </footer>
-                                                        <!-- end Footer -->
-
+                                                    <div class=" col-3">
+                                                        <label class="form-label">Mã:</label>
+                                                        <input style="width:175px;height:25px;" type="search" class="form-control" th:field="*{maHoaDon}"
+                                                               name="maHoaDon">
                                                     </div>
 
-                                                    <!-- ============================================================== -->
-                                                    <!-- End Page content -->
-                                                    <!-- ============================================================== -->
+                                                    <div class=" col-3">
+                                                        <label class="form-label">Tên người nhận:</label>
+                                                        <input style="width:175px;height:25px;" type="search" class="form-control"
+                                                               th:field="*{tenNguoiNhan}">
+                                                    </div>
+
+                                                    <div class="col-3">
+                                                        <label class="form-label d-block">Trạng thái:</label>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" th:field="*{trangThai}"
+                                                                   type="radio" value="0">
+                                                            <label class="form-check-label">Đã hoàn thành</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" th:field="*{trangThai}"
+                                                                   type="radio" value="1" checked>
+                                                            <label class="form-check-label">Đang chờ xác nhận</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" th:field="*{trangThai}"
+                                                                   type="radio" value="2" checked>
+                                                            <label class="form-check-label">Đã hủy</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3">
+                                                        <label class="form-label">Ngày thanh toán:</label>
+                                                        <input style="width:175px;height:25px;" type="datetime-local" class="form-control search-date-input"
+                                                               th:field="*{ngayThanhToan}">
+                                                    </div>
+                                                </div>
+                                                <br>
+
+
+                                                <div style="margin-top: 20px" class="col-12 row container">
+
+                                                    <div class=" col-3">
+                                                        <label class="form-label">Tổng tiền sau khi giảm:</label>
+                                                        <input style="width:175px;height:25px;" type="number" class="form-control"
+                                                               min="0" max="9000000" value="0"
+                                                               th:field="*{tongTienSauKhiGiam}">
+                                                    </div>
+
+                                                    <div class="col-3">
+                                                        <label class="form-label">Ngày giao hàng:</label>
+                                                        <input style="width:175px;height:25px;" type="datetime-local" class="form-control search-date-input"
+                                                               th:field="*{ngayShip}">
+                                                    </div>
+
+                                                    <div class="col-3">
+                                                        <label class="form-label">Ngày nhận dự kiến:</label>
+                                                        <input style="width:175px;height:25px;" type="datetime-local" class="form-control search-date-input"
+                                                               th:field="*{ngayDuKienNhan}">
+                                                    </div>
+
+
+                                                    <div style="margin-left: 33px; margin-top: 30px; height: 25px;"
+                                                         class="col-2">
+                                                        <button height="25px"
+                                                                style="background:blue;border-radius: 40px;border:1px solid black;"
+                                                                type="submit" class="btn btn-labeled shadow-button">
+                                                            <span style="margin-bottom: 3px;color: white;"
+                                                                  class="btn-icon"><i class="fas fa-search"></i></span>
+                                                            <span style="margin-bottom: 3px;color: white;"
+                                                                  class="separator">|</span>
+                                                            <span style="margin-bottom: 3px;color: white;"
+                                                                  class="btn-text">Tìm Kiếm</span>
+                                                        </button>
+                                                    </div>
 
                                                 </div>
-                                                <!-- END wrapper -->
+                                            </form>
 
-                                                <!--&lt;!&ndash; Right Sidebar &ndash;&gt;-->
-                                                <!-- Right bar overlay-->
-                                                <div class="rightbar-overlay"></div>
-
-                                                <!--<a href="javascript:void(0);" class="right-bar-toggle demos-show-btn">-->
-                                                <!--    <i class="mdi mdi-settings-outline mdi-spin"></i> &nbsp;Choose Demos-->
-                                                <!--</a>-->
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
+                        <br>
+                        <!--                        <br>-->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-box">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <section class="navbar-expand-lg navbar-light bg-light">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <td>#STT</td>
+                                                        <td>Mã</td>
+                                                        <td>Người Nhận</td>
+                                                        <td>Ngày Thanh Toán</td>
+                                                        <td>Tổng Tiền Sau Khi Giảm</td>
+                                                        <td>Trạng Thái Của Hóa Đơn</td>
+                                                        <td>Ngày Giao Hàng</td>
+                                                        <td>Ngày Nhận Dự Kiến</td>
+                                                        <td>Hành Động</td>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody style="text-align:center;">
+                                                    <tr th:each="hd,index : ${listHD.content}">
+                                                        <td class="align-middle"
+                                                            th:text="${index.count}"></td>
+                                                        <td class="align-middle"
+                                                            th:text="${hd.maHoaDon}"></td>
+                                                        <td class="align-middle"
+                                                            th:text="${hd.tenNguoiNhan}"></td>
+                                                        <td class="align-middle"
+                                                            th:text="${#dates.format(hd.ngayThanhToan, 'dd/MM/yyyy HH:mm')}"
+                                                        ></td>
+                                                        <td class="align-middle"
+                                                            th:text="${#numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').substring(0, #numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').length()-4)} + ' đ'">
+                                                        </td>
+
+                                                        <td class="align-middle">
+                                                            <span style="width: 170px;" th:if="${hd.trangThai == 1}"
+                                                                  class="btn btn-labeled shadow-button btn btn-info status-pending">Đang chờ xác nhận</span>
+                                                            <span style="width: 170px;" th:if="${hd.trangThai == 2}"
+                                                                  class="btn btn-labeled shadow-button btn btn-danger status-cancelled">Đã hủy</span>
+                                                            <span style="width: 170px;" th:if="${hd.trangThai != 1 && hd.trangThai != 2}"
+                                                                  class="btn btn-labeled shadow-button btn btn-success status-completed">Đã hoàn thành</span>
+                                                        </td>
+
+                                                        <td class="align-middle"
+                                                            th:text="${#dates.format(hd.ngayShip, 'dd/MM/yyyy HH:mm')}">
+                                                        </td>
+
+                                                        <td class="align-middle"
+                                                            th:text="${#dates.format(hd.ngayDuKienNhan, 'dd/MM/yyyy HH:mm')}">
+                                                        </td>
+
+                                                        <td>
+                                                            <a class="view-hoa-don"
+                                                               th:href="@{view-hoa-don/{id}(id=${hd.id})}">
+                                                                <i class="material-icons"
+                                                                   data-toggle="tooltip"
+                                                                   title="Chi Tiết">&#xE254;</i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+
+
+                                            </section>
+                                        </div> <!-- end container-fluid -->
+
+                                    </div> <!-- end content -->
+                                </div>
+                            </div>
+
+                            <!-- ============================================================== -->
+                            <!-- End Page content -->
+                            <!-- ============================================================== -->
+
+                        </div>
+                        <!-- END wrapper -->
+
+                        <!--&lt;!&ndash; Right Sidebar &ndash;&gt;-->
+                        <!-- Right bar overlay-->
+                        <div class="rightbar-overlay"></div>
+
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12" style="display: flex; justify-content: center">
+                                <nav style="margin-left: 25px;" aria-label="Page navigation example" class="flex">
+                                    <ul class="pagination">
+                                        <!--                    <li class="page-item" th:classappend="${list.number == 0} ? disabled">-->
+                                        <!--                        <a class="page-link" th:href="@{/vouchers(page=0, size=${list.size})}">First</a>-->
+                                        <!--                    </li>-->
+                                        <li class="page-item"
+                                            th:classappend="${listHD.number == 0} ? disabled">
+                                            <a class="page-link"
+                                               th:href="@{/hoa-don/hien-thi(page=${listHD.number - 1})}">
+                                                << Trang trước
+                                            </a>
+                                        </li>
+                                        <li class="page-item"
+                                            th:each="pageNumber : ${#numbers.sequence(0, listHD.totalPages - 1)}">
+                                            <a class="page-link"
+                                               th:href="@{/hoa-don/hien-thi(page=${pageNumber})}"
+                                               th:text="${pageNumber + 1}"
+                                               th:classappend="${pageNumber == listHD.number} ? active">
+                                            </a>
+                                        </li>
+                                        <li class="page-item"
+                                            th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled">
+                                            <a class="page-link"
+                                               th:href="@{/hoa-don/hien-thi(page=${listHD.number + 1})}">
+                                                Trang sau >>
+                                            </a>
+                                        </li>
+                                        <!--                    <li class="page-item" th:classappend="${list.number == list.totalPages - 1} ? disabled"><a-->
+                                        <!--                            class="page-link" th:href="@{/vouchers(page=${list.totalPages - 1}, size=${list.size})}">Last</a>-->
+                                        <!--                    </li>-->
+                                    </ul>
+                                </nav>
+
+                            </div>
+                        </div>
+
+
+                        <!--<a href="javascript:void(0);" class="right-bar-toggle demos-show-btn">-->
+                        <!--    <i class="mdi mdi-settings-outline mdi-spin"></i> &nbsp;Choose Demos-->
+                        <!--</a>-->
                     </div>
+
                 </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Footer Start -->
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                2016 - 2019 &copy; Uplon theme by <a href="">Coderthemes</a>
             </div>
         </div>
     </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+</footer>
+<!-- end Footer -->
 <!-- Vendor js -->
 <script src="../../static/assets\js\vendor.min.js"></script>
+
 
 <!--Morris Chart-->
 <script src="../../static/assets\libs\morris-js\morris.min.js"></script>
@@ -295,5 +433,44 @@
 <!-- App js -->
 <script src="../../static/assets\js\app.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+<script>
+    function showValue(value) {
+        document.getElementById("rangeValue").innerHTML = value;
+    }
+
+    function showValue1(value) {
+        document.getElementById("rangeValue1").innerHTML = value;
+    }
+
+    const form = document.querySelector('.form-row');
+    const rangeInputs = form.querySelectorAll('input[type="range"]');
+    const datetimeInputs = form.querySelectorAll('input[type="datetime-local"]');
+    const radioInputs = form.querySelectorAll('input[type="radio"]');
+    const searchInput = form.querySelector('input[type="search"]');
+
+    rangeInputs.forEach(input => {
+        input.addEventListener('mousemove', () => {
+            form.submit();
+        });
+    });
+
+    datetimeInputs.forEach(input => {
+        input.addEventListener('change', () => {
+            form.submit();
+        });
+    });
+
+    radioInputs.forEach(input => {
+        input.addEventListener('change', () => {
+            form.submit();
+        });
+    });
+
+    searchInput.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            form.submit();
+        }
+    });
+</script>
 </body>
 </html>
