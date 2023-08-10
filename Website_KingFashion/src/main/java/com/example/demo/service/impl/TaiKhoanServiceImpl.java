@@ -33,7 +33,7 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
     @Override
     public Page<TaiKhoan> page(Integer page,Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        return taiKhoanRepository.findAll(pageable);
+        return taiKhoanRepository.getAllNhanVien(pageable);
     }
 
 
