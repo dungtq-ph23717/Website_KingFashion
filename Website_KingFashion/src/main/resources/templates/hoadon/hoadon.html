@@ -12,6 +12,13 @@
     <link rel="stylesheet" type="text/css" media="all" th:href="@{../../static/css/style.css}"/>
 
     <!-- App css -->
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+          integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
     <link href="../../static/assets\css\bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
     <link href="../../static/assets\css\icons.min.css" rel="stylesheet" type="text/css">
     <link href="../../static/assets\css\app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
@@ -20,6 +27,71 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        .search-button {
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .search-button:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .search-button .btn-icon,
+        .search-button .separator,
+        .search-button .btn-text {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .search-button .separator {
+            margin: 0 5px;
+        }
+
+        .search-button .btn-icon i {
+            color: white;
+        }
+
+        .search-button .btn-text {
+            font-weight: bold;
+            color: white;
+        }
+        .search-button {
+            background-color: blue;
+            color: white;
+            border-color: blue;
+        }
+
+        .search-button .btn-icon,
+        .search-button .separator,
+        .search-button .btn-text {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .search-button .separator {
+            margin: 0 5px;
+            color: white;
+        }
+
+        .search-button .btn-icon i {
+            color: white;
+        }
+
+        .search-button .btn-text {
+            font-weight: bold;
+        }
+        .shadow-button {
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            transition: box-shadow 0.3s ease;
+        }
+        .shadow-button:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+
 </head>
 
 <body>
@@ -53,10 +125,21 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box">
-                            <div class="page-title-center">
+                            <div style="float: left;margin-left: 530px;" class="page-title-center">
                                 <h1 class="page-title" style="text-align: center; font-size: 200%">Hóa Đơn </h1>
                             </div>
+
+                            <div style="width: 20px; height: 20px; float: left; margin-left: 520px; margin-top: 10px;">
+                                <form th:action="@{/hoa-don/export-excel}" method="post">
+                                    <button class="btn btn-labeled shadow-button" style="background:#00ff80;border:1px solid black;" type="submit">
+                                        <a th:href="@{/hoa-don/export-excel}">
+                                            <img th:src="@{/static/image/printer.png}" width="25px" height="25px" alt="" srcset="">
+                                        </a>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
+
                     </div>
                 </div>
                 <!-- end page title -->
@@ -78,26 +161,31 @@
 
                                                     <div class=" col-3">
                                                         <label class="form-label">Mã:</label>
-                                                        <input type="search" class="form-control" th:field="*{maHoaDon}"  name="maHoaDon">
-                                                        </div>
+                                                        <input type="search" class="form-control" th:field="*{maHoaDon}"
+                                                               name="maHoaDon">
+                                                    </div>
 
                                                     <div class=" col-3">
                                                         <label class="form-label">Tên người nhận:</label>
-                                                        <input type="search" class="form-control" th:field="*{tenNguoiNhan}" >
-                                                        </div>
+                                                        <input type="search" class="form-control"
+                                                               th:field="*{tenNguoiNhan}">
+                                                    </div>
 
                                                     <div class="col-3">
                                                         <label class="form-label d-block">Trạng thái:</label>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" th:field="*{trangThai}" type="radio" value="0" >
+                                                            <input class="form-check-input" th:field="*{trangThai}"
+                                                                   type="radio" value="0">
                                                             <label class="form-check-label">Đã hoàn thành</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" th:field="*{trangThai}" type="radio" value="1" checked>
+                                                            <input class="form-check-input" th:field="*{trangThai}"
+                                                                   type="radio" value="1" checked>
                                                             <label class="form-check-label">Đang chờ xác nhận</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" th:field="*{trangThai}" type="radio" value="2" checked>
+                                                            <input class="form-check-input" th:field="*{trangThai}"
+                                                                   type="radio" value="2" checked>
                                                             <label class="form-check-label">Đã hủy</label>
                                                         </div>
                                                     </div>
@@ -105,13 +193,14 @@
                                                     <div class="col-3">
                                                         <label class="form-label">Ngày thanh toán:</label>
                                                         <input type="datetime-local" class="form-control"
-                                                               th:field="*{ngayThanhToan}"   >
+                                                               th:field="*{ngayThanhToan}">
                                                     </div>
 
-                                                    </div>
+                                                </div>
                                                 <br>
 
-                                                <div class="col-12 row container">
+
+                                                <div style="margin-top: 20px" class="col-12 row container">
 
                                                     <div class=" col-3">
                                                         <label class="form-label">Tổng tiền sau khi giảm:</label>
@@ -133,180 +222,184 @@
                                                                th:field="*{ngayShip}">
                                                     </div>
 
-                                                    <div style="margin-left: 10px;margin-top: 32px;" class="col-1">
-                                                    <button style="border-radius: 20px;height: 38px;background:blue;" type="submit" class="btn btn-primary">
-                                                           <label>Search</label>
-                                                    </button>
+                                                    <div style="margin-left: 10px; margin-top: 32px; height: 25px;" class="col-2">
+                                                        <button height="25px" style="background:blue;border-radius: 40px;border:1px solid black;" type="submit" class="btn btn-labeled shadow-button">
+                                                            <span style="margin-bottom: 3px;color: white;" class="btn-icon"><i class="fas fa-search"></i></span>
+                                                            <span style="margin-bottom: 3px;color: white;" class="separator">|</span>
+                                                            <span style="margin-bottom: 3px;color: white;" class="btn-text">Tìm kiếm</span>
+                                                        </button>
                                                     </div>
+
                                                 </div>
                                             </form>
 
-                                        </div> </div>
                                         </div>
-                                        </div>
-                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
-                                            <br>
-                                            <br>
+                        <br>
+<!--                        <br>-->
 
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="card-box">
-                                                        <div class="row">
-                                                            <div class="col-sm-12 col-md-6">
-
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                                <section class="navbar-expand-lg navbar-light bg-light">
-                                                                    <table class="table table-striped">
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <td>#</td>
-                                                                            <td>Mã</td>
-                                                                            <td>Ngày Thanh Toán</td>
-                                                                            <td>Tổng tiền sau giảm</td>
-                                                                            <td>Trạng Thái</td>
-                                                                            <td>Người nhận</td>
-                                                                            <td>Ngày Nhận DK</td>
-                                                                            <td>Ngày ship</td>
-                                                                            <td>Hành Động</td>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        <tr th:each="hd,index : ${listHD.content}">
-                                                                            <td class="align-middle"
-                                                                                th:text="${index.count}"></td>
-                                                                            <td class="align-middle"
-                                                                                th:text="${hd.maHoaDon}"></td>
-                                                                            <td class="align-middle"
-                                                                                th:text="${#dates.format(hd.ngayThanhToan, 'dd/MM/yyyy HH:mm')}"
-                                                                                ></td>
-                                                                            <td class="align-middle"
-                                                                                th:text="${#numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').substring(0, #numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').length()-4)} + ' đ'">
-                                                                            </td>
-
-                                                                            <td class="align-middle">
-                                                                                <span th:if="${hd.trangThai == 1}" class="btn btn-info status-pending">Đang chờ xác nhận</span>
-                                                                                <span th:if="${hd.trangThai == 2}" class="btn btn-danger status-cancelled">Đã hủy</span>
-                                                                                <span th:if="${hd.trangThai != 1 && hd.trangThai != 2}" class="btn btn-success status-completed">Đã hoàn thành</span>
-                                                                            </td>
-
-                                                                            <td class="align-middle"
-                                                                                th:text="${hd.tenNguoiNhan}"></td>
-                                                                            <td class="align-middle"
-                                                                                th:text="${#dates.format(hd.ngayDuKienNhan, 'dd/MM/yyyy HH:mm')}">
-                                                                            </td>
-                                                                            <td class="align-middle"
-                                                                                th:text="${#dates.format(hd.ngayShip, 'dd/MM/yyyy HH:mm')}">
-                                                                            </td>
-                                                                            <td>
-                                                                                <a class="view-hoa-don"
-                                                                                   th:href="@{view-hoa-don/{id}(id=${hd.id})}">
-                                                                                    <i class="material-icons"
-                                                                                       data-toggle="tooltip"
-                                                                                       title="Chi tiet">&#xE254;</i>
-                                                                                </a>
-                                                                            </td>
-                                                                        </tr>
-                                                                        </tbody>
-                                                                    </table>
-
-
-
-
-
-                                                                </section>
-                                                            </div> <!-- end container-fluid -->
-
-                                                        </div> <!-- end content -->
-                                                    </div>
-                                                    </div>
-
-                                                    <!-- ============================================================== -->
-                                                    <!-- End Page content -->
-                                                    <!-- ============================================================== -->
-
-                                                </div>
-                                                <!-- END wrapper -->
-
-                                                <!--&lt;!&ndash; Right Sidebar &ndash;&gt;-->
-                                                <!-- Right bar overlay-->
-                                                <div class="rightbar-overlay"></div>
-
-
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-12" style="display: flex; justify-content: center">
-                                                    <nav aria-label="Page navigation example" class="flex">
-                                                        <ul class="pagination">
-                                                            <!--                    <li class="page-item" th:classappend="${list.number == 0} ? disabled">-->
-                                                            <!--                        <a class="page-link" th:href="@{/vouchers(page=0, size=${list.size})}">First</a>-->
-                                                            <!--                    </li>-->
-                                                            <li class="page-item"
-                                                                th:classappend="${listHD.number == 0} ? disabled">
-                                                                <a class="page-link"
-                                                                   th:href="@{/hoa-don/hien-thi(page=${listHD.number - 1})}">
-                                                                    Previous
-                                                                </a>
-                                                            </li>
-                                                            <li class="page-item"
-                                                                th:each="pageNumber : ${#numbers.sequence(0, listHD.totalPages - 1)}">
-                                                                <a class="page-link"
-                                                                   th:href="@{/hoa-don/hien-thi(page=${pageNumber})}"
-                                                                   th:text="${pageNumber + 1}"
-                                                                   th:classappend="${pageNumber == listHD.number} ? active">
-                                                                </a>
-                                                            </li>
-                                                            <li class="page-item"
-                                                                th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled">
-                                                                <a class="page-link"
-                                                                   th:href="@{/hoa-don/hien-thi(page=${listHD.number + 1})}">
-                                                                    Next
-                                                                </a>
-                                                            </li>
-                                                            <!--                    <li class="page-item" th:classappend="${list.number == list.totalPages - 1} ? disabled"><a-->
-                                                            <!--                            class="page-link" th:href="@{/vouchers(page=${list.totalPages - 1}, size=${list.size})}">Last</a>-->
-                                                            <!--                    </li>-->
-                                                        </ul>
-                                                    </nav>
-
-                                                </div>
-                                            </div>
-
-
-                                                <!--<a href="javascript:void(0);" class="right-bar-toggle demos-show-btn">-->
-                                                <!--    <i class="mdi mdi-settings-outline mdi-spin"></i> &nbsp;Choose Demos-->
-                                                <!--</a>-->
-                                            </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-box">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
 
                                         </div>
 
                                     </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <section class="navbar-expand-lg navbar-light bg-light">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <td>#</td>
+                                                        <td>Mã</td>
+                                                        <td>Ngày Thanh Toán</td>
+                                                        <td>Tổng tiền sau giảm</td>
+                                                        <td>Trạng Thái</td>
+                                                        <td>Người nhận</td>
+                                                        <td>Ngày Nhận DK</td>
+                                                        <td>Ngày ship</td>
+                                                        <td>Hành Động</td>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr th:each="hd,index : ${listHD.content}">
+                                                        <td class="align-middle"
+                                                            th:text="${index.count}"></td>
+                                                        <td class="align-middle"
+                                                            th:text="${hd.maHoaDon}"></td>
+                                                        <td class="align-middle"
+                                                            th:text="${#dates.format(hd.ngayThanhToan, 'dd/MM/yyyy HH:mm')}"
+                                                        ></td>
+                                                        <td class="align-middle"
+                                                            th:text="${#numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').substring(0, #numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').length()-4)} + ' đ'">
+                                                        </td>
 
+                                                        <td class="align-middle">
+                                                            <span th:if="${hd.trangThai == 1}"
+                                                                  class="btn btn-labeled shadow-button btn btn-info status-pending">Đang chờ xác nhận</span>
+                                                            <span th:if="${hd.trangThai == 2}"
+                                                                  class="btn btn-labeled shadow-button btn btn-danger status-cancelled">Đã hủy</span>
+                                                            <span th:if="${hd.trangThai != 1 && hd.trangThai != 2}"
+                                                                  class="btn btn-labeled shadow-button btn btn-success status-completed">Đã hoàn thành</span>
+                                                        </td>
+
+                                                        <td class="align-middle"
+                                                            th:text="${hd.tenNguoiNhan}"></td>
+                                                        <td class="align-middle"
+                                                            th:text="${#dates.format(hd.ngayDuKienNhan, 'dd/MM/yyyy HH:mm')}">
+                                                        </td>
+                                                        <td class="align-middle"
+                                                            th:text="${#dates.format(hd.ngayShip, 'dd/MM/yyyy HH:mm')}">
+                                                        </td>
+                                                        <td>
+                                                            <a class="view-hoa-don"
+                                                               th:href="@{view-hoa-don/{id}(id=${hd.id})}">
+                                                                <i class="material-icons"
+                                                                   data-toggle="tooltip"
+                                                                   title="Chi tiet">&#xE254;</i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+
+
+                                            </section>
+                                        </div> <!-- end container-fluid -->
+
+                                    </div> <!-- end content -->
                                 </div>
+                            </div>
+
+                            <!-- ============================================================== -->
+                            <!-- End Page content -->
+                            <!-- ============================================================== -->
+
+                        </div>
+                        <!-- END wrapper -->
+
+                        <!--&lt;!&ndash; Right Sidebar &ndash;&gt;-->
+                        <!-- Right bar overlay-->
+                        <div class="rightbar-overlay"></div>
+
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12" style="display: flex; justify-content: center">
+                                <nav aria-label="Page navigation example" class="flex">
+                                    <ul class="pagination">
+                                        <!--                    <li class="page-item" th:classappend="${list.number == 0} ? disabled">-->
+                                        <!--                        <a class="page-link" th:href="@{/vouchers(page=0, size=${list.size})}">First</a>-->
+                                        <!--                    </li>-->
+                                        <li class="page-item"
+                                            th:classappend="${listHD.number == 0} ? disabled">
+                                            <a class="page-link"
+                                               th:href="@{/hoa-don/hien-thi(page=${listHD.number - 1})}">
+                                                << Trang trước
+                                            </a>
+                                        </li>
+                                        <li class="page-item"
+                                            th:each="pageNumber : ${#numbers.sequence(0, listHD.totalPages - 1)}">
+                                            <a class="page-link"
+                                               th:href="@{/hoa-don/hien-thi(page=${pageNumber})}"
+                                               th:text="${pageNumber + 1}"
+                                               th:classappend="${pageNumber == listHD.number} ? active">
+                                            </a>
+                                        </li>
+                                        <li class="page-item"
+                                            th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled">
+                                            <a class="page-link"
+                                               th:href="@{/hoa-don/hien-thi(page=${listHD.number + 1})}">
+                                                Trang sau >>
+                                            </a>
+                                        </li>
+                                        <!--                    <li class="page-item" th:classappend="${list.number == list.totalPages - 1} ? disabled"><a-->
+                                        <!--                            class="page-link" th:href="@{/vouchers(page=${list.totalPages - 1}, size=${list.size})}">Last</a>-->
+                                        <!--                    </li>-->
+                                    </ul>
+                                </nav>
+
+                            </div>
                         </div>
 
 
+                        <!--<a href="javascript:void(0);" class="right-bar-toggle demos-show-btn">-->
+                        <!--    <i class="mdi mdi-settings-outline mdi-spin"></i> &nbsp;Choose Demos-->
+                        <!--</a>-->
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
     </div>
 
 
-    <!-- Footer Start -->
-    <footer class="footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    2016 - 2019 &copy; Uplon theme by <a href="">Coderthemes</a>
-                </div>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Footer Start -->
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                2016 - 2019 &copy; Uplon theme by <a href="">Coderthemes</a>
             </div>
         </div>
-    </footer>
-    <!-- end Footer -->
+    </div>
+</footer>
+<!-- end Footer -->
 <!-- Vendor js -->
 <script src="../../static/assets\js\vendor.min.js"></script>
 
@@ -325,9 +418,11 @@
     function showValue(value) {
         document.getElementById("rangeValue").innerHTML = value;
     }
+
     function showValue1(value) {
         document.getElementById("rangeValue1").innerHTML = value;
     }
+
     const form = document.querySelector('.form-row');
     const rangeInputs = form.querySelectorAll('input[type="range"]');
     const datetimeInputs = form.querySelectorAll('input[type="datetime-local"]');
