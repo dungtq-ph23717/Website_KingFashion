@@ -40,7 +40,7 @@ public class TaiKhoanController {
             session.removeAttribute("successMessage");
         }
         model.addAttribute("listVaiTro",vaiTroService.getAll());
-        Page<TaiKhoan> page=taiKhoanService.page(number,5);
+        Page<TaiKhoan> page=taiKhoanService.getAllNhanVien(number,5);
         model.addAttribute("listtaikhoan",page);
         return "nhanvien/nhan-vien";
 

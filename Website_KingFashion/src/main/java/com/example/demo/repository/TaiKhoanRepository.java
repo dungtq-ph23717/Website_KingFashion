@@ -34,4 +34,6 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, UUID> {
     List<TaiKhoan> findByKeyWord(@Param("keyword") String keyword);
 
     List<TaiKhoan> findByTrangThai(Integer trangThai);
+    @Query("SELECT t FROM TaiKhoan t JOIN t.vaiTro v WHERE v.tenVaiTro LIKE lower(CONCAT('%', 'Nhân viên', '%'))")
+    Page<TaiKhoan> getAllNhanvien1(Pageable pageable);
 }

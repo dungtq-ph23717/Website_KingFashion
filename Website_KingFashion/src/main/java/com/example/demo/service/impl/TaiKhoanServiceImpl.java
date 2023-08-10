@@ -36,6 +36,12 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
         return taiKhoanRepository.getAllNhanVien(pageable);
     }
 
+    @Override
+    public Page<TaiKhoan> getAllNhanVien(Integer page, Integer size) {
+        Pageable pageable=PageRequest.of(page,size);
+        return taiKhoanRepository.getAllNhanvien1(pageable);
+    }
+
 
     @Override
     public Page<TaiKhoan> search(String ma, String ten, String sdt, String email, String diaChi, Date ngaySinh, Integer size, Integer page) {
