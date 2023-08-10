@@ -73,7 +73,7 @@ public class HoaDonController {
     }
 
 
-    @PostMapping("/export")
+    @PostMapping("/export-excel")
     public void exportToExcel(HttpServletResponse response) throws IOException {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
@@ -97,7 +97,7 @@ public class HoaDonController {
             row.createCell(0).setCellValue(hoaDon.getMaHoaDon());
             row.createCell(1).setCellValue(hoaDon.getNgayThanhToan());
             row.createCell(2).setCellValue(hoaDon.getTongTienSauKhiGiam());
-            row.createCell(3).setCellValue(hoaDon.getTrangThai());
+            row.createCell(3).setCellValue(hoaDon.getTrangThai() == 1 ? "Đang chờ xác nhận" : (hoaDon.getTrangThai() == 2 ? "Đã hủy" : "Đã hoàn thành"));
             row.createCell(4).setCellValue(hoaDon.getTenNguoiNhan());
             row.createCell(5).setCellValue(hoaDon.getNgayDuKienNhan());
             row.createCell(6).setCellValue(hoaDon.getNgayShip());
