@@ -45,4 +45,19 @@ public class ChiTietKichCoServiceImpl implements ChiTietKichCoService {
         return chiTietKichCoRepository.getByChiTietSanPhamIdAndKichCoId(chiTietSanPhamId, kichCoId);
     }
 
+    @Override
+    public List<ChiTietKichCo> findAllByChiTietSanPhamIdHoatDong(UUID ChiTietSanPhamId) {
+        return chiTietKichCoRepository.findAllByChiTietSanPhamIdHoatDong(ChiTietSanPhamId);
+    }
+
+    @Override
+    public void updateSoLuongForMultipleSizes(UUID chiTietSanPhamId, List<UUID> kichCoIds, int newSoLuong)  {
+        List<ChiTietKichCo> chiTietKichCoList = chiTietKichCoRepository.findByChiTietSanPhamIdAndKichCoIdIn(chiTietSanPhamId, kichCoIds);
+        for (ChiTietKichCo chiTietKichCo : chiTietKichCoList) {
+            chiTietKichCo.setSoLuong(newSoLuong);
+        }
+        chiTietKichCoRepository.saveAll(chiTietKichCoList);
+    }
+
+
 }

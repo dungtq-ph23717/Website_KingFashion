@@ -53,4 +53,9 @@ public class KichCoServiceImpl implements KichCoService {
         return kichCoRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public KichCo getKichCoByChiTietSanPhamId(UUID id) {
+        return kichCoRepository.getKichCoByChiTietSanPhamId(id);
+    }
+
 }
