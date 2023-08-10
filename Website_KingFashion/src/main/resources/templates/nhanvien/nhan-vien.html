@@ -123,7 +123,7 @@
                                                     <td th:text="${nv.sdt}"></td>
                                                     <td th:text="${nv.email}"></td>
                                                     <td th:text="${nv.diaChi}"></td>
-                                                    <td th:text="${nv.ngaySinh}"></td>
+                                                    <td th:text="${#dates.format(nv.ngaySinh,'dd/MM/yyyy')}"></td>
                                                     <td th:if="${nv.trangThai == 1}">Hoạt động</td>
                                                     <td th:if="${nv.trangThai == 0}">Không hoạt động</td>
                                                     <td>
