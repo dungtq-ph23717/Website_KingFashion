@@ -46,8 +46,8 @@ public class HoaDonServiceImpl implements HoaDonService {
     }
 
     @Override
-    public Page<HoaDon> searchHD(String ma, String tenNguoiNhan, Integer trangThai, Date ngayThanhToan, Double tongTienSauKhiGiam, Date ngayNhanDK, Date ngayShip, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page,size);
-        return hoaDonRepository.searchHD(ma,tenNguoiNhan,trangThai,ngayThanhToan,tongTienSauKhiGiam,ngayNhanDK,ngayShip,pageable);
+    public Page<HoaDon> searchHD(String ma, String tenNguoiNhan, Integer trangThai, Date ngayThanhToan, Double tongTienSauKhiGiam, Date ngayShip, Date ngayDuKienNhan, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return hoaDonRepository.searchHD(ma, tenNguoiNhan, trangThai, ngayThanhToan, tongTienSauKhiGiam, ngayShip, ngayDuKienNhan, pageable);
     }
 }

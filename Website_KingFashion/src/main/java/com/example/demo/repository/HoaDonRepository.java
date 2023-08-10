@@ -20,12 +20,13 @@ public interface HoaDonRepository  extends JpaRepository<HoaDon, UUID> {
             "WHERE (:maHoaDon is null OR h.maHoaDon LIKE lower(CONCAT('%', :maHoaDon, '%')))\n" +
             "  AND (:tenNguoiNhan is null OR h.tenNguoiNhan LIKE lower(CONCAT('%', :tenNguoiNhan, '%')))\n" +
             "  AND (:trangThai is NULL OR h.trangThai = :trangThai)\n" +
-            "  AND (:ngayThanhToan IS NULL OR h.ngayThanhToan = :ngayThanhToan)\n" +
+            "  AND (:ngayThanhToan IS NULL OR h.ngayThanhToan <= :ngayThanhToan)\n" +
             "  AND (:tongTienSauKhiGiam is null OR h.tongTienSauKhiGiam = :tongTienSauKhiGiam)\n" +
-            "  AND (:ngayNhanDK IS NULL OR h.ngayDuKienNhan = :ngayNhanDK)\n" +
-            "  AND (:ngayShip IS NULL OR h.ngayShip = :ngayShip)\n")
+            "  AND (:ngayShip IS NULL OR h.ngayShip >= :ngayShip)\n" +
+            "  AND (:ngayDuKienNhan IS NULL OR h.ngayDuKienNhan <= :ngayDuKienNhan)\n")
     Page<HoaDon> searchHD(@Param("maHoaDon") String maHoaDon, @Param("tenNguoiNhan") String tenNguoiNhan,
                          @Param("trangThai") Integer trangThai, @Param("ngayThanhToan") Date ngayThanhToan,
-                         @Param("tongTienSauKhiGiam") Double tongTienSauKhiGiam,@Param("ngayNhanDK") Date ngayNhanDK,
-                         @Param("ngayShip") Date ngayShip, Pageable pageable);
+                         @Param("tongTienSauKhiGiam") Double tongTienSauKhiGiam,
+                         @Param("ngayShip") Date ngayShip,@Param("ngayDuKienNhan") Date ngayDuKienNhan,
+                          Pageable pageable);
 }
