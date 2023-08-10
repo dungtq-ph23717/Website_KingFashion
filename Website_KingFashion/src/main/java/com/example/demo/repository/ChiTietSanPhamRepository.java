@@ -20,7 +20,7 @@ public interface ChiTietSanPhamRepository extends JpaRepository<ChiTietSanPham, 
 
     ChiTietSanPham getChiTietSanPhamById(UUID id);
 
-    @Query(value = "select c from ChiTietSanPham c where c.trangThai = 1")
+    @Query(value = "select c from ChiTietSanPham c")
     Page<ChiTietSanPham> phanTrang(Pageable pageable);
 
 

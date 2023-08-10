@@ -22,5 +22,6 @@ public interface AnhRepository extends JpaRepository<Anh, UUID> {
     @Query("SELECT a FROM Anh a WHERE a.chiTietSanPham.id = :chiTietSanPhamId")
     List<Anh> findAllByChiTietSanPhamId(@Param("chiTietSanPhamId") UUID chiTietSanPhamId);
 
+    List<Anh> findAllByIdIn(List<UUID> ids);
 
 }

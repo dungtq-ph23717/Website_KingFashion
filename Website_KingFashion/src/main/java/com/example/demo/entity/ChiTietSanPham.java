@@ -84,4 +84,6 @@ public class ChiTietSanPham {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
+
+
 }

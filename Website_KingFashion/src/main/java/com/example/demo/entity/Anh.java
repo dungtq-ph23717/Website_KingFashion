@@ -53,4 +53,8 @@ public class Anh {
     @Column(name = "ngay_sua")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngaySua;
+
+    @Column(name = "yeu_thich")
+    private boolean yeuThich; // Trường cho biết ảnh có được yêu thích hay không
+
 }

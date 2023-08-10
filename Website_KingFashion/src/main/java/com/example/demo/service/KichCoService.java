@@ -18,4 +18,6 @@ public interface KichCoService {
     void delete(UUID id);
 
     KichCo getKichCoById(UUID id);
+
+    KichCo getKichCoByChiTietSanPhamId (UUID id);
 }
