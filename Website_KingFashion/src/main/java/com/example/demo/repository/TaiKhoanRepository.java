@@ -30,14 +30,18 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, UUID> {
     @Query("SELECT t FROM TaiKhoan t JOIN t.vaiTro v WHERE v.tenVaiTro LIKE lower(CONCAT('%', 'Khách hàng', '%'))")
     Page<TaiKhoan> getAllNhanVien(Pageable pageable);
 
-    @Query(value = "select tk.id, tk.ma, tk.dia_chi,tk.email,tk.sdt,tk.ten, tk.ngay_sinh, tk.ngay_tao,tk.ngay_sua,tk.nguoi_tao," +
-            "tk.nguoi_sua,tk.mat_khau,tk.trang_thai,tk.id_vt  from TaiKhoan tk join VaiTro vt on tk.id_vt=vt.id\n" +
-            "where \n" +
-            "(tk.ma like %:keyword% or tk.ten like %:keyword% or tk.sdt like %:keyword%\n" +
-            "or tk.dia_chi like %:keyword% or tk.email like %:keyword%) AND (vt.ten  LIKE lower(CONCAT('%', 'Nhân viên', '%')))", nativeQuery = true)
+    @Query(value = "SELECT tk.id, tk.ma, tk.dia_chi, tk.email, tk.sdt, tk.ten, tk.ngay_sinh, tk.ngay_tao, tk.ngay_sua, tk.nguoi_tao,\n" +
+            "       tk.nguoi_sua, tk.mat_khau, tk.trang_thai, tk.id_vt\n" +
+            "FROM TaiKhoan tk\n" +
+            "JOIN vaiTro vt ON tk.id_vt = vt.id\n" +
+            "WHERE (tk.trang_thai = 1 OR tk.trang_thai = 0)\n" +
+            "      AND (vt.ten LIKE LOWER(CONCAT('%', 'Nhân viên', '%')))\n" +
+            "      AND vt.ten = 'Nhân viên'", nativeQuery = true)
     List<TaiKhoan> findByKeyWord(@Param("keyword") String keyword);
 
-    List<TaiKhoan> findByTrangThai(Integer trangThai);
+    @Query(value = "SELECT tk.id, tk.ma, tk.dia_chi, tk.email, tk.sdt, tk.ten, tk.ngay_sinh, tk.ngay_tao, tk.ngay_sua, tk.nguoi_tao,\n" +
+            "                   tk.nguoi_sua, tk.mat_khau, tk.trang_thai, tk.id_vt  FROM TaiKhoan tk JOIN vaiTro vt on tk.id_vt=vt.id WHERE tk.trang_thai = :trangthai AND LOWER(vt.ten) LIKE LOWER(CONCAT('%', 'Nhân viên', '%'))",nativeQuery = true)
+    List<TaiKhoan> findByTrangThai(@Param("trangthai") Integer trangThai);
 
     @Query("SELECT t FROM TaiKhoan t JOIN t.vaiTro v WHERE v.tenVaiTro LIKE lower(CONCAT('%', 'Nhân viên', '%'))")
     Page<TaiKhoan> getAllNhanvien1(Pageable pageable);

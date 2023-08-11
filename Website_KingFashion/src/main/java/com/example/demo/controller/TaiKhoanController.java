@@ -34,14 +34,14 @@ public class TaiKhoanController {
 
     @GetMapping("/hien-thi")
     public String hienthi(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "0") Integer number) {
-        if(session.getAttribute("successMessage") != null){
-            String successAtribute =(String) session.getAttribute(("successMessage"));
-            model.addAttribute("successMessage",successAtribute);
+        if (session.getAttribute("successMessage") != null) {
+            String successAtribute = (String) session.getAttribute(("successMessage"));
+            model.addAttribute("successMessage", successAtribute);
             session.removeAttribute("successMessage");
         }
-        model.addAttribute("listVaiTro",vaiTroService.getAll());
-        Page<TaiKhoan> page=taiKhoanService.getAllNhanVien(number,5);
-        model.addAttribute("listtaikhoan",page);
+        model.addAttribute("listVaiTro", vaiTroService.getAll());
+        Page<TaiKhoan> page = taiKhoanService.getAllNhanVien(number, 5);
+        model.addAttribute("listtaikhoan", page);
         return "nhanvien/nhan-vien";
 
 
@@ -78,7 +78,7 @@ public class TaiKhoanController {
         if (result.hasErrors()) {
             return "nhanvien/add";
         }
-        VaiTro vaiTro=vaiTroService.getOne(UUID.fromString("24fd329d-0987-4226-95bc-d29653f4eeab"));
+        VaiTro vaiTro = vaiTroService.getOne(UUID.fromString("24fd329d-0987-4226-95bc-d29653f4eeab"));
         taiKhoan.setVaiTro(vaiTro);
         taiKhoanService.add(taiKhoan);
         return "redirect:/nhan-vien/hien-thi";
@@ -89,12 +89,13 @@ public class TaiKhoanController {
         if (result.hasErrors()) {
             return "nhanvien/update";
         }
-        VaiTro vaiTro=vaiTroService.getOne(UUID.fromString("24fd329d-0987-4226-95bc-d29653f4eeab"));
+        VaiTro vaiTro = vaiTroService.getOne(UUID.fromString("24fd329d-0987-4226-95bc-d29653f4eeab"));
         taiKhoan.setVaiTro(vaiTro);
         taiKhoanService.update(taiKhoan);
 
         return "redirect:/nhan-vien/hien-thi";
     }
+
     @GetMapping("/serach")
     public String Serach(TaiKhoan taiKhoan, Model model, String keyword) {
         if (keyword != null) {
@@ -108,12 +109,12 @@ public class TaiKhoanController {
 
     @GetMapping("/fiter-trangthai")
     public String getFilteredtrangThai(@RequestParam(name = "trangThai") Integer trangthai, Model model) {
-        if (trangthai != null) {
-            List<TaiKhoan> taiKhoans = taiKhoanService.getTrangThai(trangthai);
-            model.addAttribute("listtaikhoan", taiKhoans);
-            return "nhanvien/nhan-vien";
-        }
-        return "redirect:/nhan-vien/hien-thi";
+
+        List<TaiKhoan> taiKhoans = taiKhoanService.getTrangThai(trangthai);
+        model.addAttribute("listtaikhoan", taiKhoans);
+        return "nhanvien/nhan-vien";
+
+
     }
 
 }

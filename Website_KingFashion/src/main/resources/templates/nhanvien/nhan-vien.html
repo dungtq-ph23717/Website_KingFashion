@@ -75,17 +75,22 @@
                                               style="float:left">
                                             <input type="text" name="keyword" th:value="${keyword}"
                                                    placeholder="tim kiem cac thuoc tính...." size="30">
-                                            <button type="submit" class="btn btn-info"><img src="/static/image/search.svg"></button>
-                                            <button type="submit" class="btn btn-info"><img src="/static/image/arrow-clockwise.svg"></button>
+                                            <button type="submit" class="btn btn-info"><img
+                                                    src="/static/image/search.svg"></button>
+                                            <button type="submit" class="btn btn-info"><img
+                                                    src="/static/image/arrow-clockwise.svg"></button>
                                         </form>
-                                        <form th:object="${listtaikhoan}" th:action="@{/nhan-vien/fiter-trangthai}" method="get"
+                                        <form th:object="${listtaikhoan}" th:action="@{/nhan-vien/fiter-trangthai}"
+                                              method="get" id="trangthai-form"
                                               style="text-align: center;margin-left:50px">
 
-                                            <label>Trạng Thái</label>
-                                            <label><input type="radio" name="trangThai" value="1" checked="true"/>Hoạt Động</label>
-                                            <label><input type="radio" name="trangThai" value="0"/>Khôn Hoạt
+                                            <label>Trạng Thái </label>
+                                            <label for="trangthai1"><input  id="trangthai1" type="radio" name="trangThai" value="1"
+                                                          th:checked="${trangthai == 1}" checked="true"/>Hoạt
                                                 Động</label>
-                                            <button type="submit" class="btn btn-warning">Lọc</button>
+                                            <label for="trangthai0"><input   id="trangthai0"  type="radio" name="trangThai" value="0"
+                                                          th:checked="${trangthai == 0}"/>Khôn Hoạt
+                                                Động</label>
                                         </form>
 
 
@@ -116,7 +121,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr th:each="nv, row : ${listtaikhoan}">
+                                                <tr th:each="nv, row : ${listtaikhoan}" th:class="${nv.trangThai == 1} ? 'trangthai1' : 'trangthai0'">
                                                     <th scope="row" th:text="${row.index + 1}"></th>
                                                     <td th:text="${nv.maTaiKhoan}"></td>
                                                     <td th:text="${nv.tenTaiKhoan}"></td>
@@ -138,6 +143,22 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                            <script>
+                                                const trangThaiForm = document.getElementById('trangthai-form');
+                                                const rows = document.querySelectorAll('tbody tr');
+
+                                                trangThaiForm.addEventListener('change', function () {
+                                                    const selectedTrangThai = document.querySelector('input[name="trangThai"]:checked').value;
+
+                                                    rows.forEach(row => {
+                                                        if (selectedTrangThai === '1') {
+                                                            row.style.display = row.classList.contains('trangthai1') ? 'table-row' : 'none';
+                                                        } else if (selectedTrangThai === '0') {
+                                                            row.style.display = row.classList.contains('trangthai0') ? 'table-row' : 'none';
+                                                        }
+                                                    });
+                                                });
+                                            </script>
                                         </div>
                                     </div>
                                     <div class="row">
