@@ -58,6 +58,7 @@
                 box-shadow: none;
             }
         }
+
         .button-group {
             display: flex;
             align-items: center;
@@ -225,321 +226,327 @@
                             <div class="col-12">
                                 <div class="card-box">
                                     <div class="col-12">
-                                        <div class="row container">
-                                            <div class="col-10">
-                                                <h3 style="margin-left: -15px;">Thông Tin Đơn Hàng</h3>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <h3>Thông Tin Đơn Hàng</h3>
                                             </div>
+                                            <div class="col-6" style="display: flex; justify-content: end">
+                                                <button type="submit"
+                                                        class="custom-button btn btn-dark"
+                                                        data-toggle="modal" data-target="#myModal">
+                                                    <span>Cập Nhật</span>
+                                                </button>
+                                            </div>
+                                            <form th:object="${listHD}"
+                                                  th:action="@{/hoa-don/update(id=${listHD.id})}" method="post">
 
-                                            <div class="col-2">
+                                                <!--                                                            <input th:field="*{id}" hidden="true">-->
+                                                <input th:field="*{lichSuHoaDon.id}" hidden="true">
+                                                <input th:field="*{maHoaDon}" hidden="true">
+                                                <input th:field="*{ngayTao}" hidden="true">
+                                                <input th:field="*{ngayThanhToan}" hidden="true">
+                                                <input th:field="*{tongTien}" hidden="true">
+                                                <input th:field="*{tongTienSauKhiGiam}" hidden="true">
+                                                <input th:field="*{trangThai}" hidden="true">
+                                                <input th:field="*{ngayShip}" hidden="true">
+                                                <input th:field="*{ngayDuKienNhan}" hidden="true">
+                                                <input th:field="*{tienShip}" hidden="true">
+                                                <input th:field="*{ngaySua}" hidden="true">
+                                                <input th:field="*{nguoiTaoHoaDon}" hidden="true">
+                                                <input th:field="*{ngayNhan}" hidden="true">
+                                                <input th:field="*{ghiChu}" hidden="true">
+                                                <input th:field="*{loaiDon}" hidden="true">
 
+                                                <div class="modal" id="myModal">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
 
-                                                    <div class="container">
-
-                                                        <!-- Button to Open the Modal -->
-                                                        <button type="submit"
-                                                                class="custom-button btn btn-dark"
-                                                                data-toggle="modal" data-target="#myModal">
-                                                            <span>Cập Nhật</span>
-                                                        </button>
-
-                                                        <form  th:object="${listHD}" th:action="@{/hoa-don/update(id=${listHD.id})}" method="post">
-
-<!--                                                            <input th:field="*{id}" hidden="true">-->
-                                                            <input th:field="*{lichSuHoaDon.id}" hidden="true">
-                                                            <input th:field="*{maHoaDon}" hidden="true">
-                                                            <input th:field="*{ngayTao}" hidden="true">
-                                                            <input th:field="*{ngayThanhToan}" hidden="true">
-                                                            <input th:field="*{tongTien}" hidden="true">
-                                                            <input th:field="*{tongTienSauKhiGiam}" hidden="true">
-                                                            <input th:field="*{trangThai}" hidden="true">
-                                                            <input th:field="*{ngayShip}" hidden="true">
-                                                            <input th:field="*{ngayDuKienNhan}" hidden="true">
-                                                            <input th:field="*{tienShip}" hidden="true">
-                                                            <input th:field="*{ngaySua}" hidden="true">
-                                                            <input th:field="*{nguoiTaoHoaDon}" hidden="true">
-                                                            <input th:field="*{ngayNhan}" hidden="true">
-                                                            <input th:field="*{ghiChu}" hidden="true">
-                                                            <input th:field="*{loaiDon}" hidden="true">
-
-                                                            <div class="modal" id="myModal">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-
-                                                                        <!-- Modal Header -->
-                                                                        <div class="modal-header">
-                                                                            <h4 style="margin-left: 25px" class="modal-title w-100 text-center">Cập Nhật Đơn Hàng</h4>
-                                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                        </div>
-
-                                                                        <!-- Modal body -->
-                                                                        <div class="modal-body">
-                                                                            <!-- adding Bootstrap Form here -->
-                                                                            <form  id="myForm" class="needs-validation" novalidate>
-                                                                                <div class="container">
-
-                                                                                    <div class="form-group row">
-                                                                                        <label for="id" class="col-sm-3 col-form-label">Họ Và Tên:</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="text" class="form-control" name="nguoiNhan"
-                                                                                                   placeholder="" required th:field="*{nguoiNhan}"/>
-                                                                                            <div class="invalid-feedback">
-                                                                                                Không được để trống !
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="form-group row">
-                                                                                        <label for="id" class="col-sm-3 col-form-label">Hotline:</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="text" class="form-control" id="name_id" name="Name"
-                                                                                                   placeholder="" required th:field="*{soDienThoai}"/>
-                                                                                            <div class="invalid-feedback">
-                                                                                                Không được để trống !
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="form-group row">
-                                                                                        <label for="id" class="col-sm-3 col-form-label">Địa Chỉ:</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <textarea class="form-control" rows="4" placeholder="" required
-                                                                                                      th:field="*{diaChi}"></textarea>
-                                                                                            <div class="invalid-feedback">
-                                                                                                Không được để trống!
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-
-
-                                                                                    <div class="text-center">
-                                                                                        <button class="btn btn-success" type="submit">Cập Nhật</button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </form>
-
-                                                                            <script>
-
-                                                                            </script>
-                                                                        </div>
-
-                                                                        <!-- Modal footer -->
-                                                                        <!--                                                                    <div class="modal-footer">-->
-                                                                        <!--                                                                        <p><-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;G-O-O-D&#45;&#45;J-O-B-!&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;</p>-->
-                                                                        <!--                                                                    </div>-->
-
-                                                                    </div>
-                                                                </div>
+                                                            <!-- Modal Header -->
+                                                            <div class="modal-header">
+                                                                <h4 style="margin-left: 25px"
+                                                                    class="modal-title w-100 text-center">Cập
+                                                                    Nhật Đơn Hàng</h4>
+                                                                <button type="button" class="close"
+                                                                        data-dismiss="modal">&times;
+                                                                </button>
                                                             </div>
-                                                        </form>
 
-                                                        <!-- The Modal -->
+                                                            <!-- Modal body -->
+                                                            <div class="modal-body">
+                                                                <!-- adding Bootstrap Form here -->
+                                                                <form id="myForm" class="needs-validation"
+                                                                      novalidate>
+                                                                    <div class="container">
 
+                                                                        <div class="form-group row">
+                                                                            <label for="id"
+                                                                                   class="col-sm-3 col-form-label">Họ
+                                                                                Và Tên:</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="text"
+                                                                                       class="form-control"
+                                                                                       name="nguoiNhan"
+                                                                                       placeholder="" required
+                                                                                       th:field="*{nguoiNhan}"/>
+                                                                                <div class="invalid-feedback">
+                                                                                    Không được để trống !
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group row">
+                                                                            <label for="id"
+                                                                                   class="col-sm-3 col-form-label">Hotline:</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="text"
+                                                                                       class="form-control"
+                                                                                       id="name_id" name="Name"
+                                                                                       placeholder="" required
+                                                                                       th:field="*{soDienThoai}"/>
+                                                                                <div class="invalid-feedback">
+                                                                                    Không được để trống !
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="form-group row">
+                                                                            <label for="id"
+                                                                                   class="col-sm-3 col-form-label">Địa
+                                                                                Chỉ:</label>
+                                                                            <div class="col-sm-9">
+                                                                                            <textarea
+                                                                                                    class="form-control"
+                                                                                                    rows="4"
+                                                                                                    placeholder=""
+                                                                                                    required
+                                                                                                    th:field="*{diaChi}"></textarea>
+                                                                                <div class="invalid-feedback">
+                                                                                    Không được để trống!
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="text-center">
+                                                                            <button class="btn btn-success"
+                                                                                    type="submit">Cập Nhật
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+
+                                                            <!-- Modal footer -->
+                                                            <!--                                                                    <div class="modal-footer">-->
+                                                            <!--                                                                        <p><-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;G-O-O-D&#45;&#45;J-O-B-!&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;</p>-->
+                                                            <!--                                                                    </div>-->
+
+                                                        </div>
                                                     </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <hr>
 
 
-                                            </div>
-                                            </div>  <hr>
+                                        <div class="row">
+                                            <div class="col-12">
 
+                                                <!--                                            <section class="navbar-expand-lg navbar-light bg-light">-->
 
+                                                <div th:each="hd : ${listHD}">
+                                                    <div class="row col-12">
+                                                        <div class="col-6 row">
+                                                            <div class="col-3">
+                                                                <span style="display: inline-block; width: 100px;">Trạng Thái: </span>
+                                                            </div>
 
-                                            <div class="row">
-                                                <div class="col-12">
-
-                                                    <!--                                            <section class="navbar-expand-lg navbar-light bg-light">-->
-
-                                                    <div th:each="hd : ${listHD}">
-                                                        <div class="row col-12">
-                                                            <div class="col-6 row">
-                                                                <div class="col-3">
-                                                                    <span style="display: inline-block; width: 100px;">Trạng Thái: </span>
-                                                                </div>
-
-                                                                <div style="display: inline-block; width: 350px;"
-                                                                     class="col-3">
+                                                            <div style="display: inline-block; width: 350px;"
+                                                                 class="col-3">
                                                             <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                   th:if="${hd.trangThai == 1}"
                                                                   class="btn btn-labeled shadow-button btn btn-info status-pending">Đang chờ xác nhận</span>
-                                                                    <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
-                                                                          th:if="${hd.trangThai == 2}"
-                                                                          class="btn btn-labeled shadow-button btn btn-danger status-cancelled">Đã hủy</span>
-                                                                    <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
-                                                                          th:if="${hd.trangThai != 1 && hd.trangThai != 2}"
-                                                                          class="btn btn-labeled shadow-button btn btn-success status-completed">Đã hoàn thành</span>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-6 row">
-                                                                <div class="col-3">
-                                                                    <span style="display: inline-block; width: 100px;">Họ Và Tên: </span>
-                                                                </div>
-
-                                                                <div class="col-3">
-                                                                    <span style="display: inline-block; width: 350px;"
-                                                                          th:text="${hd.nguoiNhan}"></span>
-                                                                </div>
+                                                                <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.trangThai == 2}"
+                                                                      class="btn btn-labeled shadow-button btn btn-danger status-cancelled">Đã hủy</span>
+                                                                <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.trangThai != 1 && hd.trangThai != 2}"
+                                                                      class="btn btn-labeled shadow-button btn btn-success status-completed">Đã hoàn thành</span>
                                                             </div>
                                                         </div>
 
-                                                        <br>
-                                                        <div class="row col-12">
-                                                            <div class="col-6 row">
-                                                                <div class="col-3">
-                                                                    <span style="display: inline-block; width: 100px;">Loại: </span>
-                                                                </div>
+                                                        <div class="col-6 row">
+                                                            <div class="col-3">
+                                                                <span style="display: inline-block; width: 100px;">Họ Và Tên: </span>
+                                                            </div>
 
-                                                                <div style="display: inline-block; width: 350px;"
-                                                                     class="col-3">
+                                                            <div class="col-3">
+                                                                    <span style="display: inline-block; width: 350px;"
+                                                                          th:text="${hd.nguoiNhan}"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <br>
+                                                    <div class="row col-12">
+                                                        <div class="col-6 row">
+                                                            <div class="col-3">
+                                                                <span style="display: inline-block; width: 100px;">Loại: </span>
+                                                            </div>
+
+                                                            <div style="display: inline-block; width: 350px;"
+                                                                 class="col-3">
                                                             <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                   th:if="${hd.loaiDon == 0}"
                                                                   class="btn btn-labeled shadow-button btn btn-warning status-pending">Giao hàng</span>
-                                                                    <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
-                                                                          th:if="${hd.loaiDon != 0}"
-                                                                          class="btn btn-labeled shadow-button btn btn-secondary status-cancelled">Tại quầy</span>
-                                                                </div>
+                                                                <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.loaiDon != 0}"
+                                                                      class="btn btn-labeled shadow-button btn btn-secondary status-cancelled">Tại quầy</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-6 row">
+                                                            <div class="col-3">
+                                                                <span style="display: inline-block; width: 100px;">Số điện thoại: </span>
                                                             </div>
 
-                                                            <div class="col-6 row">
-                                                                <div class="col-3">
-                                                                    <span style="display: inline-block; width: 100px;">Số điện thoại: </span>
-                                                                </div>
-
-                                                                <div class="col-3">
+                                                            <div class="col-3">
                                                                     <span style="display: inline-block; width: 350px;"
                                                                           th:text="${hd.soDienThoai}"></span>
-                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <br>
-                                                        <div class="row col-12">
-                                                            <div class="col-6 row">
-                                                                <div class="col-3">
-                                                                    <span style="display: inline-block; width: 100px;">Mã Đơn: </span>
-                                                                </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row col-12">
+                                                        <div class="col-6 row">
+                                                            <div class="col-3">
+                                                                <span style="display: inline-block; width: 100px;">Mã Đơn: </span>
+                                                            </div>
 
-                                                                <div class="col-3">
+                                                            <div class="col-3">
                                                                     <span style="display: inline-block; width: 350px;"
                                                                           th:text="${hd.maHoaDon}"></span>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-6 row">
-                                                                <div style="float: left;" class="col-3">
-                                                                    <span style="display: inline-block; width: 100px;">Địa chỉ: </span>
-                                                                </div>
-
-                                                                <div style="float: left;" class="col-3">
-                                                                    <span style="display: inline-block; width: 350px;"
-                                                                          th:text="${hd.diaChi}"></span>
-                                                                </div>
                                                             </div>
                                                         </div>
 
+                                                        <div class="col-6 row">
+                                                            <div style="float: left;" class="col-3">
+                                                                <span style="display: inline-block; width: 100px;">Địa chỉ: </span>
+                                                            </div>
+
+                                                            <div style="float: left;" class="col-3">
+                                                                    <span style="display: inline-block; width: 350px;"
+                                                                          th:text="${hd.diaChi}"></span>
+                                                            </div>
+                                                        </div>
                                                     </div>
 
-                                                    <!--                                            </section>-->
-                                                </div> <!-- end container-fluid -->
+                                                </div>
 
-                                            </div> <!-- end content -->
+                                                <!--                                            </section>-->
+                                            </div> <!-- end container-fluid -->
 
-                                        </div>
-
-                                    </div>
-
-
-                                </div>
-                            </div>
-
-                            <!-- ============================================================== -->
-                            <!-- End Page content -->
-                            <!-- ============================================================== -->
-
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card-box">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-6">
-
-                                        </div>
+                                        </div> <!-- end content -->
 
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-sm-12">
-
-                                            <section class="navbar-expand-lg navbar-light bg-light">
-
-
-                                            </section>
-                                        </div> <!-- end container-fluid -->
-
-                                    </div> <!-- end content -->
                                 </div>
+
+
                             </div>
-
-                            <!-- ============================================================== -->
-                            <!-- End Page content -->
-                            <!-- ============================================================== -->
-
                         </div>
-                        <!-- END wrapper -->
 
-                        <!--&lt;!&ndash; Right Sidebar &ndash;&gt;-->
-                        <!-- Right bar overlay-->
-                        <div class="rightbar-overlay"></div>
+                        <!-- ============================================================== -->
+                        <!-- End Page content -->
+                        <!-- ============================================================== -->
 
-
-                        <!--                        <div class="row">-->
-                        <!--                            <div class="col-sm-12 col-md-12" style="display: flex; justify-content: center">-->
-                        <!--                                <nav style="margin-left: 25px;" aria-label="Page navigation example" class="flex">-->
-                        <!--                                    <ul class="pagination">-->
-                        <!--                                        &lt;!&ndash;                    <li class="page-item" th:classappend="${list.number == 0} ? disabled">&ndash;&gt;-->
-                        <!--                                        &lt;!&ndash;                        <a class="page-link" th:href="@{/vouchers(page=0, size=${list.size})}">First</a>&ndash;&gt;-->
-                        <!--                                        &lt;!&ndash;                    </li>&ndash;&gt;-->
-                        <!--                                        <li class="page-item"-->
-                        <!--                                            th:classappend="${listHD.number == 0} ? disabled">-->
-                        <!--                                            <a class="page-link"-->
-                        <!--                                               th:href="@{/hoa-don/hien-thi(page=${listHD.number - 1})}">-->
-                        <!--                                                <<<-->
-                        <!--                                            </a>-->
-                        <!--                                        </li>-->
-                        <!--                                        <li class="page-item"-->
-                        <!--                                            th:each="pageNumber : ${#numbers.sequence(0, listHD.totalPages - 1)}">-->
-                        <!--                                            <a class="page-link"-->
-                        <!--                                               th:href="@{/hoa-don/hien-thi(page=${pageNumber})}"-->
-                        <!--                                               th:text="${pageNumber + 1}"-->
-                        <!--                                               th:classappend="${pageNumber == listHD.number} ? active">-->
-                        <!--                                            </a>-->
-                        <!--                                        </li>-->
-                        <!--                                        <li class="page-item"-->
-                        <!--                                            th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled">-->
-                        <!--                                            <a class="page-link"-->
-                        <!--                                               th:href="@{/hoa-don/hien-thi(page=${listHD.number + 1})}">-->
-                        <!--                                                >>>-->
-                        <!--                                            </a>-->
-                        <!--                                        </li>-->
-                        <!--                                        &lt;!&ndash;                    <li class="page-item" th:classappend="${list.number == list.totalPages - 1} ? disabled"><a&ndash;&gt;-->
-                        <!--                                        &lt;!&ndash;                            class="page-link" th:href="@{/vouchers(page=${list.totalPages - 1}, size=${list.size})}">Last</a>&ndash;&gt;-->
-                        <!--                                        &lt;!&ndash;                    </li>&ndash;&gt;-->
-                        <!--                                    </ul>-->
-                        <!--                                </nav>-->
-
-                        <!--                            </div>-->
-                        <!--                        </div>-->
-
-
-                        <!--<a href="javascript:void(0);" class="right-bar-toggle demos-show-btn">-->
-                        <!--    <i class="mdi mdi-settings-outline mdi-spin"></i> &nbsp;Choose Demos-->
-                        <!--</a>-->
                     </div>
 
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-box">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+
+                                        <section class="navbar-expand-lg navbar-light bg-light">
+
+
+                                        </section>
+                                    </div> <!-- end container-fluid -->
+
+                                </div> <!-- end content -->
+                            </div>
+                        </div>
+
+                        <!-- ============================================================== -->
+                        <!-- End Page content -->
+                        <!-- ============================================================== -->
+
+                    </div>
+                    <!-- END wrapper -->
+
+                    <!--&lt;!&ndash; Right Sidebar &ndash;&gt;-->
+                    <!-- Right bar overlay-->
+                    <div class="rightbar-overlay"></div>
+
+
+                    <!--                        <div class="row">-->
+                    <!--                            <div class="col-sm-12 col-md-12" style="display: flex; justify-content: center">-->
+                    <!--                                <nav style="margin-left: 25px;" aria-label="Page navigation example" class="flex">-->
+                    <!--                                    <ul class="pagination">-->
+                    <!--                                        &lt;!&ndash;                    <li class="page-item" th:classappend="${list.number == 0} ? disabled">&ndash;&gt;-->
+                    <!--                                        &lt;!&ndash;                        <a class="page-link" th:href="@{/vouchers(page=0, size=${list.size})}">First</a>&ndash;&gt;-->
+                    <!--                                        &lt;!&ndash;                    </li>&ndash;&gt;-->
+                    <!--                                        <li class="page-item"-->
+                    <!--                                            th:classappend="${listHD.number == 0} ? disabled">-->
+                    <!--                                            <a class="page-link"-->
+                    <!--                                               th:href="@{/hoa-don/hien-thi(page=${listHD.number - 1})}">-->
+                    <!--                                                <<<-->
+                    <!--                                            </a>-->
+                    <!--                                        </li>-->
+                    <!--                                        <li class="page-item"-->
+                    <!--                                            th:each="pageNumber : ${#numbers.sequence(0, listHD.totalPages - 1)}">-->
+                    <!--                                            <a class="page-link"-->
+                    <!--                                               th:href="@{/hoa-don/hien-thi(page=${pageNumber})}"-->
+                    <!--                                               th:text="${pageNumber + 1}"-->
+                    <!--                                               th:classappend="${pageNumber == listHD.number} ? active">-->
+                    <!--                                            </a>-->
+                    <!--                                        </li>-->
+                    <!--                                        <li class="page-item"-->
+                    <!--                                            th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled">-->
+                    <!--                                            <a class="page-link"-->
+                    <!--                                               th:href="@{/hoa-don/hien-thi(page=${listHD.number + 1})}">-->
+                    <!--                                                >>>-->
+                    <!--                                            </a>-->
+                    <!--                                        </li>-->
+                    <!--                                        &lt;!&ndash;                    <li class="page-item" th:classappend="${list.number == list.totalPages - 1} ? disabled"><a&ndash;&gt;-->
+                    <!--                                        &lt;!&ndash;                            class="page-link" th:href="@{/vouchers(page=${list.totalPages - 1}, size=${list.size})}">Last</a>&ndash;&gt;-->
+                    <!--                                        &lt;!&ndash;                    </li>&ndash;&gt;-->
+                    <!--                                    </ul>-->
+                    <!--                                </nav>-->
+
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+
+
+                    <!--<a href="javascript:void(0);" class="right-bar-toggle demos-show-btn">-->
+                    <!--    <i class="mdi mdi-settings-outline mdi-spin"></i> &nbsp;Choose Demos-->
+                    <!--</a>-->
                 </div>
 
             </div>
 
         </div>
+
     </div>
+</div>
 
 
 </div>
@@ -630,13 +637,13 @@
                     form.classList.add('was-validated');
 
 
-                    if(form.checkValidity() === true){
+                    if (form.checkValidity() === true) {
                         //enter your code here
                         event.preventDefault();
                         var form_data = {
-                            name : name_id.value,
-                            username : username_id.value,
-                            password : password_id.value
+                            name: name_id.value,
+                            username: username_id.value,
+                            password: password_id.value
                         }
 
                         console.log(form_data); //printing form data in Console
