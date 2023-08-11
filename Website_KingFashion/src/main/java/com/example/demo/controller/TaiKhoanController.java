@@ -44,8 +44,6 @@ public class TaiKhoanController {
         Page<TaiKhoan> page = taiKhoanService.getAllNhanVien(number, 5);
         model.addAttribute("listtaikhoan", page);
         return "nhanvien/nhan-vien";
-
-
     }
 
 //    @GetMapping("/search")
@@ -86,13 +84,12 @@ public class TaiKhoanController {
         return "redirect:/nhan-vien/hien-thi";
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/update")
     public String update(@Valid @ModelAttribute("nhanvien") TaiKhoan taiKhoan, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "/nhanvien/update";
         }
         taiKhoanService.update(taiKhoan);
-
         return "redirect:/nhan-vien/hien-thi";
     }
 
@@ -109,12 +106,9 @@ public class TaiKhoanController {
 
     @GetMapping("/fiter-trangthai")
     public String getFilteredtrangThai(@RequestParam(name = "trangThai") Integer trangthai, Model model) {
-
         List<TaiKhoan> taiKhoans = taiKhoanService.getTrangThai(trangthai);
         model.addAttribute("listtaikhoan", taiKhoans);
         return "/nhanvien/nhan-vien";
-
-
     }
 
 }
