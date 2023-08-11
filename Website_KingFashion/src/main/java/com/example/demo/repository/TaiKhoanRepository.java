@@ -37,11 +37,18 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, UUID> {
             "WHERE (tk.trang_thai = 1 OR tk.trang_thai = 0)\n" +
             "      AND (vt.ten LIKE LOWER(CONCAT('%', 'Nhân viên', '%')))\n" +
             "      AND vt.ten = 'Nhân viên'", nativeQuery = true)
-    List<TaiKhoan> findByKeyWord(@Param("keyword") String keyword);
+    List<TaiKhoan> findByTrangThai(@Param("trangthai") Integer trangThai);
 
     @Query(value = "SELECT tk.id, tk.ma, tk.dia_chi, tk.email, tk.sdt, tk.ten, tk.ngay_sinh, tk.ngay_tao, tk.ngay_sua, tk.nguoi_tao,\n" +
-            "                   tk.nguoi_sua, tk.mat_khau, tk.trang_thai, tk.id_vt  FROM TaiKhoan tk JOIN vaiTro vt on tk.id_vt=vt.id WHERE tk.trang_thai = :trangthai AND LOWER(vt.ten) LIKE LOWER(CONCAT('%', 'Nhân viên', '%'))",nativeQuery = true)
-    List<TaiKhoan> findByTrangThai(@Param("trangthai") Integer trangThai);
+            "       tk.nguoi_sua, tk.mat_khau, tk.trang_thai, tk.id_vt\n" +
+            "FROM TaiKhoan tk\n" +
+            "JOIN VaiTro vt ON tk.id_vt = vt.id\n" +
+            "WHERE (tk.ma LIKE CONCAT('%', :keyword, '%') OR tk.dia_chi LIKE CONCAT('%', :keyword, '%')\n" +
+            "        OR tk.email LIKE CONCAT('%', :keyword, '%') OR tk.ten LIKE CONCAT('%', :keyword, '%')\n" +
+            "        OR tk.sdt LIKE CONCAT('%', :keyword, '%') OR tk.mat_khau LIKE CONCAT('%', :keyword, '%'))\n" +
+            "    AND LOWER(vt.ten) LIKE LOWER(CONCAT('%', 'Nhân viên', '%'))\n ", nativeQuery = true)
+    List<TaiKhoan> findByKeyWord(@Param("keyword") String keyword);
+
 
     @Query("SELECT t FROM TaiKhoan t JOIN t.vaiTro v WHERE v.tenVaiTro LIKE lower(CONCAT('%', 'Nhân viên', '%'))")
     Page<TaiKhoan> getAllNhanvien1(Pageable pageable);

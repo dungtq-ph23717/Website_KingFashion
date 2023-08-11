@@ -34,7 +34,7 @@ public class TaiKhoanController {
     private VaiTroService vaiTroService;
 
     @GetMapping("/hien-thi")
-    public String hienthi(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "0") Integer number) {
+    public String hienthi(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "0") Integer number,String keyword) {
         if (session.getAttribute("successMessage") != null) {
             String successAtribute = (String) session.getAttribute(("successMessage"));
             model.addAttribute("successMessage", successAtribute);
@@ -42,6 +42,8 @@ public class TaiKhoanController {
         }
         model.addAttribute("listVaiTro", vaiTroService.getAll());
         Page<TaiKhoan> page = taiKhoanService.getAllNhanVien(number, 5);
+        List<TaiKhoan> listserach = taiKhoanService.getByKeyWord(keyword);
+        model.addAttribute("listtaikhoan", listserach);
         model.addAttribute("listtaikhoan", page);
         return "nhanvien/nhan-vien";
     }
@@ -69,6 +71,8 @@ public class TaiKhoanController {
     public String viewUpdate(@PathVariable UUID id, Model model) {
         TaiKhoan taiKhoan = taiKhoanService.detail(id);
         model.addAttribute("nhanvien", taiKhoan);
+        List<VaiTro> listVaiTro=vaiTroService.getAll();
+        model.addAttribute("listVaiTro",listVaiTro);
         return "/nhanvien/update";
     }
 
@@ -85,16 +89,19 @@ public class TaiKhoanController {
     }
 
     @PostMapping("/update")
-    public String update(@Valid @ModelAttribute("nhanvien") TaiKhoan taiKhoan, BindingResult result, Model model) {
+    public String update(@Valid @ModelAttribute("nhanvien") TaiKhoan taiKhoan, BindingResult result,Model model) {
         if (result.hasErrors()) {
+            List<VaiTro> listVaiTro=vaiTroService.getAll();
+            model.addAttribute("listVaiTro",listVaiTro);
             return "/nhanvien/update";
         }
         taiKhoanService.update(taiKhoan);
         return "redirect:/nhan-vien/hien-thi";
     }
 
+
     @GetMapping("/serach")
-    public String Serach(TaiKhoan taiKhoan, Model model, String keyword) {
+    public String Serach(TaiKhoan taiKhoan, String keyword, Model model) {
         if (keyword != null) {
             List<TaiKhoan> listserach = taiKhoanService.getByKeyWord(keyword);
             model.addAttribute("listtaikhoan", listserach);
