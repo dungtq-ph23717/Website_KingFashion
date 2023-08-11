@@ -116,6 +116,7 @@
                                                     <td>Email</td>
                                                     <td>Địa chỉ</td>
                                                     <td>Ngày sinh</td>
+                                                    <td>Vai Trò</td>
                                                     <td>Trạng thái</td>
                                                     <td>Action</td>
                                                 </tr>
@@ -129,11 +130,12 @@
                                                     <td th:text="${nv.email}"></td>
                                                     <td th:text="${nv.diaChi}"></td>
                                                     <td th:text="${#dates.format(nv.ngaySinh,'dd/MM/yyyy')}"></td>
+                                                    <td th:text="${nv.vaiTro.tenVaiTro}"></td>
                                                     <td th:if="${nv.trangThai == 1}">Hoạt động</td>
                                                     <td th:if="${nv.trangThai == 0}">Không hoạt động</td>
                                                     <td>
                                                         <a class="edit"
-                                                           th:href="@{view1-update/{id}(id=${nv.id})}"
+                                                           th:href="@{/nhan-vien/view1-update/{id}(id=${nv.id})}"
                                                         ><i
                                                                 class="material-icons"
                                                                 data-toggle="tooltip"

@@ -55,6 +55,7 @@ public class TaiKhoan {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngaySinh;
 
+
     @Column(name = "ngay_tao")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngayTao;
