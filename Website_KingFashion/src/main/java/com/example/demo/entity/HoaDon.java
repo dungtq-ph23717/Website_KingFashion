@@ -59,8 +59,8 @@ public class HoaDon {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
-    @Column(name = "ten_nguoi_nhan")
-    private String tenNguoiNhan;
+//    @Column(name = "ten_nguoi_nhan")
+//    private String tenNguoiNhan;
 
     @Column(name = "dia_chi")
     private String diaChi;
@@ -86,12 +86,11 @@ public class HoaDon {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date ngaySua;
 
-
     @Column(name = "nguoi_tao")
     private String nguoiTaoHoaDon;
 
     @Column(name = "nguoi_nhan")
-    private String nguoiNhanHoaDon;
+    private String nguoiNhan;
 
     @Column(name = "ngay_nhan")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
@@ -100,5 +99,6 @@ public class HoaDon {
     @Column(name = "ghi_chu")
     private String ghiChu;
 
-
+    @Column(name = "loai_don")
+    private Integer loaiDon;
 }

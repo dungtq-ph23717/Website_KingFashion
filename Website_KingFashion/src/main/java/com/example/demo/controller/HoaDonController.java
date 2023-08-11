@@ -61,15 +61,15 @@ public class HoaDonController {
     @GetMapping("view-hoa-don/{id}")
     public String viewHoaDon(@PathVariable UUID id, Model model) {
         HoaDon hoaDon = hoaDonService.detail(id);
-        model.addAttribute("hd1", hoaDon);
+        model.addAttribute("listHD", hoaDon);
         List<LichSuHoaDon> lichSuHoaDon = lichSuHoaDonService.detail(hoaDon.getLichSuHoaDon().getId());
-        model.addAttribute("lshd1", lichSuHoaDon);
-        return "hoadon/hoa-don-chi-tiet";
+        model.addAttribute("listLshd", lichSuHoaDon);
+        return "hoadon/chi-tiet-hoa-don";
     }
 
     @GetMapping("/search")
     public String search(Model model, @ModelAttribute("searchHD") HoaDon hoaDon, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam("maHoaDon") String maHoaDon) {
-        Page<HoaDon> listHD = hoaDonService.searchHD(hoaDon.getMaHoaDon(), hoaDon.getTenNguoiNhan(), hoaDon.getTrangThai(), hoaDon.getNgayThanhToan(),
+        Page<HoaDon> listHD = hoaDonService.searchHD(hoaDon.getMaHoaDon(), hoaDon.getNguoiNhan(), hoaDon.getTrangThai(), hoaDon.getNgayThanhToan(),
                 hoaDon.getTongTienSauKhiGiam(), hoaDon.getNgayShip(), hoaDon.getNgayDuKienNhan(), page, 5);
         model.addAttribute("listHD", listHD);
         return "hoadon/hoadon";
@@ -112,7 +112,7 @@ public class HoaDonController {
             ngayThanhToanCell.setCellStyle(dateCellStyle);
             row.createCell(2).setCellValue(hoaDon.getTongTienSauKhiGiam() + " VND");
             row.createCell(3).setCellValue(hoaDon.getTrangThai() == 1 ? "Đang chờ xác nhận" : (hoaDon.getTrangThai() == 2 ? "Đã hủy" : "Đã hoàn thành"));
-            row.createCell(4).setCellValue(hoaDon.getTenNguoiNhan());
+            row.createCell(4).setCellValue(hoaDon.getNguoiNhan());
             Cell ngayShipCell = row.createCell(5);
             ngayShipCell.setCellValue(hoaDon.getNgayShip());
             ngayShipCell.setCellStyle(dateCellStyle);

@@ -24,19 +24,18 @@ public class LichSuHoaDon {
     private UUID id;
 
     @Column(name = "ma")
-    private String maLichSuHoaDon;
+    private String ma;
 
     @Column(name = "ten")
-    private String tenLichSuHoaDon;
+    private String ten;
 
 
     @Column(name = "nguoi_tao")
-    private String nguoiTaoLichSuHoaDon;
+    private String nguoiTao;
 
 
     @Column(name = "ngay_tao")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngayTao;
-
 
 }
