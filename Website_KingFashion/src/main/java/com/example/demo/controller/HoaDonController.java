@@ -25,14 +25,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/hoa-don/")
+@RequestMapping("/hoa-don")
 public class HoaDonController {
     @Autowired
     private HoaDonService hoaDonService;
@@ -46,7 +48,7 @@ public class HoaDonController {
     @Autowired
     private HoaDonChiTietService hoaDonChiTietService;
 
-    @GetMapping("hien-thi")
+    @GetMapping("/hien-thi")
     public String hienThiHoaDon(Model model, @RequestParam(name = "page", defaultValue = "0") Integer page) {
         Page<HoaDon> hoaDonPage = hoaDonService.phanTrangHoaDon(page, 5);
         model.addAttribute("listHD", hoaDonPage);
@@ -58,7 +60,7 @@ public class HoaDonController {
         return "hoadon/hoadon";
     }
 
-    @GetMapping("view-hoa-don/{id}")
+    @GetMapping("/view-hoa-don/{id}")
     public String viewHoaDon(@PathVariable UUID id, Model model) {
         HoaDon hoaDon = hoaDonService.detail(id);
         model.addAttribute("listHD", hoaDon);
@@ -75,6 +77,15 @@ public class HoaDonController {
         return "hoadon/hoadon";
     }
 
+    @PostMapping("/update")
+    public String updateHD(@ModelAttribute HoaDon hoaDon,
+                           RedirectAttributes redirectAttributes){
+        Date date = new Date();
+        hoaDon.setNgaySua(date);
+        hoaDonService.add(hoaDon);
+        redirectAttributes.addAttribute("id", hoaDon.getId());
+        return "redirect:/hoa-don/view-hoa-don/{id}";
+    }
 
     @PostMapping("/export-excel")
     public void exportToExcel(HttpServletResponse response) throws IOException {

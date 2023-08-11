@@ -231,11 +231,111 @@
                                             </div>
 
                                             <div class="col-2">
-                                                <form>
-                                                    <button style="margin-left:110px;" class="custom-button btn btn-dark">
-                                                        <span>Cập Nhật</span>
-                                                    </button>
-                                                </form>
+
+
+                                                    <div class="container">
+
+                                                        <!-- Button to Open the Modal -->
+                                                        <button type="submit" style="margin-left:110px;"
+                                                                class="custom-button btn btn-dark"
+                                                                data-toggle="modal" data-target="#myModal">
+                                                            <span>Cập Nhật</span>
+                                                        </button>
+
+                                                        <form  th:object="${listHD}" th:action="@{/hoa-don/update(id=${listHD.id})}" method="post">
+
+<!--                                                            <input th:field="*{id}" hidden="true">-->
+                                                            <input th:field="*{lichSuHoaDon.id}" hidden="true">
+                                                            <input th:field="*{maHoaDon}" hidden="true">
+                                                            <input th:field="*{ngayTao}" hidden="true">
+                                                            <input th:field="*{ngayThanhToan}" hidden="true">
+                                                            <input th:field="*{tongTien}" hidden="true">
+                                                            <input th:field="*{tongTienSauKhiGiam}" hidden="true">
+                                                            <input th:field="*{trangThai}" hidden="true">
+                                                            <input th:field="*{ngayShip}" hidden="true">
+                                                            <input th:field="*{ngayDuKienNhan}" hidden="true">
+                                                            <input th:field="*{tienShip}" hidden="true">
+                                                            <input th:field="*{ngaySua}" hidden="true">
+                                                            <input th:field="*{nguoiTaoHoaDon}" hidden="true">
+                                                            <input th:field="*{ngayNhan}" hidden="true">
+                                                            <input th:field="*{ghiChu}" hidden="true">
+                                                            <input th:field="*{loaiDon}" hidden="true">
+
+                                                            <div class="modal" id="myModal">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+
+                                                                        <!-- Modal Header -->
+                                                                        <div class="modal-header">
+                                                                            <h4 style="margin-left: 25px" class="modal-title w-100 text-center">Cập Nhật Đơn Hàng</h4>
+                                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                        </div>
+
+                                                                        <!-- Modal body -->
+                                                                        <div class="modal-body">
+                                                                            <!-- adding Bootstrap Form here -->
+                                                                            <form  id="myForm" class="needs-validation" novalidate>
+                                                                                <div class="container">
+
+                                                                                    <div class="form-group row">
+                                                                                        <label for="id" class="col-sm-3 col-form-label">Họ Và Tên:</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <input type="text" class="form-control" name="nguoiNhan"
+                                                                                                   placeholder="" required th:field="*{nguoiNhan}"/>
+                                                                                            <div class="invalid-feedback">
+                                                                                                Không được để trống !
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group row">
+                                                                                        <label for="id" class="col-sm-3 col-form-label">Hotline:</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <input type="text" class="form-control" id="name_id" name="Name"
+                                                                                                   placeholder="" required th:field="*{soDienThoai}"/>
+                                                                                            <div class="invalid-feedback">
+                                                                                                Không được để trống !
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="form-group row">
+                                                                                        <label for="id" class="col-sm-3 col-form-label">Địa Chỉ:</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <textarea class="form-control" rows="4" placeholder="" required
+                                                                                                      th:field="*{diaChi}"></textarea>
+                                                                                            <div class="invalid-feedback">
+                                                                                                Không được để trống!
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+
+                                                                                    <div class="text-center">
+                                                                                        <button class="btn btn-success" type="submit">Cập Nhật</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+
+                                                                            <script>
+
+                                                                            </script>
+                                                                        </div>
+
+                                                                        <!-- Modal footer -->
+                                                                        <!--                                                                    <div class="modal-footer">-->
+                                                                        <!--                                                                        <p><-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;G-O-O-D&#45;&#45;J-O-B-!&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;</p>-->
+                                                                        <!--                                                                    </div>-->
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
+                                                        <!-- The Modal -->
+
+                                                    </div>
+
+
                                             </div>
                                             <hr>
                                             <div class="row">
@@ -508,6 +608,44 @@
             form.submit();
         }
     });
+</script>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+
+
+                    if(form.checkValidity() === true){
+                        //enter your code here
+                        event.preventDefault();
+                        var form_data = {
+                            name : name_id.value,
+                            username : username_id.value,
+                            password : password_id.value
+                        }
+
+                        console.log(form_data); //printing form data in Console
+                        document.forms[0].reset();    //reseting the form
+                        document.getElementById('myForm').classList.remove("was-validated");//reseting the form validation
+
+                    }
+
+                }, false);
+            });
+        }, false);
+    })();
 </script>
 </body>
 </html>

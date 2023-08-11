@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Repository
 public interface HoaDonRepository  extends JpaRepository<HoaDon, UUID> {
-//    HoaDon getHoaDonById(UUID id);
+    HoaDon getHoaDonById(UUID id);
 
     @Query("SELECT h FROM HoaDon h " +
             "WHERE (:maHoaDon is null OR h.maHoaDon LIKE lower(CONCAT('%', :maHoaDon, '%')))\n" +
@@ -29,4 +29,5 @@ public interface HoaDonRepository  extends JpaRepository<HoaDon, UUID> {
                          @Param("tongTienSauKhiGiam") Double tongTienSauKhiGiam,
                          @Param("ngayShip") Date ngayShip,@Param("ngayDuKienNhan") Date ngayDuKienNhan,
                           Pageable pageable);
+
 }
