@@ -60,6 +60,8 @@ public class TaiKhoanController1 {
     public String viewUpdate(@PathVariable UUID id, Model model) {
         TaiKhoan taiKhoan = taiKhoanService.detail(id);
         model.addAttribute("khachhang", taiKhoan);
+        List<VaiTro> vaiTroList=vaiTroService.getAll();
+        model.addAttribute("vaiTro",vaiTroList);
         return "khach-hang/update";
     }
 
