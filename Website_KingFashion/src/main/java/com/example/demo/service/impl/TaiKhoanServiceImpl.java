@@ -31,11 +31,16 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
     }
 
     @Override
-    public Page<TaiKhoan> page(Integer page,Integer size) {
+    public Page<TaiKhoan> page(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return taiKhoanRepository.getAllNhanVien(pageable);
     }
 
+    @Override
+    public Page<TaiKhoan> getAllNhanVien(Integer page, Integer size) {
+        Pageable pageable=PageRequest.of(page,size);
+        return taiKhoanRepository.getAllNhanvien1(pageable);
+    }
 
 
     @Override
@@ -65,4 +70,16 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
         taiKhoanRepository.deleteById(id);
     }
 
-}
+    @Override
+    public List<TaiKhoan> getByKeyWord(String keyword) {
+        return taiKhoanRepository.findByKeyWord(keyword);
+    }
+
+    @Override
+    public List<TaiKhoan> getTrangThai(Integer trangthai) {
+        return taiKhoanRepository.findByTrangThai(trangthai);
+    }
+};
+
+
+

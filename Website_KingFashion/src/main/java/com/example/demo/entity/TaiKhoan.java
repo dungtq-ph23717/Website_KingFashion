@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,10 +50,11 @@ public class TaiKhoan {
     @Column(name = "dia_chi")
     private String diaChi;
 
-    @Past()
+
     @Column(name = "ngay_sinh")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngaySinh;
+
 
     @Column(name = "ngay_tao")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
