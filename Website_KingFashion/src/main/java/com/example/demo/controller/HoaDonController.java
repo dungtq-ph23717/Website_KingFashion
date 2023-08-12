@@ -9,6 +9,7 @@ import com.example.demo.service.HoaDonService;
 import com.example.demo.service.LichSuHoaDonService;
 import com.example.demo.service.TaiKhoanService;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -79,11 +80,13 @@ public class HoaDonController {
 
     @PostMapping("/update")
     public String updateHD(@ModelAttribute HoaDon hoaDon,
-                           RedirectAttributes redirectAttributes){
+                           RedirectAttributes redirectAttributes,
+                           HttpSession session) {
         Date date = new Date();
         hoaDon.setNgaySua(date);
         hoaDonService.add(hoaDon);
         redirectAttributes.addAttribute("id", hoaDon.getId());
+        session.setAttribute("successMessage", "Cập nhật thành công !");
         return "redirect:/hoa-don/view-hoa-don/{id}";
     }
 

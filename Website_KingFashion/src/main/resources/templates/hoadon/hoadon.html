@@ -163,9 +163,8 @@
                         <div class="page-title-box">
                             <div class="page-title-center">
                                 <h1 class="page-title" style="text-align: center; font-size: 200%">Hóa Đơn </h1>
-                            </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
                 <!-- end page title -->
@@ -251,11 +250,11 @@
                                                     </div>
 
 
-                                                    <div style=" margin-top: 30px; height: 25px;"
-                                                         class="col-2">
+                                                    <div style=" margin-top: 30px; height: 35px;display: flex;justify-content:space-between;"
+                                                         class="col-3">
                                                         <button data-toggle="tooltip"
                                                                 title="Tìm kiếm"&#xE254; height="25px"
-                                                                style="background:blue;border-radius: 40px;border:1px solid black;"
+                                                                style="background:blue;border-radius: 40px;border:1px solid black;justify-items: center;"
                                                                 type="submit" class="btn btn-labeled shadow-button">
                                                             <span style="margin-bottom: 3px;color: white;"
                                                                   class="btn-icon"><i class="fas fa-search"></i></span>
@@ -264,9 +263,23 @@
                                                             <span style="margin-bottom: 3px;color: white;"
                                                                   class="btn-text">Tìm Kiếm</span>
                                                         </button>
+
+                                                        <div>
+                                                            <form class="export-form" th:action="@{/hoa-don/export-excel}" method="post">
+                                                                <button onclick="return confirm('Bạn chắc chắn muốn in hóa đơn ?')" style="border: 1px solid black; background:greenyellow;border-radius:10px;"
+                                                                        data-toggle="tooltip" title="In hóa đơn Excel" class="shadow-button" type="submit">
+                                                                    <a th:href="@{/hoa-don/export-excel}">
+                                                                        <img th:src="@{/static/image/printer.png}" width="35px" height="35px" alt="">
+                                                                    </a>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+
                                                     </div>
 
+
                                                 </div>
+
                                             </form>
                                         </div>
                                     </div>
@@ -333,7 +346,7 @@
                                                         </td>
 
                                                         <td class="align-middle">
-                                                            <div style="text-align: center;" class="button-group">
+                                                            <div style="display: flex;justify-content: center;" class="button-group">
                                                                 <a class="view-hoa-don" th:href="@{view-hoa-don/{id}(id=${hd.id})}">
                                                                     <i style="margin-left: 10px" class="bi bi-pencil-fill" data-toggle="tooltip" title="Chi Tiết">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -341,21 +354,8 @@
                                                                         </svg>
                                                                     </i>
                                                                 </a>
-                                                                <form class="export-form" th:action="@{/hoa-don/export-excel}" method="post">
-                                                                    <button class="export-button" ] type="submit">
-                                                                        <a th:href="@{/hoa-don/export-excel}">
-                                                                            <i style="margin-left: 10px" class="bi bi-printer-fill" data-toggle="tooltip" title="In hóa đơn Excel">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
-                                                                                <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
-                                                                                <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
-                                                                            </svg></i>
-                                                                        </a>
-                                                                    </button>
-                                                                </form>
                                                             </div>
                                                         </td>
-
-
 
                                                     </tr>
                                                     </tbody>
