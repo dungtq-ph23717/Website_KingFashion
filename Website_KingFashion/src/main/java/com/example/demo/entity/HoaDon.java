@@ -3,6 +3,7 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -71,11 +72,13 @@ public class HoaDon {
 
     @Column(name = "ngay_ship")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @NotNull(message = "Không được để trống")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ngayShip;
 
     @Column(name = "ngay_du_kien_nhan")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @NotNull(message = "Không được để trống")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ngayDuKienNhan;
 

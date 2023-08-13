@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" media="all" th:href="@{../../static/css/style.css}"/>
 
     <!-- App css -->
+    <script src="https://kit.fontawesome.com/52ef4965e2.js" crossorigin="anonymous"></script>
     <!-- Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
           integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
@@ -194,6 +195,10 @@
                     <div class="col-12">
                         <div class="page-title-box">
                             <div class="page-title-center">
+                                <a th:href="@{/hoa-don/hien-thi}">
+                                    <i class="fa-solid fa-person-walking-arrow-loop-left
+                                 fa-shake fa-xl"></i></a>
+
                                 <h1 class="page-title" style="text-align: center; font-size: 200%">Quản Lý Đơn Hàng</h1>
                             </div>
                         </div>
@@ -278,20 +283,32 @@
                                                                     <div class="container">
 
                                                                         <div class="form-group row">
-                                                                            <label for="id" class="col-sm-3 col-form-label">Họ Và Tên:</label>
+                                                                            <label for="id"
+                                                                                   class="col-sm-3 col-form-label">Họ Và
+                                                                                Tên:</label>
                                                                             <div class="col-sm-9">
-                                                                                <input type="text" class="form-control" name="nguoiNhan" placeholder="" required
-                                                                                       th:field="*{nguoiNhan}" oninput="validateName(this)"/>
+                                                                                <input type="text" class="form-control"
+                                                                                       name="nguoiNhan" placeholder=""
+                                                                                       required
+                                                                                       th:field="*{nguoiNhan}"
+                                                                                       oninput="validateName(this)"/>
                                                                                 <div class="invalid-feedback">
                                                                                     Không được để trống!
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group row">
-                                                                            <label for="id" class="col-sm-3 col-form-label">Hotline:</label>
+                                                                            <label for="id"
+                                                                                   class="col-sm-3 col-form-label">Hotline:</label>
                                                                             <div class="col-sm-9">
-                                                                                <input type="text" class="form-control" id="name_id" name="Name" placeholder="" required
-                                                                                       th:field="*{soDienThoai}" oninput="validatePhoneNumber(this)"/>
+                                                                                <input type="tel" class="form-control"
+                                                                                       id="name_id" name="Name"
+                                                                                       placeholder=""
+                                                                                       required
+                                                                                       th:field="*{soDienThoai}"
+                                                                                       pattern="^0\d\S*$"
+                                                                                       title="Sai định dạng số điện thoại !"
+                                                                                       oninput="validatePhoneNumber(this)"/>
                                                                                 <div class="invalid-feedback">
                                                                                     Không được để trống!
                                                                                 </div>
@@ -308,7 +325,8 @@
                                                                                                     rows="4"
                                                                                                     placeholder=""
                                                                                                     required
-                                                                                                    th:field="*{diaChi}" oninput="validateAddress(this)"></textarea>
+                                                                                                    th:field="*{diaChi}"
+                                                                                                    oninput="validateAddress(this)"></textarea>
                                                                                 <div class="invalid-feedback">
                                                                                     Không được để trống!
                                                                                 </div>
@@ -429,73 +447,73 @@
                                                                     <span style="display: inline-block; width: 300px;"
                                                                           th:text="${hd.diaChi}"></span>
                                                             </div>
+                                                        </div>
+
                                                     </div>
 
-                                                </div>
+                                                    <!--                                            </section>-->
+                                                </div> <!-- end container-fluid -->
 
-                                                <!--                                            </section>-->
-                                            </div> <!-- end container-fluid -->
+                                            </div> <!-- end content -->
 
-                                        </div> <!-- end content -->
-
-                                    </div>
-
-                                </div>
-
-
-                            </div>
-                        </div>
-
-                        <!-- ============================================================== -->
-                        <!-- End Page content -->
-                        <!-- ============================================================== -->
-
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card-box">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6">
+                                        </div>
 
                                     </div>
 
+
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-sm-12">
-
-                                        <section class="navbar-expand-lg navbar-light bg-light">
-
-
-                                        </section>
-                                    </div> <!-- end container-fluid -->
-
-                                </div> <!-- end content -->
                             </div>
+
+                            <!-- ============================================================== -->
+                            <!-- End Page content -->
+                            <!-- ============================================================== -->
+
                         </div>
 
-                        <!-- ============================================================== -->
-                        <!-- End Page content -->
-                        <!-- ============================================================== -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-box">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+
+                                            <section class="navbar-expand-lg navbar-light bg-light">
+
+
+                                            </section>
+                                        </div> <!-- end container-fluid -->
+
+                                    </div> <!-- end content -->
+                                </div>
+                            </div>
+
+                            <!-- ============================================================== -->
+                            <!-- End Page content -->
+                            <!-- ============================================================== -->
+
+                        </div>
+                        <!-- END wrapper -->
+
+                        <!--&lt;!&ndash; Right Sidebar &ndash;&gt;-->
+                        <!-- Right bar overlay-->
+                        <div class="rightbar-overlay"></div>
+
 
                     </div>
-                    <!-- END wrapper -->
-
-                    <!--&lt;!&ndash; Right Sidebar &ndash;&gt;-->
-                    <!-- Right bar overlay-->
-                    <div class="rightbar-overlay"></div>
-
 
                 </div>
 
             </div>
 
         </div>
-
     </div>
-</div>
 
 
 </div>
@@ -549,29 +567,31 @@
 <script>
     function validatePhoneNumber(input) {
         const phoneNumber = input.value.trim();
-        const phoneNumberRegex = /^0\d{0,9}$/;
+        const phoneNumberRegex = /^[0-9]{1,10}$/;
 
-        if (!phoneNumberRegex.test(phoneNumber)) {
-            input.setCustomValidity("Số điện thoại phải là số, bắt đầu từ 0, có độ dài tối đa 10 số và không chứa ký tự.");
-        } else {
-            input.setCustomValidity("");
-        }
-    }
-    function validateAddress(input) {
-        const address = input.value.trim();
-
-        if (address.length > 50 || address.startsWith(" ")) {
-            input.setCustomValidity("Địa chỉ không được để trống, tối đa 50 ký tự và không có khoảng trắng ở đầu!");
+        if (!phoneNumberRegex.test(phoneNumber) || phoneNumber.includes(' ')) {
+            input.setCustomValidity("Số điện thoại phải là số, bắt đầu từ 0, có độ dài tối đa 10 số và không chứa ký tự và khoảng trắng ngoài số.");
         } else {
             input.setCustomValidity("");
         }
     };
+
+    function validateAddress(input) {
+        const address = input.value.trim();
+
+        if (address.length >= 50) {
+            input.setCustomValidity("Địa chỉ không được để trống, tối đa 50 ký tự !");
+        } else {
+            input.setCustomValidity("");
+        }
+    };
+
     function validateName(input) {
         const name = input.value.trim();
-        const nameRegex = /^[a-zA-Z\s]{1,20}$/;
+        const nameRegex = /^[\p{L}\s]{1,20}$/u;
 
         if (!nameRegex.test(name)) {
-            input.setCustomValidity("Họ và tên không được để trống, tối đa 20 ký tự và chỉ được chứa chữ và khoảng trắng!");
+            input.setCustomValidity("Họ và tên không được để trống, tối đa 20 ký tự và chỉ được chứa chữ !");
         } else {
             input.setCustomValidity("");
         }
