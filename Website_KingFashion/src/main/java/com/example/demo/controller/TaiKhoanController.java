@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,19 +34,18 @@ public class TaiKhoanController {
     private VaiTroService vaiTroService;
 
     @GetMapping("/hien-thi")
-    public String hienthi(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "0") Integer number) {
-        if(session.getAttribute("successMessage") != null){
-            String successAtribute =(String) session.getAttribute(("successMessage"));
-            model.addAttribute("successMessage",successAtribute);
+    public String hienthi(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "0") Integer number,String keyword) {
+        if (session.getAttribute("successMessage") != null) {
+            String successAtribute = (String) session.getAttribute(("successMessage"));
+            model.addAttribute("successMessage", successAtribute);
             session.removeAttribute("successMessage");
         }
-        model.addAttribute("listVaiTro",vaiTroService.getAll());
-        Page<TaiKhoan> page=taiKhoanService.page(number,5);
-        model.addAttribute("listtaikhoan",page);
-        model.addAttribute("search",new TaiKhoan());
+        model.addAttribute("listVaiTro", vaiTroService.getAll());
+        Page<TaiKhoan> page = taiKhoanService.getAllNhanVien(number, 5);
+        List<TaiKhoan> listserach = taiKhoanService.getByKeyWord(keyword);
+        model.addAttribute("listtaikhoan", listserach);
+        model.addAttribute("listtaikhoan", page);
         return "nhanvien/nhan-vien";
-
-
     }
 
 //    @GetMapping("/search")
@@ -71,29 +71,51 @@ public class TaiKhoanController {
     public String viewUpdate(@PathVariable UUID id, Model model) {
         TaiKhoan taiKhoan = taiKhoanService.detail(id);
         model.addAttribute("nhanvien", taiKhoan);
-        return "nhanvien/update";
+        List<VaiTro> listVaiTro=vaiTroService.getAll();
+        model.addAttribute("listVaiTro",listVaiTro);
+        return "/nhanvien/update";
     }
 
     @PostMapping("/add")
     public String add(@Valid @ModelAttribute("nhanvien") TaiKhoan taiKhoan, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "nhanvien/add";
+            return "/nhanvien/add";
         }
-        VaiTro vaiTro=vaiTroService.getOne(UUID.fromString("24fd329d-0987-4226-95bc-d29653f4eeab"));
-        taiKhoan.setVaiTro(vaiTro);
+        Date date = new Date();
+        taiKhoan.setNgayTao(date);
+        taiKhoan.setNgaySua(date);
         taiKhoanService.add(taiKhoan);
         return "redirect:/nhan-vien/hien-thi";
     }
 
-    @PostMapping("/update/{id}")
-    public String update(@Valid @ModelAttribute("nhanvien") TaiKhoan taiKhoan, BindingResult result, Model model) {
+    @PostMapping("/update")
+    public String update(@Valid @ModelAttribute("nhanvien") TaiKhoan taiKhoan, BindingResult result,Model model) {
         if (result.hasErrors()) {
-            return "nhanvien/update";
+            List<VaiTro> listVaiTro=vaiTroService.getAll();
+            model.addAttribute("listVaiTro",listVaiTro);
+            return "/nhanvien/update";
         }
-        VaiTro vaiTro=vaiTroService.getOne(UUID.fromString("24fd329d-0987-4226-95bc-d29653f4eeab"));
-        taiKhoan.setVaiTro(vaiTro);
         taiKhoanService.update(taiKhoan);
-
         return "redirect:/nhan-vien/hien-thi";
     }
+
+
+    @GetMapping("/serach")
+    public String Serach(TaiKhoan taiKhoan, String keyword, Model model) {
+        if (keyword != null) {
+            List<TaiKhoan> listserach = taiKhoanService.getByKeyWord(keyword);
+            model.addAttribute("listtaikhoan", listserach);
+            return "/nhanvien/nhan-vien";
+
+        }
+        return "redirect:/nhan-vien/hien-thi";
+    }
+
+    @GetMapping("/fiter-trangthai")
+    public String getFilteredtrangThai(@RequestParam(name = "trangThai") Integer trangthai, Model model) {
+        List<TaiKhoan> taiKhoans = taiKhoanService.getTrangThai(trangthai);
+        model.addAttribute("listtaikhoan", taiKhoans);
+        return "/nhanvien/nhan-vien";
+    }
+
 }

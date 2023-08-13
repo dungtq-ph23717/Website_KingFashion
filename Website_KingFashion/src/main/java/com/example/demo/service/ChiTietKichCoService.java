@@ -19,4 +19,8 @@ public interface ChiTietKichCoService {
     ChiTietKichCo getCTKCById(UUID id);
 
     ChiTietKichCo getByChiTietSanPhamIdAndKichCoId(UUID chiTietSanPhamId, UUID kichCoId);
+
+    List<ChiTietKichCo> findAllByChiTietSanPhamIdHoatDong(UUID ChiTietSanPhamId);
+
+    void updateSoLuongForMultipleSizes(UUID chiTietSanPhamId, List<UUID> kichCoIds, int newSoLuong);
 }

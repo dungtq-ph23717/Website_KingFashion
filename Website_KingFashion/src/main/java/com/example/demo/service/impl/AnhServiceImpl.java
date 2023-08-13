@@ -5,6 +5,7 @@ import com.example.demo.entity.ChiTietSanPham;
 import com.example.demo.repository.AnhRepository;
 import com.example.demo.repository.ChiTietSanPhamRepository;
 import com.example.demo.service.AnhService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -80,4 +82,6 @@ public class AnhServiceImpl implements AnhService {
     public Anh getAnhById(UUID id) {
         return anhRepository.findById(id).orElse(null);
     }
+
+
 }

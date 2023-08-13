@@ -211,8 +211,14 @@ public class ChiTietSanPhamController {
 
     @GetMapping("delete/{id}")
     public String delete(@PathVariable UUID id, Model model, HttpSession session) {
+        ChiTietSanPham chiTietSanPham = chiTietSanPhamService.detail(id);
         session.setAttribute("successMessage", "Xóa thành công!");
-        chiTietSanPhamService.delete(id);
+        if (chiTietSanPham.getTrangThai() == 1) {
+            chiTietSanPham.setTrangThai(0);
+        } else {
+            chiTietSanPham.setTrangThai(1);
+        }
+        chiTietSanPhamService.add(chiTietSanPham);
         return "redirect:/chi-tiet-san-pham/hien-thi";
     }
 
@@ -266,7 +272,7 @@ public class ChiTietSanPhamController {
         chiTietSanPham.setNgaySua(new Date());
         model.addAttribute("att", chiTietSanPham);
 
-        List<ChiTietKichCo> ListCTKCS = chiTietKichCoService.getCTKCByChiTietSanPhamId(chiTietSanPham.getId());
+        List<ChiTietKichCo> ListCTKCS = chiTietKichCoService.findAllByChiTietSanPhamIdHoatDong(chiTietSanPham.getId());
 
         // Tính tổng số lượng kích cỡ
         int totalKichCoQuantity = ListCTKCS.stream().mapToInt(ChiTietKichCo::getSoLuong).sum();
@@ -370,57 +376,87 @@ public class ChiTietSanPhamController {
         return "redirect:/chi-tiet-san-pham/view-update/{id}";
     }
 
-@PostMapping("addCTKC")
-public String addCTKC(@Valid @ModelAttribute("ctkc") ChiTietKichCo chiTietKichCo, BindingResult result,
-                      @RequestParam("id") UUID id,
-                      @RequestParam("kichCoIds") String[] kichCoIds,
-                      @RequestParam("soLuong") int soLuong,
-                      RedirectAttributes redirectAttributes,
-                      Model model) {
+    @PostMapping("addCTKC")
+    public String addCTKC(@Valid @ModelAttribute("ctkc") ChiTietKichCo chiTietKichCo, BindingResult result,
+                          @RequestParam("id") UUID id,
+                          @RequestParam("kichCoIds") String[] kichCoIds,
+                          @RequestParam("soLuong") int soLuong,
+                          RedirectAttributes redirectAttributes,
+                          Model model) {
 
-    ChiTietSanPham chiTietSanPham = chiTietSanPhamService.detail(id);
+        ChiTietSanPham chiTietSanPham = chiTietSanPhamService.detail(id);
 
-    for (String kichCoId : kichCoIds) {
-        UUID kichCoUUID = UUID.fromString(kichCoId);
+        for (String kichCoId : kichCoIds) {
+            UUID kichCoUUID = UUID.fromString(kichCoId);
 
-        // Kiểm tra xem ChiTietKichCo đã tồn tại trong cơ sở dữ liệu chưa
-        ChiTietKichCo existingChiTietKichCo = chiTietKichCoService.getByChiTietSanPhamIdAndKichCoId(id, kichCoUUID);
+            // Kiểm tra xem ChiTietKichCo đã tồn tại trong cơ sở dữ liệu chưa
+            ChiTietKichCo existingChiTietKichCo = chiTietKichCoService.getByChiTietSanPhamIdAndKichCoId(id, kichCoUUID);
 
-        if (existingChiTietKichCo != null) {
-            // Nếu ChiTietKichCo đã tồn tại, cộng dồn số lượng
-            existingChiTietKichCo.setSoLuong(existingChiTietKichCo.getSoLuong() + soLuong);
-            chiTietKichCoService.add(existingChiTietKichCo);
+            if (existingChiTietKichCo != null) {
+                // Nếu ChiTietKichCo đã tồn tại, cộng dồn số lượng
+                existingChiTietKichCo.setSoLuong(existingChiTietKichCo.getSoLuong() + soLuong);
+                chiTietKichCoService.add(existingChiTietKichCo);
 
-//            totalSoLuongCTKC += existingChiTietKichCo.getSoLuong();
-        } else {
-            // Nếu ChiTietKichCo chưa tồn tại, thêm mới ChiTietKichCo
-            KichCo kichCo = new KichCo();
-            kichCo.setId(kichCoUUID);
+            } else {
+                // Nếu ChiTietKichCo chưa tồn tại, thêm mới ChiTietKichCo
+                KichCo kichCo = new KichCo();
+                kichCo.setId(kichCoUUID);
 
-            ChiTietKichCo newChiTietKichCo = new ChiTietKichCo();
-            newChiTietKichCo.setChiTietSanPham(chiTietSanPham);
-            newChiTietKichCo.setKichCo(kichCo);
-            newChiTietKichCo.setTrangThai(1);
-            newChiTietKichCo.setNgayTao(new Date());
-            newChiTietKichCo.setSoLuong(soLuong);
-            chiTietKichCoService.add(newChiTietKichCo);
-//
-//            totalSoLuongCTKC += soLuong;
+                ChiTietKichCo newChiTietKichCo = new ChiTietKichCo();
+                newChiTietKichCo.setChiTietSanPham(chiTietSanPham);
+                newChiTietKichCo.setKichCo(kichCo);
+                newChiTietKichCo.setTrangThai(1);
+                newChiTietKichCo.setNgayTao(new Date());
+                newChiTietKichCo.setSoLuong(soLuong);
+                chiTietKichCoService.add(newChiTietKichCo);
+
+            }
         }
+        List<ChiTietKichCo> ListCTKCS = chiTietKichCoService.findAllByChiTietSanPhamIdHoatDong(chiTietSanPham.getId());
+
+        // Tính tổng số lượng kích cỡ
+        int totalKichCoQuantity = ListCTKCS.stream().mapToInt(ChiTietKichCo::getSoLuong).sum();
+
+        // Set tổng số lượng kích cỡ cho sản phẩm chi tiết
+        chiTietSanPham.setSoLuong(totalKichCoQuantity);
+        chiTietSanPhamService.add(chiTietSanPham);
+
+        //... Tiếp tục các xử lý khác sau khi lưu thành công ...
+
+        redirectAttributes.addAttribute("id", chiTietSanPham.getId());
+        return "redirect:/chi-tiet-san-pham/view-update/{id}";
     }
-    List<ChiTietKichCo> ListCTKCS = chiTietKichCoService.getCTKCByChiTietSanPhamId(chiTietSanPham.getId());
 
-    // Tính tổng số lượng kích cỡ
-    int totalKichCoQuantity = ListCTKCS.stream().mapToInt(ChiTietKichCo::getSoLuong).sum();
 
-    // Set tổng số lượng kích cỡ cho sản phẩm chi tiết
-    chiTietSanPham.setSoLuong(totalKichCoQuantity);
-    chiTietSanPhamService.add(chiTietSanPham);
+    @PostMapping("updateCTKC")
+    public String updateCTKC(@RequestParam("ctkcIds") List<UUID> ctkcIds,
+                             @RequestParam("soLuongs") List<Integer> soLuongs,
+                             @RequestParam("id") UUID id,
+                             RedirectAttributes redirectAttributes,
+                             Model model) {
+        ChiTietSanPham chiTietSanPham = chiTietSanPhamService.detail(id);
+        for (int i = 0; i < ctkcIds.size(); i++) {
+            UUID ctkcId = ctkcIds.get(i);
+            int newQuantity = soLuongs.get(i);
 
-    //... Tiếp tục các xử lý khác sau khi lưu thành công ...
-    redirectAttributes.addAttribute("id", chiTietSanPham.getId());
-    return "redirect:/chi-tiet-san-pham/view-update/{id}";
-}
+            ChiTietKichCo chiTietKichCo = chiTietKichCoService.getCTKCById(ctkcId);
+            chiTietKichCo.setSoLuong(newQuantity);
+
+            // Update the ChiTietKichCo object in the database
+            chiTietKichCoService.add(chiTietKichCo);
+        }
+        List<ChiTietKichCo> ListCTKCS = chiTietKichCoService.findAllByChiTietSanPhamIdHoatDong(chiTietSanPham.getId());
+
+        // Tính tổng số lượng kích cỡ
+        int totalKichCoQuantity = ListCTKCS.stream().mapToInt(ChiTietKichCo::getSoLuong).sum();
+
+        // Set tổng số lượng kích cỡ cho sản phẩm chi tiết
+        chiTietSanPham.setSoLuong(totalKichCoQuantity);
+        chiTietSanPhamService.add(chiTietSanPham);
+
+        redirectAttributes.addAttribute("id", chiTietSanPham.getId());
+        return "redirect:/chi-tiet-san-pham/view-update/{id}";
+    }
 
 
 
@@ -431,9 +467,9 @@ public String addCTKC(@Valid @ModelAttribute("ctkc") ChiTietKichCo chiTietKichCo
                            HttpSession session) {
         ChiTietKichCo chiTietKichCo = chiTietKichCoService.getCTKCById(id);
         session.setAttribute("successMessage", "Xóa thành công!");
-        if (chiTietKichCo.getTrangThai() == 1){
+        if (chiTietKichCo.getTrangThai() == 1) {
             chiTietKichCo.setTrangThai(0);
-        }else {
+        } else {
             chiTietKichCo.setTrangThai(1);
         }
         chiTietKichCoService.add(chiTietKichCo);
@@ -525,5 +561,7 @@ public String addCTKC(@Valid @ModelAttribute("ctkc") ChiTietKichCo chiTietKichCo
             return outputStream.toByteArray();
         }
     }
+
+
 
 }
