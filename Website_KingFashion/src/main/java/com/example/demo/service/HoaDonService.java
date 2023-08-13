@@ -21,5 +21,8 @@ public interface HoaDonService {
 
     void add(HoaDon hoaDon);
 
-    Page<HoaDon> searchHD(String ma, String tenNguoiNhan, Integer trangThai, Date ngayThanhToan, Double tongTienSauKhiGiam, Date ngayShip, Date ngayDuKienNhan, Integer page, Integer size);
+    Page<HoaDon> searchHD(String ma, String tenNguoiNhan,
+                          Double tongTienSauKhiGiam,
+                          Integer trangThai,Date ngayTao,
+                          Integer loaiDon, Integer page, Integer size,Integer xapXep);
 }

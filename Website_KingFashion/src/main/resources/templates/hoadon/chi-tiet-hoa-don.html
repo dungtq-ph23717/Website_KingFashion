@@ -195,14 +195,9 @@
                     <div class="col-12">
                         <div class="page-title-box">
                             <div class="page-title-center">
-                                <a th:href="@{/hoa-don/hien-thi}">
-                                    <i class="fa-solid fa-person-walking-arrow-loop-left
-                                 fa-shake fa-xl"></i></a>
-
                                 <h1 class="page-title" style="text-align: center; font-size: 200%">Quản Lý Đơn Hàng</h1>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <!-- end page title -->
@@ -214,6 +209,13 @@
                                 <div class="card-box" style="display: flex;justify-content:center ">
                                     <div class="col-xl-12">
                                         <div class="dataTables_filter">
+                                            <div>
+                                                <a style="display: flex;justify-content: start;text-decoration: none;" data-toggle="tooltip" data-placement="left"
+                                                   title="Trở về" th:href="@{/hoa-don/hien-thi}">
+                                                    <i class="fa-solid fa-person-walking-arrow-loop-left
+                                 fa-shake fa-xl"></i></a>
+                                            </div>
+
 
 
                                         </div>
@@ -232,13 +234,19 @@
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-6">
-                                                <h3>Thông Tin Đơn Hàng</h3>
+                                                <h3 style="font-weight: bold;color: brown;">Thông Tin Đơn Hàng</h3>
                                             </div>
                                             <div class="col-6" style="display: flex; justify-content: end">
-                                                <button type="submit"
-                                                        class="custom-button btn btn-dark"
-                                                        data-toggle="modal" data-target="#myModal">
-                                                    <span>Cập Nhật</span>
+                                                <button data-toggle="modal" data-target="#myModal" height="24px"
+                                                        style="background:black;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                        type="submit" class="btn btn-labeled shadow-button">
+                                                            <span style="margin-bottom: 3px;color: white;"
+                                                                  class="btn-icon"><i class="fa-regular fa-pen-to-square fa-beat fa-lg"></i>
+                                                            </span>
+                                                    <span style="margin-bottom: 3px;color: white;"
+                                                          class="separator">|</span>
+                                                    <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold";
+                                                          class="btn-text">Cập Nhật</span>
                                                 </button>
                                             </div>
                                             <form th:object="${listHD}"
@@ -335,8 +343,16 @@
 
 
                                                                         <div class="text-center">
-                                                                            <button class="btn btn-success"
-                                                                                    type="submit">Cập Nhật
+                                                                            <button height="24px"
+                                                                                    style="background:black;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                                    type="submit" class="btn btn-labeled shadow-button">
+                                                            <span style="margin-bottom: 3px;color: white;"
+                                                                  class="btn-icon"><i class="fa-regular fa-pen-to-square fa-beat fa-lg"></i>
+                                                            </span>
+                                                                                <span style="margin-bottom: 3px;color: white;"
+                                                                                      class="separator">|</span>
+                                                                                <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold";
+                                                                                      class="btn-text">Cập Nhật</span>
                                                                             </button>
                                                                         </div>
                                                                     </div>
@@ -358,7 +374,7 @@
                                         <hr>
 
 
-                                        <div class="row">
+                                        <div style="display:flex;justify-content: space-around;justify-items: center;" class="row">
                                             <div class="col-12">
 
                                                 <!--                                            <section class="navbar-expand-lg navbar-light bg-light">-->
@@ -367,10 +383,10 @@
                                                     <div class="row col-12">
                                                         <div class="col-6 row">
                                                             <div class="col-3">
-                                                                <span style="display: inline-block; width: 100px;">Trạng Thái: </span>
+                                                                <span style="display: inline-block; width: 100px;font-size: 15px;font-weight: bold;">Trạng Thái: </span>
                                                             </div>
 
-                                                            <div style="display: inline-block; width: 300px;"
+                                                            <div style="display: inline-block; width: 300px;font-size: 15px;"
                                                                  class="col-3">
                                                             <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                   th:if="${hd.trangThai == 1}"
@@ -386,11 +402,11 @@
 
                                                         <div class="col-6 row">
                                                             <div class="col-3">
-                                                                <span style="display: inline-block; width: 100px;">Họ Và Tên: </span>
+                                                                <span style="display: inline-block; width: 100px;font-size: 15px;font-weight: bold;">Họ Và Tên: </span>
                                                             </div>
 
                                                             <div class="col-3">
-                                                                    <span style="display: inline-block; width: 300px;"
+                                                                    <span style="display: inline-block; width: 300px;font-size: 15px;"
                                                                           th:text="${hd.nguoiNhan}"></span>
                                                             </div>
                                                         </div>
@@ -400,10 +416,10 @@
                                                     <div class="row col-12">
                                                         <div class="col-6 row">
                                                             <div class="col-3">
-                                                                <span style="display: inline-block; width: 100px;">Loại: </span>
+                                                                <span style="display: inline-block; width: 100px;font-size: 15px;font-weight: bold;">Loại: </span>
                                                             </div>
 
-                                                            <div style="display: inline-block; width: 300px;"
+                                                            <div style="display: inline-block; width: 300px;font-size: 15px;"
                                                                  class="col-3">
                                                             <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                   th:if="${hd.loaiDon == 0}"
@@ -416,11 +432,11 @@
 
                                                         <div class="col-6 row">
                                                             <div class="col-3">
-                                                                <span style="display: inline-block; width: 100px;">Số điện thoại: </span>
+                                                                <span style="display: inline-block; width: 100px;font-size: 15px;font-weight: bold;">Số điện thoại: </span>
                                                             </div>
 
                                                             <div class="col-3">
-                                                                    <span style="display: inline-block; width: 300px;"
+                                                                    <span style="display: inline-block; width: 300px;font-size: 15px;"
                                                                           th:text="${hd.soDienThoai}"></span>
                                                             </div>
                                                         </div>
@@ -429,22 +445,22 @@
                                                     <div class="row col-12">
                                                         <div class="col-6 row">
                                                             <div class="col-3">
-                                                                <span style="display: inline-block; width: 100px;">Mã Đơn: </span>
+                                                                <span style="display: inline-block; width: 100px;font-size: 15px;font-weight: bold";>Mã Đơn: </span>
                                                             </div>
 
                                                             <div class="col-3">
-                                                                    <span style="display: inline-block; width: 300px;"
+                                                                    <span style="display: inline-block; width: 300px;font-size: 15px;"
                                                                           th:text="${hd.maHoaDon}"></span>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-6 row">
                                                             <div style="float: left;" class="col-3">
-                                                                <span style="display: inline-block; width: 100px;">Địa chỉ: </span>
+                                                                <span style="display: inline-block; width: 100px;font-size: 15px;font-weight: bold";>Địa chỉ: </span>
                                                             </div>
 
                                                             <div style="float: left;" class="col-3">
-                                                                    <span style="display: inline-block; width: 300px;"
+                                                                    <span style="display: inline-block; width: 300px;font-size: 15px;"
                                                                           th:text="${hd.diaChi}"></span>
                                                             </div>
                                                         </div>
