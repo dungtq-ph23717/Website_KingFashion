@@ -87,7 +87,7 @@
                                             <div class="col-12 d-none ">
                                                 <label class="form-label">Vai trò</label>
                                                 <select class="form-select" aria-label="Default select example" th:field="*{vaiTro.id}">
-                                                    <option th:each="vaiTro : ${vaiTro}" th:value="${vaiTro.id}" th:text="${vaiTro.tenVaiTro}" th:selected="${vaiTro.tenVaiTro == 'Khách Hàng'}"></option>
+                                                    <option th:each="vaiTro : ${vaiTroList}" th:value="${vaiTro.id}" th:text="${vaiTro.tenVaiTro}" th:selected="${vaiTro.tenVaiTro == 'Khách Hàng'}"></option>
                                                 </select>
                                                 <span th:errors="*{vaiTro}"></span>
                                             </div>

@@ -33,6 +33,8 @@ public class TaiKhoanController1 {
     public String hienThi(Model model, @RequestParam(name = "page", defaultValue = "0") Integer p) {
         Page<TaiKhoan> page = taiKhoanService.page(p, 5);
         model.addAttribute("list", page);
+        List<VaiTro> vaiTros = vaiTroService.getAll();
+        model.addAttribute("vaiTro", vaiTros);
         model.addAttribute("search", new TaiKhoan());
         return "khach-hang/home";
     }
@@ -60,6 +62,8 @@ public class TaiKhoanController1 {
     public String viewUpdate(@PathVariable UUID id, Model model) {
         TaiKhoan taiKhoan = taiKhoanService.detail(id);
         model.addAttribute("khachhang", taiKhoan);
+        List<VaiTro> vaiTros = vaiTroService.getAll();
+        model.addAttribute("vaiTroList", vaiTros);
         return "khach-hang/update";
     }
 
@@ -75,8 +79,6 @@ public class TaiKhoanController1 {
     @PostMapping("/update")
     public String update(@Valid @ModelAttribute("khachhang") TaiKhoan taiKhoan, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            List<VaiTro> vaiTros = vaiTroService.getAll();
-            model.addAttribute("vaiTro", vaiTros);
             return "khach-hang/update";
         }
         taiKhoanService.update(taiKhoan);
