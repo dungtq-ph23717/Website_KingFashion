@@ -37,7 +37,7 @@ public class HoaDonServiceImpl implements HoaDonService {
 
     @Override
     public HoaDon detail(UUID id) {
-        return hoaDonRepository.findById(id).orElse(null);
+        return hoaDonRepository.getHoaDonById(id);
     }
 
     @Override

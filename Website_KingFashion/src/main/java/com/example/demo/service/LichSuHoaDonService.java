@@ -12,5 +12,5 @@ public interface LichSuHoaDonService {
 
     List<LichSuHoaDon> detail(UUID id);
 
-    void  add(LichSuHoaDon lichSuHoaDon);
+    void add(LichSuHoaDon lichSuHoaDon);
 }

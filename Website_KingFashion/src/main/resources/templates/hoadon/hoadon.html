@@ -28,6 +28,32 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <style>
+        .button-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .export-form {
+            margin: 0;
+            padding: 0;
+        }
+
+        .export-button {
+            border: none;
+            background: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .export-button a {
+            text-decoration: none;
+        }
+
+        .export-button img {
+            vertical-align: middle;
+        }
+
         .search-date-input {
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -35,6 +61,7 @@
             font-size: 14px;
             /*Thêm các thuộc tính khác tùy chỉnh kiểu dáng*/
         }
+
         .search-button {
             position: relative;
             overflow: hidden;
@@ -102,6 +129,206 @@
         }
     </style>
 
+    <style>
+        .alert > .start-icon {
+            margin-right: 0;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .alert > .start-icon {
+            margin-right: 5px;
+        }
+
+        .greencross {
+            font-size: 18px;
+            color: #25ff0b;
+            text-shadow: none;
+        }
+
+        .alert-simple.alert-success {
+            border: 1px solid rgba(36, 241, 6, 0.46);
+            background-color: rgba(7, 149, 66, 0.12156862745098039);
+            box-shadow: 0px 0px 2px #259c08;
+            color: #0ad406;
+            text-shadow: 2px 1px #00040a;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .alert-success:hover {
+            background-color: rgba(7, 149, 66, 0.35);
+            transition: 0.5s;
+        }
+
+        .alert-simple.alert-info {
+            border: 1px solid rgba(6, 44, 241, 0.46);
+            background-color: rgba(7, 73, 149, 0.12156862745098039);
+            box-shadow: 0px 0px 2px #0396ff;
+            color: #0396ff;
+            text-shadow: 2px 1px #00040a;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .alert-info:hover {
+            background-color: rgba(7, 73, 149, 0.35);
+            transition: 0.5s;
+        }
+
+        .blue-cross {
+            font-size: 18px;
+            color: #0bd2ff;
+            text-shadow: none;
+        }
+
+        .alert-simple.alert-warning {
+            border: 1px solid rgba(241, 142, 6, 0.81);
+            background-color: rgba(220, 128, 1, 0.16);
+            box-shadow: 0px 0px 2px #ffb103;
+            color: #ffb103;
+            text-shadow: 2px 1px #00040a;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .alert-warning:hover {
+            background-color: rgba(220, 128, 1, 0.33);
+            transition: 0.5s;
+        }
+
+        .warning {
+            font-size: 18px;
+            color: #ffb40b;
+            text-shadow: none;
+        }
+
+        .alert-simple.alert-danger {
+            border: 1px solid rgba(241, 6, 6, 0.81);
+            background-color: rgba(220, 17, 1, 0.16);
+            box-shadow: 0px 0px 2px #ff0303;
+            color: #ff0303;
+            text-shadow: 2px 1px #00040a;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .alert-danger:hover {
+            background-color: rgba(220, 17, 1, 0.33);
+            transition: 0.5s;
+        }
+
+        .danger {
+            font-size: 18px;
+            color: #ff0303;
+            text-shadow: none;
+        }
+
+        .alert-simple.alert-primary {
+            border: 1px solid rgba(6, 241, 226, 0.81);
+            background-color: rgba(1, 204, 220, 0.16);
+            box-shadow: 0px 0px 2px #03fff5;
+            color: #03d0ff;
+            text-shadow: 2px 1px #00040a;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .alert-primary:hover {
+            background-color: rgba(1, 204, 220, 0.33);
+            transition: 0.5s;
+        }
+
+        .alertprimary {
+            font-size: 18px;
+            color: #03d0ff;
+            text-shadow: none;
+        }
+
+        .square_box {
+            position: absolute;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+            border-top-left-radius: 45px;
+            opacity: 0.302;
+        }
+
+        .square_box.box_three {
+            background-image: -moz-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+            background-image: -webkit-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+            background-image: -ms-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+            opacity: 0.059;
+            left: -80px;
+            top: -60px;
+            width: 500px;
+            height: 500px;
+            border-radius: 45px;
+        }
+
+        .square_box.box_four {
+            background-image: -moz-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+            background-image: -webkit-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+            background-image: -ms-linear-gradient(-90deg, #290a59 0%, #3d57f4 100%);
+            opacity: 0.059;
+            left: 150px;
+            top: -25px;
+            width: 550px;
+            height: 550px;
+            border-radius: 45px;
+        }
+
+        .alert:before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: calc(100% - 44px);
+            border-left: 1px solid;
+            border-right: 2px solid;
+            border-bottom-right-radius: 3px;
+            border-top-right-radius: 3px;
+            left: 0;
+            top: 50%;
+            transform: translate(0, -50%);
+            height: 20px;
+        }
+
+        .fa-times {
+            -webkit-animation: blink-1 2s infinite both;
+            animation: blink-1 2s infinite both;
+        }
+
+
+        /**
+         * ----------------------------------------
+         * animation blink-1
+         * ----------------------------------------
+         */
+        @-webkit-keyframes blink-1 {
+            0%,
+            50%,
+            100% {
+                opacity: 1;
+            }
+            25%,
+            75% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes blink-1 {
+            0%,
+            50%,
+            100% {
+                opacity: 1;
+            }
+            25%,
+            75% {
+                opacity: 0;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
@@ -135,274 +362,321 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box">
-                            <div style="float: left;margin-left: 530px;" class="page-title-center">
+                            <div class="page-title-center">
                                 <h1 class="page-title" style="text-align: center; font-size: 200%">Hóa Đơn </h1>
-                            </div>
 
-                            <div style="width: 20px; height: 20px; float: left; margin-left: 520px; margin-top: 10px;">
-                                <form th:action="@{/hoa-don/export-excel}" method="post">
-                                    <button class="btn btn-labeled shadow-button"
-                                            style="background:#00ff80;border:1px solid black;" type="submit">
-                                        <a th:href="@{/hoa-don/export-excel}">
-                                            <img th:src="@{/static/image/printer.png}" width="25px" height="25px" alt=""
-                                                 srcset="">
-                                        </a>
-                                    </button>
-                                </form>
                             </div>
                         </div>
-
                     </div>
-                </div>
-                <!-- end page title -->
+                    <!-- end page title -->
 
-                <div class="row">
-                    <div class="col-12">
+                    <div class="row">
+                        <div class="col-12">
 
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card-box" style="display: flex;justify-content:center ">
-                                    <div class="col-xl-12">
-                                        <div style="padding:0 95px 0 95px;margin-left: 40px;" class="dataTables_filter">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card-box" style="display: flex;justify-content:center ">
+                                        <div class="col-xl-12">
+                                            <div style="margin-left: 20px;" class="dataTables_filter">
 
-                                            <form th:object="${searchHD}" th:action="@{/hoa-don/search}"
-                                                  id="search-form"
-                                                  class="row form-row justify-content-between">
+                                                <form th:object="${searchHD}" th:action="@{/hoa-don/search}"
+                                                      id="search-form"
+                                                      class="row form-row justify-content-between">
 
-                                                <div class="col-12 row container">
+                                                    <div class="col-12 row container">
 
-                                                    <div class=" col-3">
-                                                        <label class="form-label">Mã:</label>
-                                                        <input style="width:175px;height:25px;" type="search" class="form-control" th:field="*{maHoaDon}"
-                                                               name="maHoaDon">
-                                                    </div>
-
-                                                    <div class=" col-3">
-                                                        <label class="form-label">Tên người nhận:</label>
-                                                        <input style="width:175px;height:25px;" type="search" class="form-control"
-                                                               th:field="*{tenNguoiNhan}">
-                                                    </div>
-
-                                                    <div class="col-3">
-                                                        <label class="form-label d-block">Trạng thái:</label>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" th:field="*{trangThai}"
-                                                                   type="radio" value="0">
-                                                            <label class="form-check-label">Đã hoàn thành</label>
+                                                        <div class=" col-3">
+                                                            <label class="form-label">Mã:</label>
+                                                            <input style="height:25px;" type="search"
+                                                                   class="form-control"
+                                                                   th:field="*{maHoaDon}"
+                                                                   name="maHoaDon">
                                                         </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" th:field="*{trangThai}"
-                                                                   type="radio" value="1" checked>
-                                                            <label class="form-check-label">Đang chờ xác nhận</label>
+
+                                                        <div class=" col-3">
+                                                            <label class="form-label">Tên người nhận:</label>
+                                                            <input style="height:25px;" type="search"
+                                                                   class="form-control"
+                                                                   th:field="*{nguoiNhan}">
                                                         </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" th:field="*{trangThai}"
-                                                                   type="radio" value="2" checked>
-                                                            <label class="form-check-label">Đã hủy</label>
+
+                                                        <div class="col-3">
+                                                            <label class="form-label d-block">Trạng thái:</label>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" th:field="*{trangThai}"
+                                                                       type="radio" value="" checked>
+                                                                <label class="form-check-label">Tất Cả</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" th:field="*{trangThai}"
+                                                                       type="radio" value="0">
+                                                                <label class="form-check-label">Đã hoàn thành</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" th:field="*{trangThai}"
+                                                                       type="radio" value="1">
+                                                                <label class="form-check-label">Đang chờ xác nhận</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" th:field="*{trangThai}"
+                                                                       type="radio" value="2">
+                                                                <label class="form-check-label">Đã hủy</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-3">
+                                                            <label class="form-label">Ngày thanh toán:</label>
+                                                            <input style="height:25px;" type="datetime-local"
+                                                                   class="form-control search-date-input"
+                                                                   th:field="*{ngayThanhToan}">
                                                         </div>
                                                     </div>
-
-                                                    <div class="col-3">
-                                                        <label class="form-label">Ngày thanh toán:</label>
-                                                        <input style="width:175px;height:25px;" type="datetime-local" class="form-control search-date-input"
-                                                               th:field="*{ngayThanhToan}">
-                                                    </div>
-                                                </div>
-                                                <br>
+                                                    <br>
 
 
-                                                <div style="margin-top: 20px" class="col-12 row container">
+                                                    <div style="margin-top: 20px" class="col-12 row container">
 
-                                                    <div class=" col-3">
-                                                        <label class="form-label">Tổng tiền sau khi giảm:</label>
-                                                        <input style="width:175px;height:25px;" type="number" class="form-control"
-                                                               min="0" max="9000000" value="0"
-                                                               th:field="*{tongTienSauKhiGiam}">
-                                                    </div>
+                                                        <div class=" col-3">
+                                                            <label class="form-label">Tổng tiền sau khi giảm:</label>
+                                                            <input style="height:25px;" type="number"
+                                                                   class="form-control"
+                                                                   min="0" max="9000000" value="0"
+                                                                   th:field="*{tongTienSauKhiGiam}">
+                                                        </div>
 
-                                                    <div class="col-3">
-                                                        <label class="form-label">Ngày giao hàng:</label>
-                                                        <input style="width:175px;height:25px;" type="datetime-local" class="form-control search-date-input"
-                                                               th:field="*{ngayShip}">
-                                                    </div>
+                                                        <div class="col-3">
+                                                            <label class="form-label">Ngày giao hàng:</label>
+                                                            <input style="height:25px;" type="datetime-local"
+                                                                   class="form-control search-date-input"
+                                                                   th:field="*{ngayShip}">
+                                                            <span th:text="${messDate}"></span>
+<!--                                                            <span class="error" th:errors="*{ngayShip}"></span>-->
+                                                        </div>
 
-                                                    <div class="col-3">
-                                                        <label class="form-label">Ngày nhận dự kiến:</label>
-                                                        <input style="width:175px;height:25px;" type="datetime-local" class="form-control search-date-input"
-                                                               th:field="*{ngayDuKienNhan}">
-                                                    </div>
+                                                        <div class="col-3">
+                                                            <label class="form-label">Ngày nhận dự kiến:</label>
+                                                            <input style="height:25px;" type="datetime-local"
+                                                                   class="form-control search-date-input"
+                                                                   th:field="*{ngayDuKienNhan}">
+                                                        </div>
 
-
-                                                    <div style="margin-left: 33px; margin-top: 30px; height: 25px;"
-                                                         class="col-2">
-                                                        <button height="25px"
-                                                                style="background:blue;border-radius: 40px;border:1px solid black;"
-                                                                type="submit" class="btn btn-labeled shadow-button">
+                                                        <div style=" margin-top: 30px; height: 35px;display: flex;justify-content:left;"
+                                                             class="col-3">
+                                                            <button data-toggle="tooltip"
+                                                                    title="Tìm kiếm" &#xE254; height="24px"
+                                                                    style="background:blue;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                    type="submit" class="btn btn-labeled shadow-button">
                                                             <span style="margin-bottom: 3px;color: white;"
                                                                   class="btn-icon"><i class="fas fa-search"></i></span>
-                                                            <span style="margin-bottom: 3px;color: white;"
-                                                                  class="separator">|</span>
-                                                            <span style="margin-bottom: 3px;color: white;"
-                                                                  class="btn-text">Tìm Kiếm</span>
-                                                        </button>
+                                                                <span style="margin-bottom: 3px;color: white;"
+                                                                      class="separator">|</span>
+                                                                <span style="margin-bottom: 3px;color: white;"
+                                                                      class="btn-text">Tìm Kiếm</span>
+                                                            </button>
+
+                                                        </div>
                                                     </div>
 
-                                                </div>
-                                            </form>
-
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <br>
-                        <!--                        <br>-->
+                            <br>
+                            <!--                        <br>-->
 
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card-box">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-6">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card-box">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+
+                                            </div>
 
                                         </div>
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <section class="navbar-expand-lg navbar-light bg-light">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                    <tr>
-                                                        <td>#STT</td>
-                                                        <td>Mã</td>
-                                                        <td>Người Nhận</td>
-                                                        <td>Ngày Thanh Toán</td>
-                                                        <td>Tổng Tiền Sau Khi Giảm</td>
-                                                        <td>Trạng Thái Của Hóa Đơn</td>
-                                                        <td>Ngày Giao Hàng</td>
-                                                        <td>Ngày Nhận Dự Kiến</td>
-                                                        <td>Hành Động</td>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody style="text-align:center;">
-                                                    <tr th:each="hd,index : ${listHD.content}">
-                                                        <td class="align-middle"
-                                                            th:text="${index.count}"></td>
-                                                        <td class="align-middle"
-                                                            th:text="${hd.maHoaDon}"></td>
-                                                        <td class="align-middle"
-                                                            th:text="${hd.tenNguoiNhan}"></td>
-                                                        <td class="align-middle"
-                                                            th:text="${#dates.format(hd.ngayThanhToan, 'dd/MM/yyyy HH:mm')}"
-                                                        ></td>
-                                                        <td class="align-middle"
-                                                            th:text="${#numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').substring(0, #numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').length()-4)} + ' đ'">
-                                                        </td>
-
-                                                        <td class="align-middle">
-                                                            <span style="width: 170px;" th:if="${hd.trangThai == 1}"
-                                                                  class="btn btn-labeled shadow-button btn btn-info status-pending">Đang chờ xác nhận</span>
-                                                            <span style="width: 170px;" th:if="${hd.trangThai == 2}"
-                                                                  class="btn btn-labeled shadow-button btn btn-danger status-cancelled">Đã hủy</span>
-                                                            <span style="width: 170px;" th:if="${hd.trangThai != 1 && hd.trangThai != 2}"
-                                                                  class="btn btn-labeled shadow-button btn btn-success status-completed">Đã hoàn thành</span>
-                                                        </td>
-
-                                                        <td class="align-middle"
-                                                            th:text="${#dates.format(hd.ngayShip, 'dd/MM/yyyy HH:mm')}">
-                                                        </td>
-
-                                                        <td class="align-middle"
-                                                            th:text="${#dates.format(hd.ngayDuKienNhan, 'dd/MM/yyyy HH:mm')}">
-                                                        </td>
-
-                                                        <td>
-                                                            <a class="view-hoa-don"
-                                                               th:href="@{view-hoa-don/{id}(id=${hd.id})}">
-                                                                <i class="material-icons"
-                                                                   data-toggle="tooltip"
-                                                                   title="Chi Tiết">&#xE254;</i>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="d-flex align-items-end flex-column bd-highlight mb-2" style="display: flex;justify-items: center;" >
+                                                    <form class="export-form"
+                                                          th:action="@{/hoa-don/export-excel}"
+                                                          method="post">
+                                                        <button onclick="return confirm('Bạn chắc chắn muốn in hóa đơn ?')"
+                                                                style="border: 1px solid black; background:greenyellow;border-radius:10px;"
+                                                                data-toggle="tooltip"
+                                                                title="In hóa đơn Excel"
+                                                                class="shadow-button" type="submit">
+                                                            <a style="text-decoration: none;" th:href="@{/hoa-don/export-excel}">
+                                                                <img th:src="@{/static/image/printer.png}"
+                                                                     width="23px" height="23px" alt="">
                                                             </a>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
+                                                            <span class="separator">|</span>
+                                                            <span class="btn-text">In Excel</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+
+                                                <section class="navbar-expand-lg navbar-light bg-light">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr style="text-align: center;">
+                                                            <th>#</th>
+                                                            <th>Mã</th>
+                                                            <th>Người Nhận</th>
+                                                            <th>Ngày Thanh Toán</th>
+                                                            <th>Tổng Tiền Sau Khi Giảm</th>
+                                                            <th>Trạng Thái</th>
+                                                            <th>Ngày Giao Hàng</th>
+                                                            <th>Ngày Nhận Dự Kiến</th>
+                                                            <th>Hành Động</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody style="text-align:center;">
+                                                        <tr th:each="hd,index : ${listHD.content}">
+                                                            <td class="align-middle"
+                                                                th:text="${index.count}"></td>
+                                                            <td class="align-middle"
+                                                                th:text="${hd.maHoaDon}"></td>
+                                                            <td class="align-middle"
+                                                                th:text="${hd.nguoiNhan}"></td>
+                                                            <td class="align-middle"
+                                                                th:text="${#dates.format(hd.ngayThanhToan, 'dd/MM/yyyy HH:mm')}"
+                                                            ></td>
+                                                            <td class="align-middle"
+                                                                th:text="${#numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').substring(0, #numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').length()-4)} + ' đ'">
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.trangThai == 1 || hd.trangThai == null}"
+                                                                      class="btn btn-labeled shadow-button btn btn-info status-pending">Đang chờ xác nhận</span>
+                                                                <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.trangThai == 2 || hd.trangThai == null}"
+                                                                      class="btn btn-labeled shadow-button btn btn-danger status-cancelled">Đã hủy</span>
+                                                                <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.trangThai != 1 && hd.trangThai != 2}"
+                                                                      class="btn btn-labeled shadow-button btn btn-success status-completed">Đã hoàn thành</span>
+                                                            </td>
+
+                                                            <td class="align-middle"
+                                                                th:text="${#dates.format(hd.ngayShip, 'dd/MM/yyyy HH:mm')}">
+                                                            </td>
+
+                                                            <td class="align-middle"
+                                                                th:text="${#dates.format(hd.ngayDuKienNhan, 'dd/MM/yyyy HH:mm')}">
+                                                            </td>
+
+                                                            <td class="align-middle">
+                                                                <div style="display: flex;justify-content: center;"
+                                                                     class="button-group">
+                                                                    <a class="view-hoa-don"
+                                                                       th:href="@{view-hoa-don/{id}(id=${hd.id})}">
+                                                                        <i style="margin-left: 10px"
+                                                                           class="bi bi-pencil-fill"
+                                                                           data-toggle="tooltip" title="Chi Tiết">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                 width="20" height="20"
+                                                                                 fill="currentColor"
+                                                                                 class="bi bi-pencil-fill"
+                                                                                 viewBox="0 0 16 16">
+                                                                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                                                            </svg>
+                                                                        </i>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr th:if="${listHD.content.size() == 0}">
+                                                            <div style="" class="col-sm-12">
+                                                            <td colspan="10" style="text-align: center;pointer-events:none;">
+                                                                <div class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-28 font__weight-light brk-library-rendered rendered show"
+                                                                     role="alert" data-brk-library="component__alert">
+
+                                                                    <div class="start-icon far fa-times-circle faa-pulse animated fa-times">
+                                                                    <strong class="font__weight-semibold " >Không có dữ
+                                                                        liệu !</strong></div>
+                                                                </div>
+                                                            </td>
+                                                            </div>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
 
 
-                                            </section>
-                                        </div> <!-- end container-fluid -->
+                                                </section>
+                                            </div> <!-- end container-fluid -->
 
-                                    </div> <!-- end content -->
+                                        </div> <!-- end content -->
+                                    </div>
+                                </div>
+
+                                <!-- ============================================================== -->
+                                <!-- End Page content -->
+                                <!-- ============================================================== -->
+
+                            </div>
+                            <!-- END wrapper -->
+
+                            <!--&lt;!&ndash; Right Sidebar &ndash;&gt;-->
+                            <!-- Right bar overlay-->
+                            <div class="rightbar-overlay"></div>
+
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12" style="display: flex; justify-content: center">
+                                    <nav style="margin-left: 25px;" aria-label="Page navigation example" class="flex">
+                                        <ul class="pagination">
+                                            <!--                    <li class="page-item" th:classappend="${list.number == 0} ? disabled">-->
+                                            <!--                        <a class="page-link" th:href="@{/vouchers(page=0, size=${list.size})}">First</a>-->
+                                            <!--                    </li>-->
+                                            <li class="page-item"
+                                                th:classappend="${listHD.number == 0} ? disabled">
+                                                <a class="page-link"
+                                                   th:href="@{/hoa-don/hien-thi(page=${listHD.number - 1})}">
+                                                    <<<
+                                                </a>
+                                            </li>
+                                            <li class="page-item"
+                                                th:each="pageNumber : ${#numbers.sequence(0, listHD.totalPages - 1)}">
+                                                <a class="page-link"
+                                                   th:href="@{/hoa-don/hien-thi(page=${pageNumber})}"
+                                                   th:text="${pageNumber + 1}"
+                                                   th:classappend="${pageNumber == listHD.number} ? active">
+                                                </a>
+                                            </li>
+                                            <li class="page-item"
+                                                th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled">
+                                                <a class="page-link"
+                                                   th:href="@{/hoa-don/hien-thi(page=${listHD.number + 1})}">
+                                                    >>>
+                                                </a>
+                                            </li>
+                                            <!--                    <li class="page-item" th:classappend="${list.number == list.totalPages - 1} ? disabled"><a-->
+                                            <!--                            class="page-link" th:href="@{/vouchers(page=${list.totalPages - 1}, size=${list.size})}">Last</a>-->
+                                            <!--                    </li>-->
+                                        </ul>
+                                    </nav>
+
                                 </div>
                             </div>
 
-                            <!-- ============================================================== -->
-                            <!-- End Page content -->
-                            <!-- ============================================================== -->
 
-                        </div>
-                        <!-- END wrapper -->
-
-                        <!--&lt;!&ndash; Right Sidebar &ndash;&gt;-->
-                        <!-- Right bar overlay-->
-                        <div class="rightbar-overlay"></div>
-
-
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12" style="display: flex; justify-content: center">
-                                <nav style="margin-left: 25px;" aria-label="Page navigation example" class="flex">
-                                    <ul class="pagination">
-                                        <!--                    <li class="page-item" th:classappend="${list.number == 0} ? disabled">-->
-                                        <!--                        <a class="page-link" th:href="@{/vouchers(page=0, size=${list.size})}">First</a>-->
-                                        <!--                    </li>-->
-                                        <li class="page-item"
-                                            th:classappend="${listHD.number == 0} ? disabled">
-                                            <a class="page-link"
-                                               th:href="@{/hoa-don/hien-thi(page=${listHD.number - 1})}">
-                                                << Trang trước
-                                            </a>
-                                        </li>
-                                        <li class="page-item"
-                                            th:each="pageNumber : ${#numbers.sequence(0, listHD.totalPages - 1)}">
-                                            <a class="page-link"
-                                               th:href="@{/hoa-don/hien-thi(page=${pageNumber})}"
-                                               th:text="${pageNumber + 1}"
-                                               th:classappend="${pageNumber == listHD.number} ? active">
-                                            </a>
-                                        </li>
-                                        <li class="page-item"
-                                            th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled">
-                                            <a class="page-link"
-                                               th:href="@{/hoa-don/hien-thi(page=${listHD.number + 1})}">
-                                                Trang sau >>
-                                            </a>
-                                        </li>
-                                        <!--                    <li class="page-item" th:classappend="${list.number == list.totalPages - 1} ? disabled"><a-->
-                                        <!--                            class="page-link" th:href="@{/vouchers(page=${list.totalPages - 1}, size=${list.size})}">Last</a>-->
-                                        <!--                    </li>-->
-                                    </ul>
-                                </nav>
-
-                            </div>
+                            <!--<a href="javascript:void(0);" class="right-bar-toggle demos-show-btn">-->
+                            <!--    <i class="mdi mdi-settings-outline mdi-spin"></i> &nbsp;Choose Demos-->
+                            <!--</a>-->
                         </div>
 
-
-                        <!--<a href="javascript:void(0);" class="right-bar-toggle demos-show-btn">-->
-                        <!--    <i class="mdi mdi-settings-outline mdi-spin"></i> &nbsp;Choose Demos-->
-                        <!--</a>-->
                     </div>
 
                 </div>
 
             </div>
-
         </div>
+
+
     </div>
-
-
-</div>
 </div>
 </div>
 </div>
