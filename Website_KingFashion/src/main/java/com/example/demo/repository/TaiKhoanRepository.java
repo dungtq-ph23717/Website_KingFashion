@@ -52,4 +52,6 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, UUID> {
 
     @Query("SELECT t FROM TaiKhoan t JOIN t.vaiTro v WHERE v.tenVaiTro LIKE lower(CONCAT('%', 'Nhân viên', '%'))")
     Page<TaiKhoan> getAllNhanvien1(Pageable pageable);
+    //check ma trung
+    Boolean existsByMaTaiKhoan(String maTaiKhoan);
 }

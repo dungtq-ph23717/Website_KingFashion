@@ -79,8 +79,14 @@ public class TaiKhoanController {
     @PostMapping("/add")
     public String add(@Valid @ModelAttribute("nhanvien") TaiKhoan taiKhoan, BindingResult result, Model model) {
         if (result.hasErrors()) {
+
             return "/nhanvien/add";
         }
+        if(taiKhoanService.existsByMaTaiKhoan(taiKhoan.getMaTaiKhoan())){
+            model.addAttribute("maTaiKhoanError","Mã tài khoản đã tồn tại");
+            return "/nhanvien/add";
+        }
+
         Date date = new Date();
         taiKhoan.setNgayTao(date);
         taiKhoan.setNgaySua(date);

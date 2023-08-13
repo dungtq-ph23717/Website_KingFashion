@@ -31,7 +31,7 @@ public class TaiKhoan {
     private VaiTro vaiTro;
 
     @NotBlank(message = "Không được để trống")
-    @Column(name = "ma")
+    @Column(name = "ma",unique = true)
     private String maTaiKhoan;
 
     @NotBlank(message = "Không được để trống")

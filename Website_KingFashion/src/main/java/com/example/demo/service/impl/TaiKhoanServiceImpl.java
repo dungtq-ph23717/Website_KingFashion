@@ -79,6 +79,11 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
     public List<TaiKhoan> getTrangThai(Integer trangthai) {
         return taiKhoanRepository.findByTrangThai(trangthai);
     }
+
+    @Override
+    public boolean existsByMaTaiKhoan(String maTaiKhoan) {
+        return taiKhoanRepository.existsByMaTaiKhoan(maTaiKhoan);
+    }
 };
 
 

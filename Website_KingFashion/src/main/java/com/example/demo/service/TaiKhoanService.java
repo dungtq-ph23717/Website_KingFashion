@@ -31,4 +31,6 @@ public interface TaiKhoanService {
 
     List<TaiKhoan> getTrangThai(Integer trangthai);
 
+    boolean existsByMaTaiKhoan(String maTaiKhoan);
+
 }

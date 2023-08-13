@@ -70,6 +70,10 @@ public class TaiKhoanController1 {
         if (result.hasErrors()) {
             return "khach-hang/add";
         }
+        if(taiKhoanService.existsByMaTaiKhoan(taiKhoan.getMaTaiKhoan())){
+            model.addAttribute("maTaiKhoanError","Mã tài khoản đã tồn tại");
+            return "/khach-hang/add";
+        }
         taiKhoanService.add(taiKhoan);
         return "redirect:/khach-hang/hien-thi";
     }

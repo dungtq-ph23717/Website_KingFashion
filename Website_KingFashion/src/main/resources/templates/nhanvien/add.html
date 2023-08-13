@@ -60,6 +60,7 @@
                                                 <label class="form-label">Mã</label>
                                                 <input type="text" class="form-control" th:field="*{maTaiKhoan}">
                                                 <span th:errors="*{maTaiKhoan}" css style="color:red;"></span>
+                                                <span th:if="${maTaiKhoanError}" th:text="${maTaiKhoanError}" class="text-danger"></span>
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label">Tên</label>
@@ -84,11 +85,12 @@
                                             <div class="col-12">
                                                 <label class="form-label">Ngày sinh</label>
                                                 <input type="date" class="form-control" th:field="*{ngaySinh}">
-                                                <span th:errors="*{ngaySinh}" css style="color:red;" ></span>
+                                                <span th:errors="*{ngaySinh}" css style="color:red;"></span>
                                             </div>
                                             <div class="col-12 d-none">
                                                 <label class="form-label">Vai trò</label>
-                                                <select class="form-select" aria-label="Default select example" th:field="*{vaiTro.tenVaiTro}">
+                                                <select class="form-select" aria-label="Default select example"
+                                                        th:field="*{vaiTro.tenVaiTro}">
                                                     <option value="Nhân viên">Nhân Viên</option>
                                                 </select>
                                                 <span th:errors="*{vaiTro}"></span>
