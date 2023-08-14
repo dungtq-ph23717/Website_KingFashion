@@ -4,6 +4,8 @@ import com.example.demo.entity.HoaDon;
 
 import com.example.demo.entity.Voucher;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.Date;
 import java.util.List;
@@ -21,8 +23,6 @@ public interface HoaDonService {
 
     void add(HoaDon hoaDon);
 
-    Page<HoaDon> searchHD(String ma, String tenNguoiNhan,
-                          Double tongTienSauKhiGiam,
-                          Integer trangThai,Date ngayTao,
-                          Integer loaiDon, Integer page, Integer size,Integer xapXep);
+    Page<HoaDon> searchHD(String maHoaDon, String nguoiNhan, Double tongTienSauKhiGiam, Integer trangThai,
+                          Date ngayTao, Integer loaiDon, Pageable pageable);
 }

@@ -3,17 +3,19 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.HoaDon;
 import com.example.demo.repository.HoaDonRepository;
 import com.example.demo.service.HoaDonService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 public class HoaDonServiceImpl implements HoaDonService {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     private HoaDonRepository hoaDonRepository;
@@ -45,14 +47,11 @@ public class HoaDonServiceImpl implements HoaDonService {
     }
 
     @Override
-    public Page<HoaDon> searchHD(String maHoaDon, String nguoiNhan, Double tongTienSauKhiGiam,
-                                 Integer trangThai, Date ngayTao,
-                                 Integer loaiDon, Integer page, Integer size,
-                                 Integer xapXep) {
+    public Page<HoaDon> searchHD(String maHoaDon, String tenNguoiNhan, Double tongTienSauKhiGiam, Integer trangThai,
+                                 Date ngayTao, Integer loaiDon, Pageable pageable) {
+        Page<HoaDon> result = hoaDonRepository.searchHD(maHoaDon,tenNguoiNhan,tongTienSauKhiGiam,trangThai,ngayTao,loaiDon,pageable);
 
-        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, "ngayTao");
-
-        return hoaDonRepository.searchHD(maHoaDon, nguoiNhan, tongTienSauKhiGiam,
-                trangThai, ngayTao, loaiDon, pageable);
+        System.out.println(result);
+        return result;
     }
 }
