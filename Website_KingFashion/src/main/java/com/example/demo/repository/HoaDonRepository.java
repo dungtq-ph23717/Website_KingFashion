@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -17,17 +18,16 @@ public interface HoaDonRepository  extends JpaRepository<HoaDon, UUID> {
     HoaDon getHoaDonById(UUID id);
 
     @Query("SELECT h FROM HoaDon h " +
-            "WHERE (:maHoaDon is null OR h.maHoaDon LIKE lower(CONCAT('%', :maHoaDon, '%')))\n" +
-            "  AND (:nguoiNhan is null OR h.nguoiNhan LIKE lower(CONCAT('%', :nguoiNhan, '%')))\n" +
-            "  AND (:trangThai is NULL OR h.trangThai = :trangThai)\n" +
-            "  AND (:ngayThanhToan IS NULL OR h.ngayThanhToan <= :ngayThanhToan)\n" +
-            "  AND (:tongTienSauKhiGiam is null OR h.tongTienSauKhiGiam = :tongTienSauKhiGiam)\n" +
-            "  AND (:ngayShip IS NULL OR h.ngayShip >= :ngayShip)\n" +
-            "  AND (:ngayDuKienNhan IS NULL OR h.ngayDuKienNhan <= :ngayDuKienNhan)\n")
+            "WHERE (:maHoaDon IS NULL OR h.maHoaDon LIKE CONCAT('%', :maHoaDon, '%')) " +
+            "AND (:nguoiNhan IS NULL OR h.nguoiNhan LIKE CONCAT('%', :nguoiNhan, '%')) " +
+            "AND (:tongTienSauKhiGiam IS NULL OR h.tongTienSauKhiGiam = :tongTienSauKhiGiam) " +
+            "AND (:trangThai IS NULL OR h.trangThai = :trangThai) " +
+            "AND (:ngayTao IS NULL OR h.ngayTao <= :ngayTao) " +
+            "AND (:loaiDon IS NULL OR h.loaiDon = :loaiDon)")
     Page<HoaDon> searchHD(@Param("maHoaDon") String maHoaDon, @Param("nguoiNhan") String tenNguoiNhan,
-                         @Param("trangThai") Integer trangThai, @Param("ngayThanhToan") Date ngayThanhToan,
                          @Param("tongTienSauKhiGiam") Double tongTienSauKhiGiam,
-                         @Param("ngayShip") Date ngayShip,@Param("ngayDuKienNhan") Date ngayDuKienNhan,
+                          @Param("trangThai") Integer trangThai,@Param("ngayTao") Date ngayTao,
+                          @Param("loaiDon") Integer loaiDon,
                           Pageable pageable);
 
 }

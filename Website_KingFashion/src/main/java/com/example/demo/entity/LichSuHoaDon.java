@@ -35,7 +35,8 @@ public class LichSuHoaDon {
 
 
     @Column(name = "ngay_tao")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date ngayTao;
 
 }

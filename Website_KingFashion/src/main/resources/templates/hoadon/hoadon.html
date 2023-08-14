@@ -12,6 +12,8 @@
     <link rel="stylesheet" type="text/css" media="all" th:href="@{../../static/css/style.css}"/>
 
     <!-- App css -->
+    <script src="https://kit.fontawesome.com/52ef4965e2.js" crossorigin="anonymous"></script>
+
     <!-- Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
           integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
@@ -380,104 +382,134 @@
                                             <div style="margin-left: 20px;" class="dataTables_filter">
 
                                                 <form th:object="${searchHD}" th:action="@{/hoa-don/search}"
-                                                      id="search-form"
                                                       class="row form-row justify-content-between">
 
                                                     <div class="col-12 row container">
 
-                                                        <div class=" col-3">
-                                                            <label class="form-label">Mã:</label>
+                                                        <div class=" col-2">
+                                                            <label style="font-size: 13px;font-weight: bold;" class="form-label">Mã:</label>
                                                             <input style="height:25px;" type="search"
-                                                                   class="form-control"
+                                                                   class="form-control form-control-sm"
                                                                    th:field="*{maHoaDon}"
                                                                    name="maHoaDon">
                                                         </div>
 
-                                                        <div class=" col-3">
-                                                            <label class="form-label">Tên người nhận:</label>
+                                                        <div class=" col-2">
+                                                            <label style="font-size: 13px;font-weight: bold;" class="form-label">Tên khách hàng:</label>
                                                             <input style="height:25px;" type="search"
-                                                                   class="form-control"
-                                                                   th:field="*{nguoiNhan}">
+                                                                   class="form-control form-control-sm"
+                                                                   th:field="*{nguoiNhan}"
+                                                                   name="nguoiNhan">
                                                         </div>
 
-                                                        <div class="col-3">
-                                                            <label class="form-label d-block">Trạng thái:</label>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" th:field="*{trangThai}"
-                                                                       type="radio" value="" checked>
-                                                                <label class="form-check-label">Tất Cả</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" th:field="*{trangThai}"
-                                                                       type="radio" value="0">
-                                                                <label class="form-check-label">Đã hoàn thành</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" th:field="*{trangThai}"
-                                                                       type="radio" value="1">
-                                                                <label class="form-check-label">Đang chờ xác nhận</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" th:field="*{trangThai}"
-                                                                       type="radio" value="2">
-                                                                <label class="form-check-label">Đã hủy</label>
-                                                            </div>
+                                                        <div class=" col-2">
+                                                            <label style="font-size: 13px;font-weight: bold;" class="form-label">Tổng tiền:</label>
+                                                            <input style="height:25px;" type="number"
+                                                                   class="form-control form-control-sm"
+                                                                   min="0" max="9000000" value="0"
+                                                                   th:field="*{tongTienSauKhiGiam}"
+                                                                   name="tongTienSauKhiGiam">
                                                         </div>
 
-                                                        <div class="col-3">
-                                                            <label class="form-label">Ngày thanh toán:</label>
-                                                            <input style="height:25px;" type="datetime-local"
-                                                                   class="form-control search-date-input"
-                                                                   th:field="*{ngayThanhToan}">
+                                                        <div class="col-2">
+                                                            <label style="font-size: 13px;font-weight: bold;" class="form-label d-block">Trạng thái:</label>
+                                                            <select style="font-size: 14px;" class="form-select form-select-sm" th:field="*{trangThai}" name="trangThai">
+                                                                <option value="">Tất Cả</option>
+                                                                <option value="0">Đã hoàn thành</option>
+                                                                <option value="1">Đang chờ xác nhận</option>
+                                                                <option value="2">Đã hủy</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-2">
+                                                            <label style="font-size: 13px;font-weight: bold;" class="form-label">Ngày tạo đơn:</label>
+                                                            <input type="datetime-local"
+                                                                   class="form-control form-control-sm search-date-input"
+                                                                   th:field="*{ngayTao}">
+                                                        </div>
+
+                                                        <div class="col-2">
+                                                            <label style="font-size: 13px;font-weight: bold;" class="form-label d-block">Loại đơn:</label>
+                                                            <select style="font-size: 14px;" class="form-select form-select-sm" th:field="*{loaiDon}">
+                                                                <option value="">Tất Cả</option>
+                                                                <option value="0">Tại quầy</option>
+                                                                <option value="1">Đặt hàng online</option>
+                                                            </select>
                                                         </div>
                                                     </div>
+
                                                     <br>
+                                                    <br>
+                                                    <div class="col-12 row container" style="display: flex;justify-content: center;">
 
-
-                                                    <div style="margin-top: 20px" class="col-12 row container">
-
-                                                        <div class=" col-3">
-                                                            <label class="form-label">Tổng tiền sau khi giảm:</label>
-                                                            <input style="height:25px;" type="number"
-                                                                   class="form-control"
-                                                                   min="0" max="9000000" value="0"
-                                                                   th:field="*{tongTienSauKhiGiam}">
-                                                        </div>
 
                                                         <div class="col-3">
-                                                            <label class="form-label">Ngày giao hàng:</label>
-                                                            <input style="height:25px;" type="datetime-local"
-                                                                   class="form-control search-date-input"
-                                                                   th:field="*{ngayShip}">
-                                                            <span th:text="${messDate}"></span>
-<!--                                                            <span class="error" th:errors="*{ngayShip}"></span>-->
+                                                            <div style="float: right">
+                                                                <label style="font-size: 13px;font-weight: bold;">Sắp xếp: </label>
+                                                                <select style="font-size: 14px;" class="form-select form-select-sm" name="xapXep" id="xapXep">
+                                                                    <option value="">Mặc định</option>
+                                                                    <option value="1">Mới nhất</option>
+                                                                    <option value="2">Cũ nhất</option>
+                                                                    <option value="3">Giá cao nhất</option>
+                                                                    <option value="4">Giá thấp nhất</option>
+                                                                    <option value="5">Từ (A-Z)</option>
+                                                                    <option value="6">Từ (Z-A)</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
 
-                                                        <div class="col-3">
-                                                            <label class="form-label">Ngày nhận dự kiến:</label>
-                                                            <input style="height:25px;" type="datetime-local"
-                                                                   class="form-control search-date-input"
-                                                                   th:field="*{ngayDuKienNhan}">
-                                                        </div>
 
-                                                        <div style=" margin-top: 30px; height: 35px;display: flex;justify-content:left;"
-                                                             class="col-3">
+                                                        <div style=" margin-top: 30px; height: 35px;display: flex;justify-content:center;" class="col-3">
                                                             <button data-toggle="tooltip"
-                                                                    title="Tìm kiếm" &#xE254; height="24px"
+                                                                    title="Tìm kiếm" &#xE254; height="22px"
                                                                     style="background:blue;border-radius: 50px;border:1px solid black;justify-items: center;"
                                                                     type="submit" class="btn btn-labeled shadow-button">
                                                             <span style="margin-bottom: 3px;color: white;"
                                                                   class="btn-icon"><i class="fas fa-search"></i></span>
                                                                 <span style="margin-bottom: 3px;color: white;"
                                                                       class="separator">|</span>
-                                                                <span style="margin-bottom: 3px;color: white;"
+                                                                <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold";
                                                                       class="btn-text">Tìm Kiếm</span>
                                                             </button>
 
                                                         </div>
-                                                    </div>
 
+                                                    </div>
                                                 </form>
+                                                <div style=" margin-top: 30px; height: 35px;display: flex;justify-content: space-between;" class="col-12">
+                                                    <a th:href="@{/hoa-don/view-add}">
+                                                        <button data-toggle="tooltip"
+                                                                title="Tạo hóa đơn" &#xE254; height="24px"
+                                                                style="background:black;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                type="submit" class="btn btn-labeled shadow-button">
+                                                            <span style="margin-bottom: 3px;color: white;"
+                                                                  class="btn-icon"><i class="fa-regular fa-square-plus fa-beat fa-lg"></i></span>
+                                                            <span style="margin-bottom: 3px;color: white;"
+                                                                  class="separator">|</span>
+                                                            <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold";
+                                                                  class="btn-text">Tạo hóa đơn</span>
+                                                        </button>
+                                                    </a>
+
+                                                        <form class="export-form"
+                                                              th:action="@{/hoa-don/export-excel}"
+                                                              method="post">
+                                                            <button onclick="return confirm('Bạn chắc chắn muốn in hóa đơn ?')"
+                                                                    style="border: 1px solid black; background:greenyellow;border-radius:10px;"
+                                                                    data-toggle="tooltip"
+                                                                    title="In hóa đơn Excel"
+                                                                    class="shadow-button" type="submit">
+                                                                <a style="text-decoration: none;"
+                                                                   th:href="@{/hoa-don/export-excel}">
+                                                                    <img th:src="@{/static/image/printer.png}"
+                                                                         width="30px" height="30px" alt="">
+                                                                </a>
+                                                                <span class="separator">|</span>
+                                                                <span style="font-size: 15px;font-weight: bold"; class="btn-text">In Excel</span>
+                                                            </button>
+                                                        </form>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -485,69 +517,53 @@
                             </div>
 
 
-                            <br>
+<!--                            <br>-->
                             <!--                        <br>-->
 
                             <div class="row">
                                 <div class="col-12">
                                     <div class="card-box">
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-6">
-
-                                            </div>
-
-                                        </div>
-                                        <div class="row">
                                             <div class="col-sm-12">
-                                                <div class="d-flex align-items-end flex-column bd-highlight mb-2" style="display: flex;justify-items: center;" >
-                                                    <form class="export-form"
-                                                          th:action="@{/hoa-don/export-excel}"
-                                                          method="post">
-                                                        <button onclick="return confirm('Bạn chắc chắn muốn in hóa đơn ?')"
-                                                                style="border: 1px solid black; background:greenyellow;border-radius:10px;"
-                                                                data-toggle="tooltip"
-                                                                title="In hóa đơn Excel"
-                                                                class="shadow-button" type="submit">
-                                                            <a style="text-decoration: none;" th:href="@{/hoa-don/export-excel}">
-                                                                <img th:src="@{/static/image/printer.png}"
-                                                                     width="23px" height="23px" alt="">
-                                                            </a>
-                                                            <span class="separator">|</span>
-                                                            <span class="btn-text">In Excel</span>
-                                                        </button>
-                                                    </form>
-                                                </div>
-
                                                 <section class="navbar-expand-lg navbar-light bg-light">
-                                                    <table class="table table-striped">
+                                                    <table class="table" style="text-align:center;">
                                                         <thead>
                                                         <tr style="text-align: center;">
                                                             <th>#</th>
-                                                            <th>Mã</th>
-                                                            <th>Người Nhận</th>
-                                                            <th>Ngày Thanh Toán</th>
-                                                            <th>Tổng Tiền Sau Khi Giảm</th>
+                                                            <th>Mã Hóa Đơn</th>
+                                                            <th>Tên Khách Hàng</th>
+                                                            <th>Ngày Đặt Hàng</th>
+                                                            <th>Tổng Tiền</th>
+                                                            <th>Loại Đơn</th>
                                                             <th>Trạng Thái</th>
-                                                            <th>Ngày Giao Hàng</th>
-                                                            <th>Ngày Nhận Dự Kiến</th>
                                                             <th>Hành Động</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody style="text-align:center;">
                                                         <tr th:each="hd,index : ${listHD.content}">
-                                                            <td class="align-middle"
+                                                            <td style="font-weight: bold;font-style: italic;" class="align-middle"
                                                                 th:text="${index.count}"></td>
-                                                            <td class="align-middle"
+                                                            <td style="font-size: 14px;font-weight: bold" class="align-middle"
                                                                 th:text="${hd.maHoaDon}"></td>
-                                                            <td class="align-middle"
+                                                            <td style="font-size: 14px;font-weight: bold" class="align-middle"
                                                                 th:text="${hd.nguoiNhan}"></td>
-                                                            <td class="align-middle"
-                                                                th:text="${#dates.format(hd.ngayThanhToan, 'dd/MM/yyyy HH:mm')}"
+                                                            <td style="font-size: 14px;font-weight: bold" class="align-middle"
+                                                                th:text="${#dates.format(hd.ngayTao, 'dd/MM/yyyy HH:mm')}"
                                                             ></td>
-                                                            <td class="align-middle"
+                                                            <td style="font-size: 14px;font-weight: bold" class="align-middle"
                                                                 th:text="${#numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').substring(0, #numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').length()-4)} + ' đ'">
                                                             </td>
-                                                            <td class="align-middle">
+
+                                                            <td style="font-size: 14px;font-weight: bold" class="align-middle">
+                                                                <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.loaiDon == 0 || hd.loaiDon == null}"
+                                                                      class="btn btn-labeled shadow-button btn btn-success status-pending">Tại quầy</span>
+                                                                <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                      th:if="${hd.loaiDon != 0}"
+                                                                      class="btn btn-labeled shadow-button btn btn-warning status-cancelled">Đặt hàng online</span>
+                                                            </td>
+
+                                                            <td style="font-size: 14px;font-weight: bold" class="align-middle">
                                                                 <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 1 || hd.trangThai == null}"
                                                                       class="btn btn-labeled shadow-button btn btn-info status-pending">Đang chờ xác nhận</span>
@@ -559,30 +575,13 @@
                                                                       class="btn btn-labeled shadow-button btn btn-success status-completed">Đã hoàn thành</span>
                                                             </td>
 
-                                                            <td class="align-middle"
-                                                                th:text="${#dates.format(hd.ngayShip, 'dd/MM/yyyy HH:mm')}">
-                                                            </td>
-
-                                                            <td class="align-middle"
-                                                                th:text="${#dates.format(hd.ngayDuKienNhan, 'dd/MM/yyyy HH:mm')}">
-                                                            </td>
-
                                                             <td class="align-middle">
                                                                 <div style="display: flex;justify-content: center;"
                                                                      class="button-group">
                                                                     <a class="view-hoa-don"
-                                                                       th:href="@{view-hoa-don/{id}(id=${hd.id})}">
-                                                                        <i style="margin-left: 10px"
-                                                                           class="bi bi-pencil-fill"
-                                                                           data-toggle="tooltip" title="Chi Tiết">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                 width="20" height="20"
-                                                                                 fill="currentColor"
-                                                                                 class="bi bi-pencil-fill"
-                                                                                 viewBox="0 0 16 16">
-                                                                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-                                                                            </svg>
-                                                                        </i>
+                                                                       th:href="@{view-hoa-don/{id}(id=${hd.id})}"
+                                                                       data-toggle="tooltip" title="Chi Tiết">
+                                                                        <i style="color:#0c5460" class="fa-solid fa-circle-info fa-shake fa-lg"></i>
                                                                     </a>
                                                                 </div>
                                                             </td>
@@ -590,15 +589,16 @@
 
                                                         <tr th:if="${listHD.content.size() == 0}">
                                                             <div style="" class="col-sm-12">
-                                                            <td colspan="10" style="text-align: center;pointer-events:none;">
-                                                                <div class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-28 font__weight-light brk-library-rendered rendered show"
-                                                                     role="alert" data-brk-library="component__alert">
+                                                                <td colspan="10"
+                                                                    style="text-align: center;pointer-events:none;">
+                                                                    <div class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-28 font__weight-light brk-library-rendered rendered show"
+                                                                         role="alert"
+                                                                         data-brk-library="component__alert">
 
-                                                                    <div class="start-icon far fa-times-circle faa-pulse animated fa-times">
-                                                                    <strong class="font__weight-semibold " >Không có dữ
-                                                                        liệu !</strong></div>
-                                                                </div>
-                                                            </td>
+                                                                        <div class="start-icon far fa-times-circle faa-pulse animated fa-times">
+                                                                            <strong style="font-family: Arial" class="font__weight-semibold ">Không có dữ liệu !</strong></div>
+                                                                    </div>
+                                                                </td>
                                                             </div>
                                                         </tr>
                                                         </tbody>
@@ -628,14 +628,14 @@
                                 <div class="col-sm-12 col-md-12" style="display: flex; justify-content: center">
                                     <nav style="margin-left: 25px;" aria-label="Page navigation example" class="flex">
                                         <ul class="pagination">
-                                            <!--                    <li class="page-item" th:classappend="${list.number == 0} ? disabled">-->
-                                            <!--                        <a class="page-link" th:href="@{/vouchers(page=0, size=${list.size})}">First</a>-->
-                                            <!--                    </li>-->
+                                                                <li class="page-item" th:classappend="${listHD.number == 0} ? disabled">
+                                                                    <a class="page-link" th:href="@{/hoa-don/hien-thi(page=0, size=${listHD.size})}">Trang đầu</a>
+                                                                </li>
                                             <li class="page-item"
                                                 th:classappend="${listHD.number == 0} ? disabled">
                                                 <a class="page-link"
                                                    th:href="@{/hoa-don/hien-thi(page=${listHD.number - 1})}">
-                                                    <<<
+                                                    <i class="fa-solid fa-angles-left fa-lg"></i>
                                                 </a>
                                             </li>
                                             <li class="page-item"
@@ -650,12 +650,12 @@
                                                 th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled">
                                                 <a class="page-link"
                                                    th:href="@{/hoa-don/hien-thi(page=${listHD.number + 1})}">
-                                                    >>>
+                                                    <i class="fa-solid fa-angles-right fa-lg"></i>
                                                 </a>
                                             </li>
-                                            <!--                    <li class="page-item" th:classappend="${list.number == list.totalPages - 1} ? disabled"><a-->
-                                            <!--                            class="page-link" th:href="@{/vouchers(page=${list.totalPages - 1}, size=${list.size})}">Last</a>-->
-                                            <!--                    </li>-->
+                                                                <li class="page-item" th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled"><a
+                                                                        class="page-link" th:href="@{/hoa-don/hien-thi(page=${listHD.totalPages - 1}, size=${listHD.size})}">Trang cuối</a>
+                                                                </li>
                                         </ul>
                                     </nav>
 
@@ -684,10 +684,10 @@
 
 <!-- Footer Start -->
 <footer class="footer">
-    <div class="container-fluid">
+    <div style="text-align:center;" class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                2016 - 2019 &copy; Uplon theme by <a href="">Coderthemes</a>
+                2099 - 2999 &copy; Made by <strong>VietLeonDavincis</strong>  <a style="text-decoration:none;" th:href="@{https://didongviet.vn/dchannel/bing-chilling/}">Bingchiling !</a>
             </div>
         </div>
     </div>
@@ -746,5 +746,6 @@
         }
     });
 </script>
+
 </body>
 </html>

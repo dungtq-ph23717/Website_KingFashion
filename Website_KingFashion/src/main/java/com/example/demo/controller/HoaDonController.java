@@ -18,6 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,9 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/hoa-don")
@@ -71,9 +70,25 @@ public class HoaDonController {
     }
 
     @GetMapping("/search")
-    public String search(Model model, @ModelAttribute("searchHD") HoaDon hoaDon, @RequestParam(name = "page", defaultValue = "0") Integer page, @RequestParam("maHoaDon") String maHoaDon) {
-        Page<HoaDon> listHD = hoaDonService.searchHD(hoaDon.getMaHoaDon(), hoaDon.getNguoiNhan(), hoaDon.getTrangThai(), hoaDon.getNgayThanhToan(),
-                hoaDon.getTongTienSauKhiGiam(), hoaDon.getNgayShip(), hoaDon.getNgayDuKienNhan(), page, 5);
+    public String search(Model model, @ModelAttribute("searchHD") HoaDon hoaDon,
+                         @RequestParam(name = "page", defaultValue = "0") Integer page,
+                         @RequestParam(value = "xapXep", defaultValue = "0") Integer xapXep) {
+        Map<Integer, Sort> sortMapping = new HashMap<>();
+        sortMapping.put(1, Sort.by("ngayTao").descending());
+        sortMapping.put(2, Sort.by("ngayTao").ascending());
+        sortMapping.put(3, Sort.by("tongTienKhiGiam").descending());
+        sortMapping.put(4, Sort.by("tongTienKhiGiam").ascending());
+        sortMapping.put(5, Sort.by("nguoiNhan").descending());
+        sortMapping.put(6, Sort.by("nguoiNhan").ascending());
+        sortMapping.put(0, Sort.by("ngayTao").descending());
+
+        Sort sort = sortMapping.getOrDefault(xapXep, Sort.by("ngayTao").descending());
+
+        Integer sortHD = sort.hashCode();
+
+        Page<HoaDon> listHD = hoaDonService.searchHD(hoaDon.getMaHoaDon(), hoaDon.getNguoiNhan(), hoaDon.getTongTienSauKhiGiam(),
+                hoaDon.getTrangThai(), hoaDon.getNgayTao(), hoaDon.getLoaiDon(), page, 5, sortHD);
+
         model.addAttribute("listHD", listHD);
         return "hoadon/hoadon";
     }

@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class HoaDonServiceImpl implements HoaDonService {
@@ -46,8 +45,14 @@ public class HoaDonServiceImpl implements HoaDonService {
     }
 
     @Override
-    public Page<HoaDon> searchHD(String ma, String tenNguoiNhan, Integer trangThai, Date ngayThanhToan, Double tongTienSauKhiGiam, Date ngayShip, Date ngayDuKienNhan, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return hoaDonRepository.searchHD(ma, tenNguoiNhan, trangThai, ngayThanhToan, tongTienSauKhiGiam, ngayShip, ngayDuKienNhan, pageable);
+    public Page<HoaDon> searchHD(String maHoaDon, String nguoiNhan, Double tongTienSauKhiGiam,
+                                 Integer trangThai, Date ngayTao,
+                                 Integer loaiDon, Integer page, Integer size,
+                                 Integer xapXep) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, "ngayTao");
+
+        return hoaDonRepository.searchHD(maHoaDon, nguoiNhan, tongTienSauKhiGiam,
+                trangThai, ngayTao, loaiDon, pageable);
     }
 }

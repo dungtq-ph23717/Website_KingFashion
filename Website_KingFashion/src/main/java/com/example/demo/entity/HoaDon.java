@@ -43,10 +43,12 @@ public class HoaDon {
 
     @Column(name = "ngay_tao")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date ngayTao;
 
     @Column(name = "ngay_thanh_toan")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date ngayThanhToan;
 
 
