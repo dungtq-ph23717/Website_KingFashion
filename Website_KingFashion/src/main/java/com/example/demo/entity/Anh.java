@@ -53,5 +53,5 @@ public class Anh {
     @Column(name = "ngay_sua")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngaySua;
-    
+
 }

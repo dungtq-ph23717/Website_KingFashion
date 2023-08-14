@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard | Uplon - Responsive Bootstrap 4 Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Responsive bootstrap 4 admin template" name="description">
+    <meta content="Coderthemes" name="author">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../../static/assets\images\favicon.ico">
+
+    <!-- App css -->
+    <link href="../../static/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
+    <link href="../../static/assets/css/icons.min.css" rel="stylesheet" type="text/css">
+    <link href="../../static/assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+<!-- Begin page -->
+<div id="wrapper">
+
+
+    <!-- Topbar Start -->
+    <div class="navbar-custom" th:insert="layout/nav.html :: header">
+
+    </div>
+    <!-- end Topbar -->
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="left-side-menu" th:insert="layout/slidebar.html :: header">
+
+    </div>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-center">
+                                <h1 class="page-title" style="text-align: center; font-size: 200%">Sản Phẩm</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box" style="display: flex;justify-content:center ">
+                            <div class="col-xl-8">
+                                <form>
+                                    <div class="form-inline mt-3" style="display: flex">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light">
+                                            <span class="btn-label"><i class="mdi mdi-search-web"></i></span>
+                                            Tìm Kiếm
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="dataTables_filter" style="padding-top: 17px">
+                                    <form action="" method="get">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light"
+                                                style="float: right; margin-left: 10px">
+                                                        <span class="btn-label"><i class="mdi mdi-plus"></i>
+                                                        </span> Thêm Sản Phẩm
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box">
+                            <!-- Begin table Giỏ hàng -->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="datatable-buttons"
+                                           class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                                           style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                                           role="grid" aria-describedby="datatable-buttons_info">
+                                        <thead class="text-center">
+                                        <tr>
+                                            <th scope="row">Ảnh</th>
+                                            <th>Sản Phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá</th>
+                                            <th>Thao Tác</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="text-center">
+                                            <!--                                        <tr th:each="l, row : ${hdctlist}" class="text-center">-->
+                                            <!--                                            <th scope="row" class="align-middle"-->
+                                            <!--                                                th:text="${row.index + 1}"></th>-->
+                                            <!--                                            <td class="align-middle" th:text="${l.chiTietSanPham.soLuong}"></td>-->
+                                            <!--                                            <td class="align-middle" th:text="${l.giaBan}"></td>-->
+                                            <!--                                            <td class="align-middle" th:text="${l.ngayTao}"></td>-->
+                                            <!--                                            <td class="align-middle" th:if="${l.trangThai == 1}">Hoạt động</td>-->
+                                            <!--                                            <td class="align-middle" th:if="${l.trangThai == 0}">Không hoạt động-->
+                                            <!--                                            </td>-->
+                                            <!--                                            <td class="align-middle">-->
+                                            <!--                                                <a class="edit" th:href="@{view-update/{id}(id=${l.id})}">-->
+                                            <!--                                                    <i class="material-icons" data-toggle="tooltip"-->
+                                            <!--                                                       title="Edit">&#xE254;</i>-->
+                                            <!--                                                </a>-->
+                                            <!--                                                <a th:href="@{delete/{id}(id=${l.id})}" class="delete">-->
+                                            <!--                                                    <i class="material-icons" data-toggle="tooltip"-->
+                                            <!--                                                       title="Delete">&#xE872;</i>-->
+                                            <!--                                                </a>-->
+                                            <!--                                            </td>-->
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <label style="float: right">Tổng Số tiền: </label>
+                                </div>
+                            </div>
+                            <!-- End table Giỏ hàng -->
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box">
+                            <!-- Begin Tài Khoản-->
+                            <div class="row">
+                                <div class="col-sm-12" style="display: flex;border-bottom: 1px solid #495057">
+                                    <h2 style="width: 200px">Tài khoản</h2>
+                                    <form action="" method="get"
+                                          style="width: 500px; text-align: right; margin-left: auto; margin-top: auto; margin-bottom: auto;">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light">
+                                            Chọn Tài Khoản
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <div class="col-sm-12" style="align-content: space-around">
+                                    <h6 style="width: 200px">Tên khách hàng</h6> <br>
+                                    <h6 style="width: 200px">Tên Tài Khoản </h6> <br>
+                                    <h6 style="width: 200px">Email</h6><br>
+                                </div>
+                            </div>
+                            <!-- End Tài Khoản -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Begin Khách Hàng-->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box">
+
+                            <div class="row">
+                                <div class="col-sm-12" style="display: flex;border-bottom: 1px solid #495057">
+                                    <h2 style="width: 200px">Khách hàng</h2>
+                                    <form action="" method="get"
+                                          style="width: 500px; text-align: right; margin-left: auto; margin-top: auto; margin-bottom: auto;">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light">
+                                            Chọn Địa Chỉ
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <div class="col-sm-12" >
+                                    <!--Phần row chia thông tin khách hàng -->
+                                <div class="row">
+                                    <div class="col-7">
+                                    </div>
+                                    <div class="col-5" style="align-content: space-around; display: flex; flex-direction: column; gap: 10px;">
+                                        <label><h4>Thông tin Thanh toán</h4></label>
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="customSwitches">
+                                            <label class="custom-control-label" for="customSwitches">Giao Hàng</label>
+                                        </div>
+                                        <div class="form-inline">
+                                            <input type="text" class="form-control" placeholder="Mã Giảm Giá">
+                                            <button type="submit" class="btn btn-primary">Chọn mã giảm giá</button>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <h6 style="width: 200px">Tiền Hàng</h6>
+                                                <h6 style="width: 200px">Giảm giá </h6>
+                                                <h4 style="width: 200px">Tổng số tiền</h4>
+                                            </div>
+                                        <div class="col-6" style="text-align: right">
+                                            <h6 style="width: 280px">đ</h6>
+                                            <h6 style="width: 280px">đ</h6>
+                                            <h4 style="width: 280px; color: red">đ</h4>
+                                        </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                    <!--End Phần row chia thông tin khách hàng -->
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- End Khách Hàng -->
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- Footer Start -->
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                2016 - 2019 &copy; Uplon theme by <a href="">Coderthemes</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- end Footer -->
+
+
+<div class="rightbar-overlay"></div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Vendor js -->
+<script src="../../static/assets/js/vendor.min.js"></script>
+<!--Morris Chart-->
+<script src="../../static/assets/libs/morris-js/morris.min.js"></script>
+<script src="../../static/assets/libs/raphael/raphael.min.js"></script>
+
+<!-- Dashboard init js-->
+<script src="../../static/assets/js/pages/dashboard.init.js"></script>
+
+<!-- App js -->
+<script src="../../static/assets/js/app.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+</body>
+</html>
