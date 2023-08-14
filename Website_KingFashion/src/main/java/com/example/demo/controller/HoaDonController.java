@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.HoaDon;
-import com.example.demo.entity.LichSuHoaDon;
-import com.example.demo.entity.TaiKhoan;
-import com.example.demo.entity.Voucher;
+import com.example.demo.entity.*;
 import com.example.demo.service.HoaDonChiTietService;
 import com.example.demo.service.HoaDonService;
 import com.example.demo.service.LichSuHoaDonService;
@@ -18,6 +15,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,8 +63,10 @@ public class HoaDonController {
     public String viewHoaDon(@PathVariable UUID id, Model model) {
         HoaDon hoaDon = hoaDonService.detail(id);
         model.addAttribute("listHD", hoaDon);
-        List<LichSuHoaDon> lichSuHoaDon = lichSuHoaDonService.detail(hoaDon.getLichSuHoaDon().getId());
+        List<LichSuHoaDon> lichSuHoaDon =
+                lichSuHoaDonService.detail(hoaDon.getLichSuHoaDon().getId());
         model.addAttribute("listLshd", lichSuHoaDon);
+
         return "hoadon/chi-tiet-hoa-don";
     }
 
@@ -76,18 +77,22 @@ public class HoaDonController {
         Map<Integer, Sort> sortMapping = new HashMap<>();
         sortMapping.put(1, Sort.by("ngayTao").descending());
         sortMapping.put(2, Sort.by("ngayTao").ascending());
-        sortMapping.put(3, Sort.by("tongTienKhiGiam").descending());
-        sortMapping.put(4, Sort.by("tongTienKhiGiam").ascending());
+        sortMapping.put(3, Sort.by("tongTienSauKhiGiam").descending());
+        sortMapping.put(4, Sort.by("tongTienSauKhiGiam").ascending());
         sortMapping.put(5, Sort.by("nguoiNhan").descending());
         sortMapping.put(6, Sort.by("nguoiNhan").ascending());
-        sortMapping.put(0, Sort.by("ngayTao").descending());
+        sortMapping.put(null, Sort.by("ngayTao").descending());
 
         Sort sort = sortMapping.getOrDefault(xapXep, Sort.by("ngayTao").descending());
 
-        Integer sortHD = sort.hashCode();
+        if (page < 0) {
+            page = 0; // Đặt giá trị mặc định là 0 nếu số trang nhỏ hơn 0
+        }
+
+        Pageable pageable = PageRequest.of(page, 5, sort);
 
         Page<HoaDon> listHD = hoaDonService.searchHD(hoaDon.getMaHoaDon(), hoaDon.getNguoiNhan(), hoaDon.getTongTienSauKhiGiam(),
-                hoaDon.getTrangThai(), hoaDon.getNgayTao(), hoaDon.getLoaiDon(), page, 5, sortHD);
+                hoaDon.getTrangThai(), hoaDon.getNgayTao(), hoaDon.getLoaiDon(),pageable);
 
         model.addAttribute("listHD", listHD);
         return "hoadon/hoadon";
