@@ -16,6 +16,7 @@ public class ScheduleVoucher {
     private VoucherRepository voucherRepository;
 
     @Scheduled(cron = "* * 0 * * *")
+
     public void updateVoucherStatus() {
         Date currentDateTime = new Date();
         List<Voucher> expiredVouchers = voucherRepository.findByThoiGianKetThucAfterAndTrangThaiNot(currentDateTime, 0);

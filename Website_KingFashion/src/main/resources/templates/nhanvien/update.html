@@ -86,7 +86,13 @@
                                                 <input type="date" class="form-control" th:field="*{ngaySinh}">
                                                 <span th:errors="*{ngaySinh}"></span>
                                             </div>
-
+                                            <div class="col-12 d-none ">
+                                                <label class="form-label">Vai trò</label>
+                                                <select class="form-select" aria-label="Default select example" th:field="*{vaiTro.id}">
+                                                    <option th:each="vaiTro : ${listVaiTro}" th:value="${vaiTro.id}" th:text="${vaiTro.tenVaiTro}" th:selected="${vaiTro.tenVaiTro == 'Nhân viên'}"></option>
+                                                </select>
+                                                <span th:errors="*{vaiTro}"></span>
+                                            </div>
 <!--                                            <div class="col-12">-->
 <!--                                                <label class="form-label">Vai trò</label>-->
 <!--                                                <select class="form-select" aria-label="Default select example"-->
@@ -121,7 +127,7 @@
                                             </div>
                                             <span th:errors="*{trangThai}"></span>
                                             <div class="col-12">
-                                                <button type="submit" class="btn btn-primary">Add</button>
+                                                <button type="submit" class="btn btn-primary">Update</button>
                                             </div>
                                         </form>
                                     </div>

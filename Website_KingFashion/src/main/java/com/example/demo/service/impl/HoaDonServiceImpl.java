@@ -3,18 +3,19 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.HoaDon;
 import com.example.demo.repository.HoaDonRepository;
 import com.example.demo.service.HoaDonService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class HoaDonServiceImpl implements HoaDonService {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     private HoaDonRepository hoaDonRepository;
@@ -37,7 +38,7 @@ public class HoaDonServiceImpl implements HoaDonService {
 
     @Override
     public HoaDon detail(UUID id) {
-        return hoaDonRepository.findById(id).orElse(null);
+        return hoaDonRepository.getHoaDonById(id);
     }
 
     @Override
@@ -46,8 +47,11 @@ public class HoaDonServiceImpl implements HoaDonService {
     }
 
     @Override
-    public Page<HoaDon> searchHD(String ma, String tenNguoiNhan, Integer trangThai, Date ngayThanhToan, Double tongTienSauKhiGiam, Date ngayShip, Date ngayDuKienNhan, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return hoaDonRepository.searchHD(ma, tenNguoiNhan, trangThai, ngayThanhToan, tongTienSauKhiGiam, ngayShip, ngayDuKienNhan, pageable);
+    public Page<HoaDon> searchHD(String maHoaDon, String tenNguoiNhan, Double tongTienSauKhiGiam, Integer trangThai,
+                                 Date ngayTao, Integer loaiDon, Pageable pageable) {
+        Page<HoaDon> result = hoaDonRepository.searchHD(maHoaDon,tenNguoiNhan,tongTienSauKhiGiam,trangThai,ngayTao,loaiDon,pageable);
+
+        System.out.println(result);
+        return result;
     }
 }

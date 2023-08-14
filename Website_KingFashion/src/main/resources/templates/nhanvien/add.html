@@ -86,15 +86,13 @@
                                                 <input type="date" class="form-control" th:field="*{ngaySinh}">
                                                 <span th:errors="*{ngaySinh}" css style="color:red;" ></span>
                                             </div>
-
-<!--                                            <div class="col-12">-->
-<!--                                                <label class="form-label">Vai trò</label>-->
-<!--                                                <select class="form-select" aria-label="Default select example"-->
-<!--                                                        th:field="*{vaiTro.tenVaiTro}">-->
-<!--                                                <option value="Nhân viên">Nhân viên</option>-->
-<!--                                                </select>-->
-<!--                                                <span th:errors="*{vaiTro}"></span>-->
-<!--                                            </div>-->
+                                            <div class="col-12 d-none">
+                                                <label class="form-label">Vai trò</label>
+                                                <select class="form-select" aria-label="Default select example" th:field="*{vaiTro.tenVaiTro}">
+                                                    <option value="Nhân viên">Nhân Viên</option>
+                                                </select>
+                                                <span th:errors="*{vaiTro}"></span>
+                                            </div>
                                             <div class="col-12">
                                                 <label class="form-label">Mật khẩu</label>
                                                 <input type="text" class="form-control" th:field="*{matKhau}">
@@ -126,7 +124,7 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
+                            </div>tenVaiTr
                         </div>
                         <!-- end row -->
                     </div><!-- end col -->
