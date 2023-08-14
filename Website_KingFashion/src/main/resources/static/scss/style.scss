@@ -4,6 +4,16 @@
 
 $font-primary: 'Poppins',Arial, sans-serif;
 $primary: #f8b739;
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+/* Base */
+@import "site-base";
+/* Navbar */
+@import "site-navbar";
+/* Blocks */
+@import "site-blocks";
 
 body{
 	font-family: $font-primary;
