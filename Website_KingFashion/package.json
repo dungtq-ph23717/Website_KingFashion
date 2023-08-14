@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "bootstrap-input-spinner": "^3.3.3",
-    "jquery": "^3.7.0"
+    "jquery": "^3.7.0",
+    "mdb-ui-kit": "^6.4.1",
+    "mdbootstrap": "^4.20.0"
   }
 }
