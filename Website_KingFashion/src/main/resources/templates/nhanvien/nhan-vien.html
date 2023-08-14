@@ -37,6 +37,7 @@
     <div class="content-page">
         <div class="content">
 
+
             <!-- Start Content-->
             <div class="container-fluid">
 
@@ -50,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-<!--                 end page title -->
+                <!--                 end page title -->
                 <div class="row">
                     <div class="col-12">
 
@@ -60,76 +61,43 @@
                                     <div class="col-xl-12">
                                         <div class="dataTables_filter">
                                             <form action="/nhan-vien/view-add" method="get"
-                                                  style="float: right; margin-top: 20px">
+                                                  style="float: right; ">
                                                 <button type="submit" class="btn btn-success waves-effect waves-light"
                                                         style="float: right;">
                                                         <span class="btn-label"><i class="mdi mdi-plus"></i>
                                                         </span>Tạo Nhân Viên
                                                 </button>
                                             </form>
+
                                         </div>
-                                        <form th:object="${search}" th:action="@{/khach-hang/search}"
-                                              class="row form-row justify-content-between">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="row">
-                                                        <div class="col-2">
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-2 col-form-label">Mã: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" th:field="*{maTaiKhoan}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-2 col-form-label">Tên: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" th:field="*{tenTaiKhoan}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-5 col-form-label">SĐT: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" th:field="*{sdt}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-3">
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-5 col-form-label">Email: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" th:field="*{email}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-5 col-form-label">Địa chỉ: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" class="form-control" th:field="*{diaChi}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4">
-                                                            <div class="row mb-6">
-                                                                <label class="col-sm-5 col-form-label">Ngày sinh: </label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="date" name="" class="form-control" th:field="*{ngaySinh}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-3">
-                                                            <button type="submit" class="btn btn-primary">Lọc</button>
-                                                        </div>
-                                                    </div>
-                                                </div><!-- end col-->
-                                            </div>
+
+                                        <form th:object="${listtaikhoan}" th:action="@{/nhan-vien/serach}" method="get"
+                                              style="float:left">
+                                            <input type="text" name="keyword" th:value="${keyword}"
+                                                   placeholder="tim kiem cac thuoc tính...." size="30">
+                                            <button type="submit" class="btn btn-info"><img
+                                                    src="/static/image/search.svg"></button>
+                                            <button type="submit" class="btn btn-info"><img
+                                                    src="/static/image/arrow-clockwise.svg"></button>
                                         </form>
+                                        <form th:object="${listtaikhoan}" th:action="@{/nhan-vien/fiter-trangthai}"
+                                              method="get" id="trangthai-form"
+                                              style="text-align: center;margin-left:50px">
+
+                                            <label>Trạng Thái </label>
+                                            <label for="trangthai1"><input  id="trangthai1" type="radio" name="trangThai" value="1"
+                                                          th:checked="${trangthai == 1}" checked="true"/>Hoạt
+                                                Động</label>
+                                            <label for="trangthai0"><input   id="trangthai0"  type="radio" name="trangThai" value="0"
+                                                          th:checked="${trangthai == 0}"/>Khôn Hoạt
+                                                Động</label>
+                                        </form>
+
+
                                     </div>
+
                                 </div>
+
                             </div>
                         </div>
 
@@ -153,32 +121,44 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr th:each="nv, row : ${listtaikhoan}">
+                                                <tr th:each="nv, row : ${listtaikhoan}" th:class="${nv.trangThai == 1} ? 'trangthai1' : 'trangthai0'">
                                                     <th scope="row" th:text="${row.index + 1}"></th>
                                                     <td th:text="${nv.maTaiKhoan}"></td>
                                                     <td th:text="${nv.tenTaiKhoan}"></td>
                                                     <td th:text="${nv.sdt}"></td>
                                                     <td th:text="${nv.email}"></td>
                                                     <td th:text="${nv.diaChi}"></td>
-                                                    <td th:text="${nv.ngaySinh}"></td>
+                                                    <td th:text="${#dates.format(nv.ngaySinh,'dd/MM/yyyy')}"></td>
                                                     <td th:if="${nv.trangThai == 1}">Hoạt động</td>
                                                     <td th:if="${nv.trangThai == 0}">Không hoạt động</td>
                                                     <td>
                                                         <a class="edit"
-                                                           th:href="@{view1-update/{id}(id=${nv.id})}"
+                                                           th:href="@{/nhan-vien/view1-update/{id}(id=${nv.id})}"
                                                         ><i
                                                                 class="material-icons"
                                                                 data-toggle="tooltip"
                                                                 title="Edit">&#xE254;</i></a>
-                                                        <a th:href="@{deletenhanvien/{id}(id=${nv.id})}" class="delete"><i
-                                                                class="material-icons"
-                                                                data-toggle="tooltip"
-                                                                title="Delete">&#xE872;</i></a>
                                                     </td>
                                                     </td>
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                            <script>
+                                                const trangThaiForm = document.getElementById('trangthai-form');
+                                                const rows = document.querySelectorAll('tbody tr');
+
+                                                trangThaiForm.addEventListener('change', function () {
+                                                    const selectedTrangThai = document.querySelector('input[name="trangThai"]:checked').value;
+
+                                                    rows.forEach(row => {
+                                                        if (selectedTrangThai === '1') {
+                                                            row.style.display = row.classList.contains('trangthai1') ? 'table-row' : 'none';
+                                                        } else if (selectedTrangThai === '0') {
+                                                            row.style.display = row.classList.contains('trangthai0') ? 'table-row' : 'none';
+                                                        }
+                                                    });
+                                                });
+                                            </script>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -223,7 +203,7 @@
                 <!-- end row -->
 
 
-           </div>
+            </div>
             <!-- end row -->
 
         </div> <!-- end container-fluid -->

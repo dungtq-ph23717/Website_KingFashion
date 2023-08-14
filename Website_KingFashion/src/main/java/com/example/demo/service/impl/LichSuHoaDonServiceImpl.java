@@ -11,10 +11,9 @@ import java.util.UUID;
 
 @Service
 public class LichSuHoaDonServiceImpl  implements LichSuHoaDonService {
-
-
     @Autowired
     private LichSuHoaDonRepository lichSuHoaDonRepository;
+
     @Override
     public List<LichSuHoaDon> getAll() {
         return lichSuHoaDonRepository.findAll();
@@ -22,8 +21,7 @@ public class LichSuHoaDonServiceImpl  implements LichSuHoaDonService {
 
     @Override
     public List<LichSuHoaDon> detail(UUID id) {
-        return lichSuHoaDonRepository.findLichSuHoaDonById(id);
-    }
+        return lichSuHoaDonRepository.findLichSuHoaDonById(id);   }
 
     @Override
     public void add(LichSuHoaDon lichSuHoaDon) {
