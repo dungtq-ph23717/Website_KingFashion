@@ -15,7 +15,7 @@ public class ScheduleVoucher {
     @Autowired
     private VoucherRepository voucherRepository;
 
-    @Scheduled(fixedRate = 3000)
+    @Scheduled(fixedRate = 6000000)
     public void updateVoucherStatus() {
         Date currentDateTime = new Date();
         List<Voucher> expiredVouchers = voucherRepository.findByThoiGianKetThucAfterAndTrangThaiNot(currentDateTime, 0);

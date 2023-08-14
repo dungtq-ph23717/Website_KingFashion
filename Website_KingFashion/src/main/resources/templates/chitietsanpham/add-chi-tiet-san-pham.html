@@ -80,7 +80,7 @@
                                     <form action="/chi-tiet-san-pham/addMauSac" method="post" th:object="${ms1}">
                                         <!-- Các trường nhập liệu của form ở đây -->
                                         <label class="form-label" style="color: black">Tên</label>
-                                        <input type="text" class="form-control" th:field="*{tenMauSac}"/>
+                                        <input type="color" class="form-control" th:field="*{tenMauSac}"/>
                                         <!-- Nút đóng form -->
                                         <button type="submit">Thêm</button>
                                         <button type="button" id="closeDialogButton2">Đóng</button>
@@ -223,7 +223,9 @@
                                                                     th:field="*{mauSac}">
                                                                 <option th:each="mauSac : ${listMauSac}"
                                                                         th:value="${mauSac.id}"
-                                                                        th:text="${mauSac.tenMauSac}"></option>
+                                                                        th:text="${mauSac.tenMauSac}">
+
+                                                                </option>
                                                             </select>
                                                             <a
                                                                     id="openDialogButton2"
