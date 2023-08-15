@@ -52,8 +52,7 @@
                     <div class="col-6 col-md-4 order-3 order-md-3 text-right">
                         <div class="site-top-icons">
                             <ul>
-                                <li class="has-children active"><a href="#"><span class="icon icon-person"></span></a>
-                                </li>
+                                <li><a href="#"><span class="icon icon-person"></span></a></li>
                                 <li><a href="#"><span class="icon icon-heart-o"></span></a></li>
                                 <li>
                                     <a href="cart.html" class="site-cart">
@@ -67,6 +66,7 @@
                             </ul>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -84,95 +84,72 @@
         </nav>
     </header>
 
-    <div class="site-blocks-cover" style="background-image: url(../../static/image/hero_1.jpg);">
+    <div class="bg-light py-3">
         <div class="container">
-            <div class="row align-items-start align-items-md-center justify-content-end">
-                <div class="col-md-5 text-center text-md-left pt-5 pt-md-0">
-                    <h1 class="mb-2">Finding Your Perfect Shoes</h1>
-                    <div class="intro-text text-center text-md-left">
-                        <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis
-                            quam. Integer accumsan tincidunt fringilla. </p>
-                        <p>
-                            <a href="#" class="btn btn-sm btn-primary">Shop Now</a>
-                        </p>
-                    </div>
-                </div>
+            <div class="row">
+                <div class="col-md-12 mb-0">
+                    <a href="/trang-chu">Trang chủ</a>
+                    <span class="mx-2 mb-0">/</span>
+                    <a href="/san-pham">Sản phẩm</a>
+                    <span class="mx-2 mb-0">/</span>
+                    <strong class="text-black" th:text="${ctsp.sanPham.ten}"></strong></div>
             </div>
         </div>
     </div>
 
-    <div class="site-section site-section-sm site-blocks-1">
+    <div class="site-section">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos-delay="">
-                    <div class="icon mr-4 align-self-start">
-                        <span class="icon-truck"></span>
-                    </div>
-                    <div class="text">
-                        <h2 class="text-uppercase">Free Shipping</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer
-                            accumsan tincidunt fringilla.</p>
+                <div class="col-md-1">
+                    <div th:each="l : ${listAnh}">
+                        <img th:src="@{'/chi-tiet-san-pham/display1?id=' + ${l.id}}"
+                             alt="Image" class="img-fluid" style="margin-bottom: 10px"/><br>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos-delay="100">
-                    <div class="icon mr-4 align-self-start">
-                        <span class="icon-refresh2"></span>
-                    </div>
-                    <div class="text">
-                        <h2 class="text-uppercase">Free Returns</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer
-                            accumsan tincidunt fringilla.</p>
-                    </div>
+                <div class="col-md-6">
+                    <img th:src="@{${'/chi-tiet-san-pham/display?id=' + ctsp.id}}"
+                         alt="Image placeholder"
+                         class="img-fluid">
                 </div>
-                <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos-delay="200">
-                    <div class="icon mr-4 align-self-start">
-                        <span class="icon-help"></span>
+                <div class="col-md-5">
+                    <h1 class="text-black" th:text="${ctsp.sanPham.ten}"></h1>
+                    <p th:text="${ctsp.sanPham.moTa}"></p>
+                    <p><strong class="text-primary h4"
+                               th:text="${#numbers.formatDecimal(ctsp.giaBan, 0, 'COMMA', 3, 'POINT').substring(0, #numbers.formatDecimal(ctsp.giaBan, 0, 'COMMA', 3, 'POINT').length() - 4)} + ' đ'"></strong>
+                    </p>
+                    <div class="mb-1 d-flex">
+                        <label class="form-label" style="color: black; font-size: 20px">Kích cỡ</label>
                     </div>
-                    <div class="text">
-                        <h2 class="text-uppercase">Customer Support</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer
-                            accumsan tincidunt fringilla.</p>
+                    <div class="mb-1 d-flex">
+                        <div th:each="l : ${listKichCo}">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="kichCo"
+                                       value="option1">
+                                <label class="form-check-label" th:text="${l.ten}" style="color: black"></label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                    <div class="mb-1 d-flex">
+                        <label class="form-label" style="color: black; font-size: 20px">Màu Sắc</label>
+                    </div>
+                    <div class="mb-1 d-flex">
+                        <div th:each="l : ${listMauSac}">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="mauSac"
+                                       value="option1">
+                                <label class="form-check-label" th:text="${l.tenMauSac}" style="color: black"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <div class="container group">
+                            <button id="decrement" onclick="stepper(this)"> - </button>
+                            <input type="number" min="0" max="100" step="1" value="20" id="my-input" readonly>
+                            <button id="increment" onclick="stepper(this)"> + </button>
+                        </div>
+                    </div>
+                    <p><a href="cart.html" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
 
-    <div class="site-section site-blocks-2">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos-delay="">
-                    <a class="block-2-item" href="#">
-                        <figure class="image">
-                            <img src="../../static/image/women.jpg" alt="" class="img-fluid">
-                        </figure>
-                        <div class="text">
-                            <span class="text-uppercase">Collections</span>
-                            <h3>Women</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos-delay="100">
-                    <a class="block-2-item" href="#">
-                        <figure class="image">
-                            <img src="../../static/image/children.jpg" alt="" class="img-fluid">
-                        </figure>
-                        <div class="text">
-                            <span class="text-uppercase">Collections</span>
-                            <h3>Children</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos-delay="200">
-                    <a class="block-2-item" href="#">
-                        <figure class="image">
-                            <img src="../../static/image/men.jpg" alt="" class="img-fluid">
-                        </figure>
-                        <div class="text">
-                            <span class="text-uppercase">Collections</span>
-                            <h3>Men</h3>
-                        </div>
-                    </a>
                 </div>
             </div>
         </div>
@@ -186,62 +163,69 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-4 flex-center">
-                    <div class="card" style="width: 18rem;">
-                        <img src="../../static/image/cloth_1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk of the card's content.</p>
-                            <a href="#">50$</a>
+                <div class="col-md-12">
+                    <div class="nonloop-block-3 owl-carousel">
+                        <div class="item">
+                            <div class="block-4 text-center">
+                                <figure class="block-4-image">
+                                    <img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
+                                </figure>
+                                <div class="block-4-text p-4">
+                                    <h3><a href="#">Tank Top</a></h3>
+                                    <p class="mb-0">Finding perfect t-shirt</p>
+                                    <p class="text-primary font-weight-bold">$50</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="block-4 text-center">
+                                <figure class="block-4-image">
+                                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
+                                </figure>
+                                <div class="block-4-text p-4">
+                                    <h3><a href="#">Corater</a></h3>
+                                    <p class="mb-0">Finding perfect products</p>
+                                    <p class="text-primary font-weight-bold">$50</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="block-4 text-center">
+                                <figure class="block-4-image">
+                                    <img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid">
+                                </figure>
+                                <div class="block-4-text p-4">
+                                    <h3><a href="#">Polo Shirt</a></h3>
+                                    <p class="mb-0">Finding perfect products</p>
+                                    <p class="text-primary font-weight-bold">$50</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="block-4 text-center">
+                                <figure class="block-4-image">
+                                    <img src="images/cloth_3.jpg" alt="Image placeholder" class="img-fluid">
+                                </figure>
+                                <div class="block-4-text p-4">
+                                    <h3><a href="#">T-Shirt Mockup</a></h3>
+                                    <p class="mb-0">Finding perfect products</p>
+                                    <p class="text-primary font-weight-bold">$50</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="block-4 text-center">
+                                <figure class="block-4-image">
+                                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
+                                </figure>
+                                <div class="block-4-text p-4">
+                                    <h3><a href="#">Corater</a></h3>
+                                    <p class="mb-0">Finding perfect products</p>
+                                    <p class="text-primary font-weight-bold">$50</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-4 flex-center">
-                    <div class="card" style="width: 18rem;">
-                        <img src="../../static/image/cloth_1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk of the card's content.</p>
-                            <a href="#">50$</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4 flex-center">
-                    <div class="card" style="width: 18rem;">
-                        <img src="../../static/image/cloth_1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk of the card's content.</p>
-                            <a href="#">50$</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="site-section block-8">
-        <div class="container">
-            <div class="row justify-content-center  mb-5">
-                <div class="col-md-7 site-section-heading text-center pt-4">
-                    <h2>Big Sale!</h2>
-                </div>
-            </div>
-            <div class="row align-items-center">
-                <div class="col-md-12 col-lg-7 mb-5">
-                    <a href="#"><img src="../../static/image/blog_1.jpg" alt="Image placeholder"
-                                     class="img-fluid rounded"></a>
-                </div>
-                <div class="col-md-12 col-lg-5 text-center pl-md-5">
-                    <h2><a href="#">50% less in all items</a></h2>
-                    <p class="post-meta mb-4">By <a href="#">Carl Smith</a> <span class="block-8-sep">&bullet;</span>
-                        September 3, 2018</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam iste dolor accusantium facere
-                        corporis ipsum animi deleniti fugiat. Ex, veniam?</p>
-                    <p><a href="#" class="btn btn-primary btn-sm">Shop Now</a></p>
                 </div>
             </div>
         </div>
@@ -282,7 +266,7 @@
                 <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
                     <h3 class="footer-heading mb-4">Promo</h3>
                     <a href="#" class="block-6">
-                        <img src="../../static/image/hero_1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
+                        <img src="images/hero_1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
                         <h3 class="font-weight-light  mb-0">Finding Your Perfect Shoes</h3>
                         <p>Promo from nuary 15 &mdash; 25, 2019</p>
                     </a>
@@ -326,58 +310,20 @@
     </footer>
 </div>
 <script>
-    // Lấy tất cả các sản phẩm
-    var items = document.querySelectorAll('.nonloop-block-3 .item');
+    const myInput = document.getElementById("my-input");
+    function stepper(btn){
+        let id = btn.getAttribute("id");
+        let min = myInput.getAttribute("min");
+        let max = myInput.getAttribute("max");
+        let step = myInput.getAttribute("step");
+        let val = myInput.getAttribute("value");
+        let calcStep = (id == "increment") ? (step*1) : (step * -1);
+        let newValue = parseInt(val) + calcStep;
 
-    // Số lượng sản phẩm hiển thị mỗi lần
-    var itemsPerPage = 4;
-
-    // Vị trí hiện tại của trang
-    var currentPage = 1;
-
-    // Số lượng trang
-    var totalPages = Math.ceil(items.length / itemsPerPage);
-
-    // Ẩn tất cả các sản phẩm
-    function hideAllItems() {
-        items.forEach(function (item) {
-            item.style.display = 'none';
-        });
-    }
-
-    // Hiển thị các sản phẩm của trang hiện tại
-    function showItems() {
-        var startIndex = (currentPage - 1) * itemsPerPage;
-        var endIndex = startIndex + itemsPerPage;
-
-        for (var i = startIndex; i < endIndex; i++) {
-            if (items[i]) {
-                items[i].style.display = 'block';
-            }
+        if(newValue >= min && newValue <= max){
+            myInput.setAttribute("value", newValue);
         }
     }
-
-    // Xử lý sự kiện khi nhấn nút Next
-    document.getElementById('next-btn').addEventListener('click', function () {
-        if (currentPage < totalPages) {
-            hideAllItems();
-            currentPage++;
-            showItems();
-        }
-    });
-
-    // Xử lý sự kiện khi nhấn nút Previous
-    document.getElementById('prev-btn').addEventListener('click', function () {
-        if (currentPage > 1) {
-            hideAllItems();
-            currentPage--;
-            showItems();
-        }
-    });
-
-    // Hiển thị trang đầu tiên khi trang web được tải
-    hideAllItems();
-    showItems();
 </script>
 <script src="../../static/js/jquery-3.3.1.min.js"></script>
 <script src="../../static/js/jquery-ui.js"></script>
