@@ -1,11 +1,14 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.entity.HoaDon;
 import com.example.demo.entity.LichSuHoaDon;
 import com.example.demo.repository.LichSuHoaDonRepository;
 import com.example.demo.service.LichSuHoaDonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,10 +24,19 @@ public class LichSuHoaDonServiceImpl  implements LichSuHoaDonService {
 
     @Override
     public List<LichSuHoaDon> detail(UUID id) {
-        return lichSuHoaDonRepository.findLichSuHoaDonById(id);   }
+        return lichSuHoaDonRepository.findLichSuHoaDonById(id);
+    }
 
     @Override
-    public void add(LichSuHoaDon lichSuHoaDon) {
+    public void createLichSuDonHang(HoaDon hoaDon) {
+        LichSuHoaDon lichSuHoaDon = new LichSuHoaDon();
+        Date now = new Date();
+        lichSuHoaDon.setNgayTao(now);
+        hoaDon.setNgaySua(now);
+        hoaDon.setTrangThai(hoaDon.getTrangThai());
+        hoaDon.setGhiChu(hoaDon.getGhiChu());
+        hoaDon.setLichSuHoaDon(lichSuHoaDon);
         lichSuHoaDonRepository.save(lichSuHoaDon);
     }
+
 }

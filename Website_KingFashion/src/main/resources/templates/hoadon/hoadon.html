@@ -391,6 +391,8 @@
         }
     </style>
 
+
+
 </head>
 
 <body>
@@ -595,7 +597,7 @@
 
                                                 <div style=" margin-top: 30px; height: 35px;display: flex;justify-content: space-between;"
                                                      class="col-12">
-                                                    <a th:href="@{/hoa-don/view-add}">
+                                                    <form th:href="@{/ban-hang-tai-quay/add}" method="post">
                                                         <button data-toggle="tooltip"
                                                                 title="Tạo hóa đơn" &#xE254; height="24px"
                                                                 style="background:black;border-radius: 50px;border:1px solid black;justify-items: center;"
@@ -609,7 +611,7 @@
                                                                   ;
                                                                   class="btn-text">Tạo hóa đơn</span>
                                                         </button>
-                                                    </a>
+                                                    </form>
 
                                                     <form class="export-form"
                                                           th:action="@{/hoa-don/export-excel}"
@@ -655,8 +657,8 @@
                                                             <th>Tên Khách Hàng</th>
                                                             <th>Ngày Đặt Hàng</th>
                                                             <th>Tổng Tiền</th>
-                                                            <th>Loại Đơn</th>
-                                                            <th>Trạng Thái</th>
+                                                            <th style="text-align: center;">Loại Đơn</th>
+                                                            <th style="text-align: center;">Trạng Thái</th>
                                                             <th>Hành Động</th>
                                                         </tr>
                                                         </thead>
@@ -692,28 +694,28 @@
 
                                                             <td style="font-size: 14px;font-weight: bold"
                                                                 class="align-middle">
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 0 }"
                                                                       class="btn btn-labeled shadow-button btn btn-warning status-pending">Đang chờ xác nhận</span>
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 1}"
                                                                       class="btn btn-labeled shadow-button btn btn-success status-completed">Đã xác nhận</span>
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 2 }"
                                                                       class="btn btn-labeled shadow-button btn btn-danger status-cancelled">Đã hủy đơn</span>
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 3 }"
                                                                       class="btn btn-labeled shadow-button btn btn-warning status-pending">Chờ giao hàng</span>
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 4 }"
                                                                       class="btn btn-labeled shadow-button btn btn-warning status-pending">Đang giao hàng</span>
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 5 }"
                                                                       class="btn btn-labeled shadow-button btn btn-success status-completed">Giao hàng thành công</span>
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 6 }"
                                                                       class="btn btn-labeled shadow-button btn btn-danger status-cancelled">Giao hàng thất bại</span>
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 7 }"
                                                                       class="btn btn-labeled shadow-button btn btn-success status-completed">Thanh toán thành công</span>
                                                             </td>
@@ -742,7 +744,7 @@
                                                                         <div class="start-icon far fa-times-circle faa-pulse animated fa-times">
                                                                             <strong style="font-family: Arial"
                                                                                     class="font__weight-semibold ">Không
-                                                                                có dữ liệu !</strong></div>
+                                                                                tìm thấy dữ liệu !</strong></div>
                                                                     </div>
                                                                 </td>
                                                             </div>

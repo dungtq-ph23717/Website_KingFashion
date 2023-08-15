@@ -21,7 +21,9 @@ public interface HoaDonService {
 
     HoaDon detail(UUID id);
 
-    void add(HoaDon hoaDon);
+//    void add(HoaDon hoaDon);
+
+    void updateHD(HoaDon hoaDon);
 
     Page<HoaDon> searchHD(String maHoaDon, String nguoiNhan, Double tongTienSauKhiGiam, Integer trangThai,
                           Date ngayTao, Integer loaiDon, Pageable pageable);

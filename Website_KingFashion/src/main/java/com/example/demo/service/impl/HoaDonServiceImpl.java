@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -41,15 +42,22 @@ public class HoaDonServiceImpl implements HoaDonService {
         return hoaDonRepository.getHoaDonById(id);
     }
 
+//    @Override
+//    public void add(HoaDon hoaDon) {
+//        hoaDonRepository.save(hoaDon);
+//    }
+
     @Override
-    public void add(HoaDon hoaDon) {
+    public void updateHD(HoaDon hoaDon) {
+        Date date = new Date();
+        hoaDon.setNgaySua(date);
         hoaDonRepository.save(hoaDon);
     }
 
     @Override
     public Page<HoaDon> searchHD(String maHoaDon, String tenNguoiNhan, Double tongTienSauKhiGiam, Integer trangThai,
                                  Date ngayTao, Integer loaiDon, Pageable pageable) {
-        Page<HoaDon> result = hoaDonRepository.searchHD(maHoaDon,tenNguoiNhan,tongTienSauKhiGiam,trangThai,ngayTao,loaiDon,pageable);
+        Page<HoaDon> result = hoaDonRepository.searchHD(maHoaDon, tenNguoiNhan, tongTienSauKhiGiam, trangThai, ngayTao, loaiDon, pageable);
 
         System.out.println(result);
         return result;
