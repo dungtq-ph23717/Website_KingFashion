@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <script src="../../static/js/jquery.min.js"></script>
 </head>
 
 <body>
@@ -26,20 +26,13 @@
 <div id="wrapper">
 
 
-    <!-- Topbar Start -->
     <div class="navbar-custom" th:insert="layout/nav.html :: header">
 
     </div>
-    <!-- end Topbar -->
-    <!-- ========== Left Sidebar Start ========== -->
+
     <div class="left-side-menu" th:insert="layout/slidebar.html :: header">
 
     </div>
-    <!-- Left Sidebar End -->
-
-    <!-- ============================================================== -->
-    <!-- Start Page Content here -->
-    <!-- ============================================================== -->
 
     <div class="content-page">
         <div class="content">
@@ -53,6 +46,176 @@
                         </div>
                     </div>
                 </div>
+
+                <!--Begin Dialog Voucher-->
+                <dialog id="myDialogVoucher" style="width: 900px;height: 600px;align-content: space-around">
+                    <div class="title">
+                        <h3>Tìm kiếm Khách Hàng</h3>
+                    </div>
+                    <div class="form-inline" style="margin-bottom: 30px">
+                        <input type="text" th:name="ten" placeholder="Nhập tên sản phẩm"
+                               class="form-control form-control-sm" style="width: 150px; height: 40px; margin-right: 10px;"/>
+                        <button type="submit" class="btn btn-success waves-effect waves-light">
+                            <span class="btn-label"><i class="mdi mdi-search-web"></i></span>
+                            Tìm Kiếm
+                        </button>
+                    </div>
+                    <table id="datatable-buttonsss"
+                           class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                           style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                           role="grid" aria-describedby="datatable-buttons_info">
+                        <thead class="text-center">
+                        <tr>
+                            <th>Mã</th>
+                            <th>Tên</th>
+                            <th>Mức giảm</th>
+                            <th>Số tiền tối thiểu</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
+                            <th>Trạng thái</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="l,index : ${list2}" class="text-center">
+                            <td class="align-middle" th:text="${l.ma}"></td>
+                            <td class="align-middle" th:text="${l.ten}"></td>
+                            <td class="align-middle"
+                                th:text="${#numbers.formatDecimal(l.mucGiam, 0 , 'COMMA',3,'POINT').substring(0, #numbers.formatDecimal(l.mucGiam, 0 , 'COMMA',3,'POINT').length()-4)} + ' đ'"></td>
+                            <td class="align-middle"
+                                th:text="${#numbers.formatDecimal(l.tien, 0, 'COMMA', 3, 'POINT').substring(0, #numbers.formatDecimal(l.tien, 0, 'COMMA', 3, 'POINT').length() - 4)} + ' đ'"></td>
+                            <td class="align-middle"
+                                th:text="${#dates.format(l.thoiGianBatDau, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td class="align-middle"
+                                th:text="${#dates.format(l.thoiGianKetThuc, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td class="align-middle"
+                                th:text="${l.trangThai == 1 ? 'Đang diễn ra' : ( l.trangThai==2 ? 'Sắp diễn ra' : 'Kết thúc')}"></td>
+                            <td class="align-middle">
+                                <button type="button" class="btn btn-outline-success">Chọn</button>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <button type="button" id="closeDialogButton3">Đóng</button>
+                </dialog>
+                <!--End Dialog Voucher-->
+
+                <!--Begin Dialog Khach Hang-->
+                <dialog id="myDialogKhachHang" style="width: 900px;height: 600px;align-content: space-around">
+                    <div class="title">
+                        <h3>Tìm kiếm Khách Hàng</h3>
+                    </div>
+                    <div class="form-inline" style="margin-bottom: 30px">
+                        <input type="text" th:name="ten" placeholder="Nhập tên sản phẩm"
+                               class="form-control form-control-sm" style="width: 150px; height: 40px; margin-right: 10px;"/>
+                        <button type="submit" class="btn btn-success waves-effect waves-light">
+                            <span class="btn-label"><i class="mdi mdi-search-web"></i></span>
+                            Tìm Kiếm
+                        </button>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Mã</th>
+                            <th>Tên</th>
+                            <th>SĐT</th>
+                            <th>Email</th>
+                            <th>Địa chỉ</th>
+                            <th>Ngày sinh</th>
+                            <!--                                                    <th>Vai trò</th>-->
+                            <th>Trạng thái</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="l,index : ${list1}">
+                            <td th:text="${index.count}"></td>
+                            <td th:text="${l.maTaiKhoan}"></td>
+                            <td th:text="${l.tenTaiKhoan}"></td>
+                            <td th:text="${l.sdt}"></td>
+                            <td th:text="${l.email}"></td>
+                            <td th:text="${l.diaChi}"></td>
+                            <td th:text="${l.ngaySinh}"></td>
+                            <!--                                                    <td th:text="${l.vaiTro.tenVaiTro}"></td>-->
+                            <td th:text="${l.trangThai == 1 ? 'Hoạt động' : 'Không hoạt động'}"></td>
+                            <td>
+                                <button type="button" class="btn btn-outline-success">Chọn</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" id="closeDialogButton2">Đóng</button>
+                </dialog>
+                <!--End Dialog Khach Hang-->
+
+                <!--Begin Dialog Sản Phẩm-->
+                <dialog id="myDialogSanPham" style="width: 900px;height: 600px;align-content: space-around">
+                    <div class="title">
+                        <h3>Tìm kiếm sản phẩm</h3>
+                    </div>
+                    <div class="form-inline" style="margin-bottom: 30px">
+                        <input type="text" th:name="ten" placeholder="Nhập tên sản phẩm"
+                               class="form-control form-control-sm" style="width: 150px; height: 40px; margin-right: 10px;"/>
+                        <button type="submit" class="btn btn-success waves-effect waves-light">
+                            <span class="btn-label"><i class="mdi mdi-search-web"></i></span>
+                            Tìm Kiếm
+                        </button>
+                    </div>
+                    <table id="datatable-buttonss"
+                           class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                           style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                           role="grid" aria-describedby="datatable-buttons_info">
+                        <thead class="text-center">
+                        <tr>
+                            <th scope="row">STT</th>
+                            <th>Ảnh</th>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Trạng thái</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="l, row : ${list}" class="text-center">
+                            <th scope="row" class="align-middle"
+                                th:text="${row.index + 1}"></th>
+                            <td class="align-middle"><img style="height: 150px; width: 150px"
+                                                          th:src="@{${'/ban-hang-tai-quay/display?id=' + l.id}}"
+                                                          alt=""></td>
+                            <td class="align-middle" th:text="${l.sanPham.ten}"></td>
+                            <td class="align-middle" th:text="${l.giaBan}"></td>
+
+                            <td class="align-middle" th:text="${l.soLuong}"></td>
+                            <td class="align-middle" th:if="${l.trangThai == 1}">Hoạt động</td>
+                            <td class="align-middle" th:if="${l.trangThai == 0}">Không hoạt động
+                            </td>
+                            <td class="align-middle">
+                                <button type="button" class="btn btn-outline-success">Chọn</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" id="closeDialogButton1">Đóng</button>
+                </dialog>
+                <!--End Dialog Sản Phẩm-->
+
+<!--                Begin Dialog Chọn Sản Phẩm-->
+<!--                <dialog id="myDialogChonSanPham" style="width: 500px;height: 400px;align-content: space-around">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-6">-->
+<!--                            <img style="height: 150px; width: 150px" id="chon-sanpham-image">-->
+<!--                        </div>-->
+<!--                        <div class="col-6">-->
+<!--                            <h3 id="chon-sanpham-name"></h3>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <button type="button" id="closeDialogChonSanPham">Đóng</button>-->
+<!--                </dialog>-->
+
+<!--                End Dialog Chọn Sản Phẩm-->
 
                 <div class="row">
                     <div class="col-12">
@@ -69,13 +232,10 @@
                             </div>
                             <div class="col-xl-4">
                                 <div class="dataTables_filter" style="padding-top: 17px">
-                                    <form action="" method="get">
-                                        <button type="submit" class="btn btn-success waves-effect waves-light"
-                                                style="float: right; margin-left: 10px">
-                                                        <span class="btn-label"><i class="mdi mdi-plus"></i>
-                                                        </span> Thêm Sản Phẩm
-                                        </button>
-                                    </form>
+                                    <button id="openDialogButtonSanPham" class="btn btn-success waves-effect waves-light"
+                                            style="float: right; margin-left: 10px">
+                                        <span class="btn-label"><i class="mdi mdi-plus"></i></span> Thêm Sản Phẩm
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -142,12 +302,12 @@
                             <div class="row">
                                 <div class="col-sm-12" style="display: flex;border-bottom: 1px solid #495057">
                                     <h2 style="width: 200px">Tài khoản</h2>
-                                    <form action="" method="get"
-                                          style="width: 500px; text-align: right; margin-left: auto; margin-top: auto; margin-bottom: auto;">
-                                        <button type="submit" class="btn btn-success waves-effect waves-light">
-                                            Chọn Tài Khoản
+                                    <div style="width: 500px; text-align: right; margin-left: auto; margin-top: auto; margin-bottom: auto;">
+                                        <button id="openDialogButtonKhachHang" class="btn btn-success waves-effect waves-light"
+                                                style="float: right; margin-left: 10px">
+                                            <span class="btn-label"><i class="mdi mdi-plus"></i></span> Chọn Khách Hàng
                                         </button>
-                                    </form>
+                                    </div>
                                 </div>
 
                                 <div class="col-sm-12" style="align-content: space-around">
@@ -190,7 +350,7 @@
                                         </div>
                                         <div class="form-inline">
                                             <input type="text" class="form-control" placeholder="Mã Giảm Giá">
-                                            <button type="submit" class="btn btn-primary">Chọn mã giảm giá</button>
+                                            <button id="openDialogButtonVoucher" type="submit" class="btn btn-primary">Chọn mã giảm giá</button>
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
@@ -240,7 +400,126 @@
 
 
 <div class="rightbar-overlay"></div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    const openDialogButtonSanPham = document.getElementById('openDialogButtonSanPham');
+    const myDialogSanPham = document.getElementById('myDialogSanPham');
+    const closeDialogButton1 = document.getElementById('closeDialogButton1');
+    openDialogButtonSanPham.addEventListener('click', () => {
+        myDialogSanPham.showModal();
+    });
+    closeDialogButton1.addEventListener('click', () => {
+        myDialogSanPham.close();
+    });
+
+    const openDialogButtonKhachHang = document.getElementById('openDialogButtonKhachHang');
+    const myDialogKhachHang = document.getElementById('myDialogKhachHang');
+    const closeDialogButton2 = document.getElementById('closeDialogButton2');
+    openDialogButtonKhachHang.addEventListener('click', () => {
+        myDialogKhachHang.showModal();
+    });
+    closeDialogButton2.addEventListener('click', () => {
+        myDialogKhachHang.close();
+    });
+
+    const openDialogButtonVoucher = document.getElementById('openDialogButtonVoucher');
+    const myDialogVoucher = document.getElementById('myDialogVoucher');
+    const closeDialogButton3 = document.getElementById('closeDialogButton3');
+    openDialogButtonVoucher.addEventListener('click', () => {
+        myDialogVoucher.showModal();
+    });
+    closeDialogButton3.addEventListener('click', () => {
+        myDialogVoucher.close();
+    });
+
+    $(document).ready(function() {
+        const openDialogButtonSanPham = document.getElementById('openDialogButtonSanPham');
+        const myDialogSanPham = document.getElementById('myDialogSanPham');
+        const openDialogButtonKhachHang = document.getElementById('openDialogButtonKhachHang');
+        const myDialogKhachHang = document.getElementById('myDialogKhachHang');
+        const openDialogButtonVoucher = document.getElementById('openDialogButtonVoucher');
+        const myDialogVoucher = document.getElementById('myDialogVoucher');
+        const tableBody1 = myDialogSanPham.querySelector('tbody1');
+        const tableBody2 = myDialogKhachHang.querySelector('tbody2');
+        const tableBody3 = myDialogVoucher.querySelector('tbody3');
+
+        openDialogButtonSanPham.addEventListener('click', () => {
+            // Gọi Ajax để tải dữ liệu
+            $.ajax({
+                url: '/ban-hang-tai-quay/viewcart', // Đường dẫn tới API hoặc trang tải dữ liệu
+                method: 'GET',
+                success: function(data) {
+                    // Cập nhật bảng trong hộp thoại với dữ liệu mới
+                    tableBody1.innerHTML = data;
+
+                    // Hiển thị hộp thoại
+                    myDialogSanPham.showModal();
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        openDialogButtonKhachHang.addEventListener('click', () => {
+            // Gọi Ajax để tải dữ liệu
+            $.ajax({
+                url: '/ban-hang-tai-quay/viewcart', // Đường dẫn tới API hoặc trang tải dữ liệu
+                method: 'GET',
+                success: function(data) {
+                    // Cập nhật bảng trong hộp thoại với dữ liệu mới
+                    tableBody2.innerHTML = data;
+
+                    // Hiển thị hộp thoại
+                    myDialogKhachHang.showModal();
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        openDialogButtonVoucher.addEventListener('click', () => {
+            // Gọi Ajax để tải dữ liệu
+            $.ajax({
+                url: '/ban-hang-tai-quay/viewcart', // Đường dẫn tới API hoặc trang tải dữ liệu
+                method: 'GET',
+                success: function(data) {
+                    // Cập nhật bảng trong hộp thoại với dữ liệu mới
+                    tableBody3.innerHTML = data;
+
+                    // Hiển thị hộp thoại
+                    myDialogVoucher.showModal();
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        // Đóng hộp thoại khi nhấp nút Đóng
+        const closeDialogButton1 = document.getElementById('closeDialogButton1');
+        closeDialogButton1.addEventListener('click', () => {
+            myDialogSanPham.close();
+        });
+
+        const closeDialogButton2 = document.getElementById('closeDialogButton2');
+        closeDialogButton2.addEventListener('click', () => {
+            myDialogKhachHang.close();
+        });
+        const closeDialogButton3 = document.getElementById('closeDialogButton3');
+        closeDialogButton3.addEventListener('click', () => {
+            myDialogVoucher.close();
+        });
+    });
+
+
+</script>
+
+
+
+
 <!-- Vendor js -->
 <script src="../../static/assets/js/vendor.min.js"></script>
 <!--Morris Chart-->
@@ -252,6 +531,5 @@
 
 <!-- App js -->
 <script src="../../static/assets/js/app.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
 </body>
 </html>
