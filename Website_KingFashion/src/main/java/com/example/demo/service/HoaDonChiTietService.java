@@ -7,4 +7,6 @@ import java.util.List;
 public interface HoaDonChiTietService {
 
     List<HoaDonChiTiet> getALl();
+
+    void add(HoaDonChiTiet hoaDonChiTiet);
 }

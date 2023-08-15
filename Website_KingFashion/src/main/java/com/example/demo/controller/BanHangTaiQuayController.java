@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.Anh;
 import com.example.demo.entity.ChiTietSanPham;
 import com.example.demo.entity.HoaDon;
+import com.example.demo.entity.HoaDonChiTiet;
 import com.example.demo.entity.TaiKhoan;
 import com.example.demo.entity.Voucher;
 import com.example.demo.service.AnhService;
@@ -23,16 +24,20 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @Controller
@@ -44,6 +49,7 @@ public class BanHangTaiQuayController {
 
     @Autowired
     private HoaDonService hoaDonService;
+
 
     @Autowired
     private ChiTietSanPhamService chiTietSanPhamService;
@@ -63,19 +69,52 @@ public class BanHangTaiQuayController {
     @GetMapping("hien-thi")
     public String hienThiTable(Model model){
         model.addAttribute("hdctlist",hoaDonChiTietService.getALl());
+        model.addAttribute("hdct",new HoaDonChiTiet());
         return "BanHangTaiQuay/BanHangTaiQuay";
     }
 
     @PostMapping("carts")
-    public String addDonhang(@Valid @ModelAttribute("hd")HoaDon hoaDon, BindingResult result,Model model){
+    public String addDonhang(@ModelAttribute("hdct") HoaDonChiTiet hoaDonChiTiet, RedirectAttributes redirectAttributes, Model model){
 
-        return showSanPham(model);
+        HoaDon hoaDon = new HoaDon();
+        String ma = "HD" + new Random().nextInt(100000);
+        hoaDon.setMaHoaDon(ma);
+        hoaDon.setNgayTao(new Date());
+        hoaDon.setTrangThai(0);
+        hoaDonService.add(hoaDon);
+
+        hoaDonChiTiet.setHoaDon(hoaDon);
+
+        hoaDonChiTietService.add(hoaDonChiTiet);
+        model.addAttribute("hdct",hoaDonChiTiet);
+        redirectAttributes.addAttribute("id", hoaDonChiTiet.getId());
+        return "redirect:/ban-hang-tai-quay/viewcart/{id}";
     }
-    @GetMapping("viewcart")
-    public String showSanPham(Model model){
+
+    @PostMapping("update")
+    public String update(@ModelAttribute("hdct") HoaDonChiTiet hoaDonChiTiet,
+                         @RequestParam("id")UUID id,
+                         RedirectAttributes redirectAttributes, Model model){
+        ChiTietSanPham chiTietSanPham = chiTietSanPhamService.detail(id);
+
+        hoaDonChiTiet.setChiTietSanPham(chiTietSanPham);
+        hoaDonChiTietService.add(hoaDonChiTiet);
+
+        model.addAttribute("ctsp",chiTietSanPham);
+        model.addAttribute("hdct",hoaDonChiTiet);
+
+        redirectAttributes.addAttribute("idd", hoaDonChiTiet.getId());
+        return "redirect:/ban-hang-tai-quay/viewcart/{idd}";
+    }
+
+    @GetMapping("viewcart/{id}")
+    public String showSanPham(@PathVariable UUID id, Model model){
         List<ChiTietSanPham> list = chiTietSanPhamService.getAll();
         List<TaiKhoan> list1 = taiKhoanService.getAll();
         List<Voucher> list2 = voucherService.getAll();
+        ChiTietSanPham chiTietSanPham = chiTietSanPhamService.detail(id);
+        model.addAttribute("hdct",new HoaDonChiTiet());
+        model.addAttribute("ctsp",chiTietSanPham);
         model.addAttribute("list1", list1);
         model.addAttribute("list2", list2);
         model.addAttribute("list",list);

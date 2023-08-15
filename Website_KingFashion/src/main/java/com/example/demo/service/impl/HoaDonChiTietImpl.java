@@ -20,4 +20,9 @@ public class HoaDonChiTietImpl implements HoaDonChiTietService {
     public List<HoaDonChiTiet> getALl() {
         return hoaDonChiTietRepository.findAll();
     }
+
+    @Override
+    public void add(HoaDonChiTiet hoaDonChiTiet) {
+        hoaDonChiTietRepository.save(hoaDonChiTiet);
+    }
 }
