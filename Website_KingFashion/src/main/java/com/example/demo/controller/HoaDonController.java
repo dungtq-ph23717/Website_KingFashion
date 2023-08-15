@@ -132,7 +132,14 @@ public class HoaDonController {
             ngayThanhToanCell.setCellValue(hoaDon.getNgayThanhToan());
             ngayThanhToanCell.setCellStyle(dateCellStyle);
             row.createCell(2).setCellValue(hoaDon.getTongTienSauKhiGiam() + " VND");
-            row.createCell(3).setCellValue(hoaDon.getTrangThai() == 1 ? "Đang chờ xác nhận" : (hoaDon.getTrangThai() == 2 ? "Đã hủy" : "Đã hoàn thành"));
+            row.createCell(3).setCellValue(hoaDon.getTrangThai() == 0 ? "Đang chờ xác nhận"
+                            : (hoaDon.getTrangThai() == 1 ? "Đã xác nhận"
+                            : (hoaDon.getTrangThai() == 2 ? "Đã hủy đơn"
+                            : (hoaDon.getTrangThai() == 3 ? "Chờ giao hàng"
+                            : (hoaDon.getTrangThai() == 4 ? "Đang giao hàng"
+                            : (hoaDon.getTrangThai() == 5 ? "Giao hàng thành công"
+                            : (hoaDon.getTrangThai() == 6 ? "Giao hàng thất bại"
+                            : "Thanh toán thành công")))))));
             row.createCell(4).setCellValue(hoaDon.getNguoiNhan());
             Cell ngayShipCell = row.createCell(5);
             ngayShipCell.setCellValue(hoaDon.getNgayShip());

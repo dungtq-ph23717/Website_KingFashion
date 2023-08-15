@@ -162,117 +162,60 @@
         }
     </style>
 
+    <!-- App favicon -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
     <style>
-
-        .hide {
-            display: none;
+        .container1-fluid .row .scroll-data {
+            overflow-x: auto;
+            white-space: nowrap;
+            display: flex;
         }
-        .order-tracking {
-            position: relative;
-            flex: 1;
+
+        .container1-fluid .row .scroll-data .col-xs-4 p {
+            word-wrap: break-word;
+            color: blueviolet;
+        }
+        .h3{
+            font-size: 17px;
+        }
+        .box {
+            width: 1150px;
+            height: 300px;
+        }
+        .container1 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start; /* Căn trái các phần tử trong container */
+        }
+
+        .row.timeline {
+            overflow-x: auto; /* Cho phép cuộn ngang nếu các stage vượt quá chiều rộng của container */
+            white-space: nowrap; /* Ngăn các stage xuống dòng */
+        }
+
+        .stage {
+            flex: 0 0 calc(33.33% - 20px);
+            margin: 0 10px 20px;
+            /* Xóa padding và border-radius, để stage tràn ra hết chiều rộng */
             text-align: center;
+            background-color: #fff;
+            box-shadow: 0px 3px 3px rgba(0,0,0,0.1), 0px 3px 3px rgba(0,0,0,0.1);
+            padding: 20px;
+            border-radius: 0;
         }
 
-        .order-tracking span.is-complete:before {
-            content: "";
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: green;
+        /* Bổ sung các quy tắc cho stage active và stage .number active */
+
+        .stage.active {
+            background-color: #007bff;
+            color: #fff;
         }
 
-        .order-tracking.completed span.is-complete:before {
-            background-color: green;
+        .stage.active .number {
+            background-color: #fff;
+            color: #007bff;
         }
-
-        .order-tracking.pending span.is-complete:before {
-            background-color: yellow;
-        }
-
-        .order-tracking.cancelled span.is-complete:before {
-            background-color: red;
-        }
-
-        /* Tùy chỉnh các trạng thái khác nhau */
-        .hh-grayBox {
-            background-color: #F8F8F8;
-            margin-bottom: 20px;
-            padding: 35px;
-            margin-top: 20px;
-        }
-        .pt45{padding-top:45px;}
-        .order-tracking{
-            text-align: center;
-            width: 33.33%;
-            position: relative;
-            display: block;
-        }
-        .order-tracking .is-complete{
-            display: block;
-            position: relative;
-            border-radius: 50%;
-            height: 30px;
-            width: 30px;
-            border: 0px solid #AFAFAF;
-            background-color: #f7be16;
-            margin: 0 auto;
-            transition: background 0.25s linear;
-            -webkit-transition: background 0.25s linear;
-            z-index: 2;
-        }
-        .order-tracking .is-complete:after {
-            display: block;
-            position: absolute;
-            content: '';
-            height: 14px;
-            width: 7px;
-            top: -2px;
-            bottom: 0;
-            left: 5px;
-            margin: auto 0;
-            border: 0px solid #AFAFAF;
-            border-width: 0px 2px 2px 0;
-            transform: rotate(45deg);
-            opacity: 0;
-        }
-        .order-tracking.completed .is-complete{
-            border-color: #27aa80;
-            border-width: 0px;
-            background-color: #27aa80;
-        }
-        .order-tracking.completed .is-complete:after {
-            border-color: #fff;
-            border-width: 0px 3px 3px 0;
-            width: 7px;
-            left: 11px;
-            opacity: 1;
-        }
-        .order-tracking p {
-            color: #A4A4A4;
-            font-size: 16px;
-            margin-top: 8px;
-            margin-bottom: 0;
-            line-height: 20px;
-        }
-        .order-tracking p span{font-size: 14px;}
-        .order-tracking.completed p{color: #000;}
-        .order-tracking::before {
-            content: '';
-            display: block;
-            height: 3px;
-            width: calc(100% - 40px);
-            background-color: #f7be16;
-            top: 13px;
-            position: absolute;
-            left: calc(-50% + 20px);
-            z-index: 0;
-        }
-        .order-tracking:first-child:before{display: none;}
-        .order-tracking.completed:before{background-color: #27aa80;}
     </style>
 </head>
 
@@ -323,51 +266,148 @@
                                     <div class="col-xl-12">
                                         <div class="dataTables_filter">
 
-                                            <div>
-                                                <a style="display: flex;justify-content: start;text-decoration: none;"
-                                                   data-toggle="tooltip" data-placement="left"
-                                                   title="Trở về" th:href="@{/hoa-don/hien-thi}">
-                                                    <i class="fa-solid fa-person-walking-arrow-loop-lef fa-shake fa-xl"></i></a>
-                                            </div>
-
 
                                             <!--  timeline-->
 
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-12 col-md-10 hh-grayBox pt45 pb20">
-                                                        <div id="timeline" class="row justify-content-between">
-                                                            <div class="order-tracking pending">
-                                                                <span class="is-complete"></span>
-                                                                <p>Đang chờ xác nhận<br><span>Mon, June 24</span></p>
-                                                            </div>
-                                                            <div class="order-tracking completed">
-                                                                <span class="is-complete"></span>
-                                                                <p>Đã xác nhận<br><span>Tue, June 25</span></p>
-                                                            </div>
-                                                            <div class="order-tracking cancelled">
-                                                                <span class="is-complete"></span>
-                                                                <p>Đã hủy đơn<br><span>Fri, June 28</span></p>
-                                                            </div>
-                                                            <div class="order-tracking pending">
-                                                                <span class="is-complete"></span>
-                                                                <p>Chờ giao hàng<br><span>Mon, June 24</span></p>
-                                                            </div>
-                                                            <div class="order-tracking pending">
-                                                                <span class="is-complete"></span>
-                                                                <p>Đang giao hàng<br><span>Tue, June 25</span></p>
-                                                            </div>
-                                                            <div class="order-tracking completed">
-                                                                <span class="is-complete"></span>
-                                                                <p>Giao hàng thành công<br><span>Fri, June 28</span></p>
-                                                            </div>
-                                                            <div class="order-tracking cancelled">
-                                                                <span class="is-complete"></span>
-                                                                <p>Giao hàng thất bại<br><span>Mon, June 24</span></p>
-                                                            </div>
-                                                            <div class="order-tracking completed">
-                                                                <span class="is-complete"></span>
-                                                                <p>Thanh toán thành công<br><span>Tue, June 25</span></p>
+                                            <div style="display: flex;justify-content:center" class="container1">
+                                                <div class="box">
+                                                    <div class="container1-fluid scrollmenu">
+                                                        <div class="row text-centre">
+                                                            <div class="scroll-data">
+
+                                                                <div class="col-3 stage active">
+                                                                    <div class="content">
+                                                                        <h3 class="h3">
+                                                                            Đang chờ xác nhận
+                                                                        </h3>
+                                                                        <p>
+                                                                            <i class="fa-solid fa-spinner fa-spin-pulse fa-xl"></i>
+                                                                        </p>
+                                                                        <div class="stage-text hidden">
+                                                                            <p>
+                                                                                10/10/2003
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-3 stage">
+                                                                    <div class="content">
+                                                                        <h3 class="h3">
+                                                                            Đã xác nhận
+                                                                        </h3>
+                                                                        <p>
+                                                                            <i class="fa-regular fa-circle-check fa-beat fa-xl"></i>
+                                                                        </p>
+                                                                        <div class="stage-text hidden">
+                                                                            <p>
+                                                                                10/10/2003
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-3 stage" >
+                                                                    <div class="content">
+                                                                        <h3 class="h3">
+                                                                            Đã hủy đơn
+                                                                        </h3>
+                                                                        <p>
+                                                                            <i class="fa-solid fa-rectangle-xmark fa-fade fa-xl"></i>
+                                                                        </p>
+                                                                        <div class="stage-text hidden">
+                                                                            <p>
+                                                                                10/10/2003
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-3 stage" >
+                                                                    <div class="content">
+                                                                        <h3 class="h3">
+                                                                            Chờ giao hàng
+                                                                        </h3>
+                                                                        <p>
+                                                                            <i class="fa-solid fa-arrows-rotate fa-spin fa-xl"></i>
+                                                                        </p>
+                                                                        <div class="stage-text hidden">
+                                                                            <p>
+                                                                                10/10/2003
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="col-3 stage" >
+                                                                    <div class="content">
+                                                                        <h3 class="h3">
+                                                                            Đang giao hàng
+                                                                        </h3>
+                                                                        <p>
+                                                                            <i class="fa-solid fa-truck-fast fa-beat-fade fa-xl"></i>
+                                                                        </p>
+                                                                        <div class="stage-text hidden">
+                                                                            <p>
+                                                                                10/10/2003
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="col-3 stage" >
+                                                                    <div class="content">
+                                                                        <h3 class="h3">
+                                                                            Giao hàng thành công
+                                                                        </h3>
+                                                                        <p>
+                                                                            <i class="fa-regular fa-circle-check fa-beat fa-xl"></i>
+                                                                        </p>
+                                                                        <div class="stage-text hidden">
+                                                                            <p>
+                                                                                10/10/2003
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="col-3 stage" >
+                                                                    <div class="content">
+                                                                        <h3 class="h3">
+                                                                            Giao hàng thất bại
+                                                                        </h3>
+                                                                        <p>
+                                                                            <i class="fa-solid fa-rectangle-xmark fa-fade fa-xl"></i>
+                                                                        </p>
+                                                                        <div class="stage-text hidden">
+                                                                            <p>
+                                                                                10/10/2003
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="col-3 stage" >
+                                                                    <div class="content">
+                                                                        <h3 class="h3">
+                                                                            Thanh toán thành công
+                                                                        </h3>
+                                                                        <p>
+                                                                            <i class="fa-regular fa-circle-check fa-beat fa-xl"></i>
+                                                                        </p>
+                                                                        <div class="stage-text hidden">
+                                                                            <p>
+                                                                                10/10/2003
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -388,14 +428,22 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <div class="card-box">
+                                <div style="display: flex;justify-content:center" class="card-box">
                                     <div class="col-12">
                                         <div class="row">
-                                            <div class="col-6">
-                                                <h3 style="font-weight: bold;color: brown;">Thông Tin
+                                            <div style="display: flex;justify-content:start;" class="col-7 row">
+                                                <h3 class="col-6" style="font-weight: bold;color: brown;">Thông Tin
                                                     Đơn Hàng</h3>
+
+                                                <div class="col-1">
+                                                    <a style="text-decoration: none;"
+                                                       data-toggle="tooltip" data-placement="left"
+                                                       title="Trở về quản lý hóa đơn" th:href="@{/hoa-don/hien-thi}">
+                                                        <i class="fa-solid fa-person-walking-arrow-loop-left fa-xl"></i>
+                                                    </a>
+                                                </div>
                                             </div>
-                                            <div class="col-6"
+                                            <div class="col-5"
                                                  style="display: flex; justify-content: end;justify-self: center;justify-items: center">
                                                 <button data-toggle="modal" data-target="#myModal"
                                                         style="background:black;border-radius: 50px;border:1px solid black;height: 35px;width: 110px;display: flex;justify-items: center"
@@ -441,8 +489,7 @@
                                                             <div class="modal-header">
                                                                 <h4 style="margin-left: 25px"
                                                                     class="modal-title w-100 text-center">
-                                                                    Cập
-                                                                    Nhật Đơn Hàng</h4>
+                                                                    Cập Nhật Đơn Hàng</h4>
                                                                 <button type="button" class="close"
                                                                         data-dismiss="modal">&times;
                                                                 </button>
@@ -809,33 +856,122 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script>
-    // Lấy danh sách các phần tử order-tracking
-    const orderTrackings = document.querySelectorAll('.order-tracking');
-
-    // Chuyển danh sách thành một mảng để dễ xử lý
-    const orderTrackingsArray = Array.from(orderTrackings);
-
-    // Lặp qua từng phần tử để áp dụng trạng thái
-    orderTrackingsArray.forEach((orderTracking, index) => {
-        // Xác định trạng thái hiển thị dựa trên index và trạng thái của đơn hàng
-        const status = getStatusFromIndex(index);
-
-        // Kiểm tra nếu trạng thái là "Đang chờ xác nhận" (0) và không phải phần tử đầu tiên
-        if (status === 0 && index > 0) {
-            // Ẩn phần tử hiện tại
-            orderTracking.classList.add('hide');
-        } else {
-            // Hiển thị phần tử hiện tại
-            orderTracking.classList.remove('hide');
+    // Generated by LiveScript 1.6.0
+    (function(){
+        window.onload = function(){
+            var stages, i$, len$, i, stage, results$ = [];
+            stages = document.querySelectorAll('.stage');
+            for (i$ = 0, len$ = stages.length; i$ < len$; ++i$) {
+                i = i$;
+                stage = stages[i$];
+                if (stage) {
+                    results$.push(stage.addEventListener('click', fn$));
+                }
+            }
+            return results$;
+            function fn$(e){
+                var active;
+                e.preventDefault();
+                active = document.querySelector('.active');
+                if (active && deepEq$(active, this, '===')) {
+                    active.classList.remove('active');
+                    return active.querySelector('.stage-text').classList.add('hidden');
+                } else {
+                    if (active) {
+                        active.classList.remove('active');
+                        active.querySelector('.stage-text').classList.add('hidden');
+                    }
+                    this.classList.add('active');
+                    return this.querySelector('.stage-text').classList.remove('hidden');
+                }
+            }
+        };
+        function deepEq$(x, y, type){
+            var toString = {}.toString, hasOwnProperty = {}.hasOwnProperty,
+                has = function (obj, key) { return hasOwnProperty.call(obj, key); };
+            var first = true;
+            return eq(x, y, []);
+            function eq(a, b, stack) {
+                var className, length, size, result, alength, blength, r, key, ref, sizeB;
+                if (a == null || b == null) { return a === b; }
+                if (a.__placeholder__ || b.__placeholder__) { return true; }
+                if (a === b) { return a !== 0 || 1 / a == 1 / b; }
+                className = toString.call(a);
+                if (toString.call(b) != className) { return false; }
+                switch (className) {
+                    case '[object String]': return a == String(b);
+                    case '[object Number]':
+                        return a != +a ? b != +b : (a == 0 ? 1 / a == 1 / b : a == +b);
+                    case '[object Date]':
+                    case '[object Boolean]':
+                        return +a == +b;
+                    case '[object RegExp]':
+                        return a.source == b.source &&
+                            a.global == b.global &&
+                            a.multiline == b.multiline &&
+                            a.ignoreCase == b.ignoreCase;
+                }
+                if (typeof a != 'object' || typeof b != 'object') { return false; }
+                length = stack.length;
+                while (length--) { if (stack[length] == a) { return true; } }
+                stack.push(a);
+                size = 0;
+                result = true;
+                if (className == '[object Array]') {
+                    alength = a.length;
+                    blength = b.length;
+                    if (first) {
+                        switch (type) {
+                            case '===': result = alength === blength; break;
+                            case '<==': result = alength <= blength; break;
+                            case '<<=': result = alength < blength; break;
+                        }
+                        size = alength;
+                        first = false;
+                    } else {
+                        result = alength === blength;
+                        size = alength;
+                    }
+                    if (result) {
+                        while (size--) {
+                            if (!(result = size in a == size in b && eq(a[size], b[size], stack))){ break; }
+                        }
+                    }
+                } else {
+                    if ('constructor' in a != 'constructor' in b || a.constructor != b.constructor) {
+                        return false;
+                    }
+                    for (key in a) {
+                        if (has(a, key)) {
+                            size++;
+                            if (!(result = has(b, key) && eq(a[key], b[key], stack))) { break; }
+                        }
+                    }
+                    if (result) {
+                        sizeB = 0;
+                        for (key in b) {
+                            if (has(b, key)) { ++sizeB; }
+                        }
+                        if (first) {
+                            if (type === '<<=') {
+                                result = size < sizeB;
+                            } else if (type === '<==') {
+                                result = size <= sizeB
+                            } else {
+                                result = size === sizeB;
+                            }
+                        } else {
+                            first = false;
+                            result = size === sizeB;
+                        }
+                    }
+                }
+                stack.pop();
+                return result;
+            }
         }
-    });
+    }).call(this);
 
-    // Hàm để xác định trạng thái dựa trên index
-    function getStatusFromIndex(index) {
-        // Giả sử danh sách trạng thái là [0, 1, 1, 2, 2, 3, 4, 4]
-        const statusList = [0, 1, 1, 2, 2, 3, 4, 4];
-
-    // Trả về trạng th```
 </script>
 
 
