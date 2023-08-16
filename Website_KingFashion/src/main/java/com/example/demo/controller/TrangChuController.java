@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Anh;
 import com.example.demo.entity.ChiTietSanPham;
+import com.example.demo.entity.GioHangChiTiet;
 import com.example.demo.entity.SanPham;
 import com.example.demo.repository.AnhRepository;
 import com.example.demo.service.AnhService;
@@ -9,11 +10,15 @@ import com.example.demo.service.ChatLieuService;
 import com.example.demo.service.ChiTietKichCoService;
 import com.example.demo.service.ChiTietSanPhamService;
 import com.example.demo.service.CoAoService;
+import com.example.demo.service.GioHangChiTietService;
+import com.example.demo.service.GioHangService;
 import com.example.demo.service.KichCoService;
 import com.example.demo.service.LoaiSanPhamService;
 import com.example.demo.service.MauSacService;
 import com.example.demo.service.NhaSanXuatService;
 import com.example.demo.service.SanPhamService;
+import com.example.demo.service.impl.GioHangChiTietServiceImpl;
+import com.example.demo.service.impl.GioHangServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -71,17 +76,31 @@ public class TrangChuController {
     @Autowired
     private ChiTietKichCoService chiTietKichCoService;
 
+    @Autowired
+    private GioHangChiTietServiceImpl gioHangChiTietService;
+
+    @Autowired
+    private GioHangServiceImpl gioHangService;
+
     @GetMapping("/trang-chu")
     public String trangChu() {
         return "trang-chu/trang-chu";
     }
 
+    @GetMapping("/gio-hang")
+    public String gioHang(Model model) {
+        List<GioHangChiTiet> list = gioHangChiTietService.getAll();
+        model.addAttribute("list", list);
+        model.addAttribute("tongTien", gioHangChiTietService.tongTien());
+        return "trang-chu/gio-hang";
+    }
+
     @GetMapping("/detail/{id}")
-    public String detail(@PathVariable UUID id,Model model) {
+    public String detail(@PathVariable UUID id, Model model) {
         ChiTietSanPham chiTietSanPham = chiTietSanPhamService.detail(id);
         model.addAttribute("ctsp", chiTietSanPham);
         List<ChiTietSanPham> list = chiTietSanPhamService.getAll();
-        model.addAttribute("list",list);
+        model.addAttribute("list", list);
         List<Anh> listAnh = anhService.getAllByChiTietSanPhamId(id);
         List<Anh> filteredAnhList = new ArrayList<>();
         for (Anh anh : listAnh) {

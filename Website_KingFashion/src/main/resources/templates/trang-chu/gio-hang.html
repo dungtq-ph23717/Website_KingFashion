@@ -28,6 +28,12 @@
 
     <link rel="stylesheet" href="../../static/css/aos.css">
     <link rel="stylesheet" href="../../static/css/style_home.css">
+    <script src="https://www.thymeleaf.org/thymeleaf.js" th:src="@{/webjars/thymeleaf/3.0.12.RELEASE/thymeleaf.min.js}"></script>
+    <style>
+        .table {
+            table-layout: fixed;
+        }
+    </style>
 </head>
 <body>
 <div class="site-wrap">
@@ -87,157 +93,58 @@
     <div class="bg-light py-3">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 mb-0">
-                    <a href="/trang-chu">Trang chủ</a>
-                    <span class="mx-2 mb-0">/</span>
-                    <a href="/san-pham">Sản phẩm</a>
-                    <span class="mx-2 mb-0">/</span>
-                    <strong class="text-black" th:text="${ctsp.sanPham.ten}"></strong></div>
+                <div class="col-md-12 mb-0"><a href="/trang-chu">Trang chủ</a> <span class="mx-2 mb-0">/</span> <strong
+                        class="text-black">Giỏ hàng</strong></div>
             </div>
         </div>
     </div>
 
-    <div class="site-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-1">
-                    <div th:each="l : ${listAnh}">
-                        <img th:src="@{'/chi-tiet-san-pham/display1?id=' + ${l.id}}"
-                             alt="Image" class="img-fluid" style="margin-bottom: 10px"/><br>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <img th:src="@{${'/chi-tiet-san-pham/display?id=' + ctsp.id}}"
-                         alt="Image placeholder"
-                         class="img-fluid">
-                </div>
-                <div class="col-md-5">
-                    <h1 class="text-black" th:text="${ctsp.sanPham.ten}"></h1>
-                    <p th:text="${ctsp.sanPham.moTa}"></p>
-                    <p><strong class="text-primary h4"
-                               th:text="${#numbers.formatDecimal(ctsp.giaBan, 0, 'COMMA', 3, 'POINT').substring(0, #numbers.formatDecimal(ctsp.giaBan, 0, 'COMMA', 3, 'POINT').length() - 4)} + ' đ'"></strong>
-                    </p>
-                    <div class="mb-1 d-flex">
-                        <label class="form-label" style="color: black; font-size: 20px">Kích cỡ</label>
-                    </div>
-                    <div class="mb-1 d-flex">
-                        <div th:each="l : ${listKichCo}">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="kichCo"
-                                       value="option1">
-                                <label class="form-check-label" th:text="${l.ten}" style="color: black"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-1 d-flex">
-                        <label class="form-label" style="color: black; font-size: 20px">Màu Sắc</label>
-                    </div>
-                    <div class="mb-1 d-flex">
-                        <div th:each="l : ${listMauSac}">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="mauSac"
-                                       value="option1">
-                                <label class="form-check-label" th:text="${l.tenMauSac}" style="color: black"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-1 d-flex">
-                        <label class="form-label" style="color: black; font-size: 20px">Số lượng</label>
-                    </div>
-                    <div class="mb-5">
-                        <div class="container">
-                            <button id="decrement" onclick="stepper(this)" style="">- </button>
-                            <input type="number" min="0" max="100" step="1" value="1" id="my-input" style="height: 56px; margin-left: -5px">
-                            <button id="increment" onclick="stepper(this)" style="margin-left: -5px"> + </button>
-                        </div>
-                    </div>
-                    <form>
-                        <button type="submit" class="buy-now btn btn-sm btn-primary" style="border-radius: 15px">
-                            Thêm vào giỏ hàng
-                        </button>
-                    </form>
-
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card-box" style="width: 840px">
+                    <h1>Giỏ hàng</h1>
+                    <table class="table">
+                        <tr th:each="l : ${list}">
+                            <td style="width: 130px"><img th:src="@{${'/chi-tiet-san-pham/display?id=' + l.chiTietSanPham.id}}"
+                                     alt="Image placeholder"
+                                     class="img-fluid" style="width: 150px; height: 150px"></td>
+                            <td th:text="${l.chiTietSanPham.sanPham.ten}" style="width: 200px"></td>
+                            <td th:text="${#numbers.formatDecimal(l.chiTietSanPham.giaBan, 0 , 'COMMA',3,'POINT').substring(0, #numbers.formatDecimal(l.chiTietSanPham.giaBan, 0 , 'COMMA',3,'POINT').length()-4)} + ' đ'"
+                                style="width: 90px">
+                            </td>
+                            <td style="width: 180px">
+                                <div class="container">
+                                    <button id="decrement" onclick="stepper(this)" style="margin-top: -10px">-</button>
+                                    <input type="number" min="0" max="100" step="1" th:value="${l.soLuong}"
+                                           id="my-input"
+                                           style="height: 56px; margin-left: -5px;margin-top: -10px">
+                                    <button id="increment" onclick="stepper(this)"
+                                            style="margin-left: -5px;margin-top: -10px"> +
+                                    </button>
+                                </div>
+                            </td>
+                            <td style="width: 150px" th:text="${#numbers.formatDecimal(l.tongTien, 0 , 'COMMA',3,'POINT').substring(0, #numbers.formatDecimal(l.tongTien, 0 , 'COMMA',3,'POINT').length()-4)} + ' đ'">
+                            </td>
+                            <td><a th:href="@{delete/{id}(id=${l.id})}"><i
+                                    class="material-icons remove"
+                                    data-toggle="tooltip"
+                                    title="Delete"
+                                    onclick="return confirm('Bạn có muốn xoá không?')">&#xE872;</i></a></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="site-section block-3 site-blocks-2 bg-light">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-7 site-section-heading text-center pt-4">
-                    <h2>Featured Products</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="nonloop-block-3 owl-carousel">
-                        <div class="item">
-                            <div class="block-4 text-center">
-                                <figure class="block-4-image">
-                                    <img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
-                                </figure>
-                                <div class="block-4-text p-4">
-                                    <h3><a href="#">Tank Top</a></h3>
-                                    <p class="mb-0">Finding perfect t-shirt</p>
-                                    <p class="text-primary font-weight-bold">$50</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="block-4 text-center">
-                                <figure class="block-4-image">
-                                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
-                                </figure>
-                                <div class="block-4-text p-4">
-                                    <h3><a href="#">Corater</a></h3>
-                                    <p class="mb-0">Finding perfect products</p>
-                                    <p class="text-primary font-weight-bold">$50</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="block-4 text-center">
-                                <figure class="block-4-image">
-                                    <img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid">
-                                </figure>
-                                <div class="block-4-text p-4">
-                                    <h3><a href="#">Polo Shirt</a></h3>
-                                    <p class="mb-0">Finding perfect products</p>
-                                    <p class="text-primary font-weight-bold">$50</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="block-4 text-center">
-                                <figure class="block-4-image">
-                                    <img src="images/cloth_3.jpg" alt="Image placeholder" class="img-fluid">
-                                </figure>
-                                <div class="block-4-text p-4">
-                                    <h3><a href="#">T-Shirt Mockup</a></h3>
-                                    <p class="mb-0">Finding perfect products</p>
-                                    <p class="text-primary font-weight-bold">$50</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="block-4 text-center">
-                                <figure class="block-4-image">
-                                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">
-                                </figure>
-                                <div class="block-4-text p-4">
-                                    <h3><a href="#">Corater</a></h3>
-                                    <p class="mb-0">Finding perfect products</p>
-                                    <p class="text-primary font-weight-bold">$50</p>
-                                </div>
-                            </div>
-                        </div>
+            <div class="col-3">
+                <div class="card-box">
+                    <p style="font-size: 20px; color: black">Tổng đơn: <strong th:text="${#numbers.formatDecimal(tongTien, 0 , 'COMMA',3,'POINT').substring(0, #numbers.formatDecimal(tongTien, 0 , 'COMMA',3,'POINT').length()-4)} + ' đ'"></strong></p><br>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="button">Thanh toán</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <footer class="site-footer border-top">
         <div class="container">
             <div class="row">
@@ -316,6 +223,7 @@
         </div>
     </footer>
 </div>
+
 <script>
     const myInput = document.getElementById("my-input");
 
@@ -331,6 +239,10 @@
         if (newValue >= min && newValue <= max) {
             myInput.setAttribute("value", newValue);
         }
+    }
+
+    function calculateTotal(giaBan, soLuong) {
+        return giaBan * soLuong;
     }
 </script>
 <script src="../../static/js/jquery-3.3.1.min.js"></script>

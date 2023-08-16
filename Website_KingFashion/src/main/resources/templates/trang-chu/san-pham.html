@@ -79,7 +79,7 @@
                                 <li><a href="#"><span class="icon icon-person"></span></a></li>
                                 <li><a href="#"><span class="icon icon-heart-o"></span></a></li>
                                 <li>
-                                    <a href="cart.html" class="site-cart">
+                                    <a href="/gio-hang" class="site-cart">
                                         <span class="icon icon-shopping_cart"></span>
                                         <span class="count">2</span>
                                     </a>
@@ -156,24 +156,23 @@
                         </div>
                     </div>
                     <div class="row mb-5">
-                        <div class="col-sm-6 col-lg-4 mb-4">
-                            <div th:each="l : ${list}">
-                                <div class="block-4 text-center border">
-                                    <figure class="block-4-image">
-                                        <a th:href="@{/detail/{id}(id=${l.id})}">
-                                            <img th:src="@{${'/chi-tiet-san-pham/display?id=' + l.id}}"
-                                                 alt="Image placeholder"
-                                                 class="img-fluid" style="width: 100%; height: 300px">
-                                        </a>
-                                    </figure>
-                                    <div class="block-4-text p-4">
-                                        <h3><a th:href="@{/detail/{id}(id=${l.id})}" th:text="${l.sanPham.ten}"
-                                               style="color: black"></a></h3>
-                                        <p class="text-primary font-weight-bold"
-                                           th:text="${#numbers.formatDecimal(l.giaBan, 0, 'COMMA', 3, 'POINT').substring(0, #numbers.formatDecimal(l.giaBan, 0, 'COMMA', 3, 'POINT').length() - 4)} + ' đ'"></p>
-                                    </div>
+                        <div class="col-sm-6 col-lg-4 mb-4" th:each="l : ${list}">
+                            <div class="block-4 text-center border" style="width: 100%; height: 100%">
+                                <figure class="block-4-image">
+                                    <a th:href="@{/detail/{id}(id=${l.id})}">
+                                        <img th:src="@{${'/chi-tiet-san-pham/display?id=' + l.id}}"
+                                             alt="Image placeholder"
+                                             class="img-fluid" style="width: 100%; height: 300px">
+                                    </a>
+                                </figure>
+                                <div class="block-4-text p-4">
+                                    <h3><a th:href="@{/detail/{id}(id=${l.id})}" th:text="${l.sanPham.ten}"
+                                           style="color: black"></a></h3>
+                                    <p class="text-primary font-weight-bold"
+                                       th:text="${#numbers.formatDecimal(l.giaBan, 0, 'COMMA', 3, 'POINT').substring(0, #numbers.formatDecimal(l.giaBan, 0, 'COMMA', 3, 'POINT').length() - 4)} + ' đ'"></p>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="row">
@@ -221,11 +220,13 @@
                             <h3 class="mb-3 h6 text-uppercase text-black d-block">Giá</h3>
                             <div class="price-input">
                                 <div class="field">
-                                    <input type="number" class="input-min" value="2506900">
+                                    <input type="number" class="input-min" value="2506900"
+                                           style="font-size: 15px; height: 100%">
                                 </div>
                                 <div class="separator">-</div>
                                 <div class="field">
-                                    <input type="number" class="input-max" value="7983800">
+                                    <input type="number" class="input-max" value="7983800"
+                                           style="font-size: 15px; height: 100%">
                                 </div>
                             </div>
                             <div class="slider">
