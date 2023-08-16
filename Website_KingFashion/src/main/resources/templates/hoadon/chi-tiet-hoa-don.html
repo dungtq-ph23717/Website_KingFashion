@@ -284,7 +284,7 @@
                                                                        hd.trangThai == 6 || hd.trangThai == 7}"
                                                                      class="col-3 stage"
                                                                      th:style="${hd.trangThai == 0 ? 'background-color: yellow;color:black' : ''}">
-                                                                    <div class="content" >
+                                                                    <div class="content">
                                                                         <h3 class="h3">
                                                                             Đang chờ xác nhận
                                                                         </h3>
@@ -439,87 +439,488 @@
 
                                             <div class="col-12 row">
 
-                                                <div style="height: 35px;"
-                                                     class="col-3">
-                                                    <a th:href="@{/hoa-don/xac-nhan-don/{id} (id=${listHD.id})}">
-                                                        <button data-toggle="tooltip"
-                                                                title="Làm mới" &#xE254; height="22px"
-                                                                style="background:#0ad406;border-radius: 50px;border:1px solid black;justify-items: center;"
-                                                                type="button" class="btn btn-labeled shadow-button">
+                                                    <div style="height: 35px;" class="col-3">
+                                                        <a th:if="${listHD.trangThai == 0}">
+                                                            <button data-toggle="modal"
+                                                                    data-target="#myModal1"
+                                                                    style="background:#0ad406;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                    type="button" class="btn btn-labeled shadow-button">
                                                             <span style="margin-bottom: 3px;color: black;"
                                                                   class="btn-icon">
                                                                 <i class="fa-regular fa-square-check fa-beat fa-lg"></i>
                                                             </span>
-                                                            <span style="margin-bottom: 3px;color: black;"
-                                                                  class="separator">|</span>
-                                                            <span style="margin-bottom: 3px;color: black;font-size: 15px;font-weight: bold"
-                                                                  ;
-                                                                  class="btn-text">Xác nhận đơn hàng</span>
-                                                        </button>
-                                                    </a>
-                                                </div>
+                                                                <span style="margin-bottom: 3px;color: black;"
+                                                                      class="separator">|</span>
+                                                                <span style="margin-bottom: 3px;color: black;font-size: 15px;font-weight: bold"
+                                                                      class="btn-text">Xác nhận đơn hàng</span>
+                                                            </button>
+                                                        </a>
 
-                                                <div style="height: 35px;"
-                                                     class="col-3">
-                                                    <a th:href="@{/hoa-don/huy-don/{id} (id=${listHD.id})}">
-                                                        <button data-toggle="tooltip"
-                                                                title="Làm mới" &#xE254; height="22px"
-                                                                style="background:orangered;border-radius: 50px;border:1px solid black;justify-items: center;"
-                                                                type="button" class="btn btn-labeled shadow-button">
+                                                        <form th:object="${listHD}" th:action="@{/hoa-don/xac-nhan-don/{id} (id=${listHD.id})}"
+                                                              method="get">
+
+                                                            <!--                                                            <input th:field="*{id}" hidden="true">-->
+                                                            <input th:field="*{lichSuHoaDon.id}" hidden="true">
+                                                            <input th:field="*{maHoaDon}" hidden="true">
+                                                            <input th:field="*{ngayTao}" hidden="true">
+                                                            <input th:field="*{ngayThanhToan}" hidden="true">
+                                                            <input th:field="*{tongTien}" hidden="true">
+                                                            <input th:field="*{tongTienSauKhiGiam}" hidden="true">
+                                                            <input th:field="*{trangThai}" hidden="true">
+                                                            <input th:field="*{ngayShip}" hidden="true">
+                                                            <input th:field="*{ngayDuKienNhan}" hidden="true">
+                                                            <input th:field="*{tienShip}" hidden="true">
+                                                            <input th:field="*{ngaySua}" hidden="true">
+                                                            <input th:field="*{nguoiTaoHoaDon}" hidden="true">
+                                                            <input th:field="*{ngayNhan}" hidden="true">
+                                                            <input th:field="*{loaiDon}" hidden="true">
+
+                                                            <div class="modal" id="myModal1">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+
+                                                                        <!-- Modal Header -->
+                                                                        <div class="modal-header">
+                                                                            <h4 style="margin-left: 25px"
+                                                                                class="modal-title w-100 text-center">Thêm ghi chú</h4>
+                                                                            <button type="button" class="close"
+                                                                                    data-dismiss="modal">&times;
+                                                                            </button>
+                                                                        </div>
+
+                                                                        <!-- Modal body -->
+                                                                        <div class="modal-body">
+                                                                            <!-- adding Bootstrap Form here -->
+                                                                            <form id="myForm1">
+                                                                                <div class="container">
+
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-12">
+                                                                                            <textarea class="form-control"
+                                                                                                    rows="4"
+                                                                                                    placeholder=""
+                                                                                                    th:field="*{ghiChu}" ></textarea>
+<!--                                                                                            <div class="invalid-feedback">-->
+<!--                                                                                                Không được để trống!-->
+<!--                                                                                            </div>-->
+                                                                                        </div>
+                                                                                    </div>
+
+
+                                                                                    <div class="text-center">
+                                                                                        <button height="24px"
+                                                                                                style="background:deepskyblue;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                                                type="submit"
+                                                                                                class="btn btn-labeled shadow-button">
+
+                                                                                <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold";
+                                                                                      class="btn-text">Ghi chú</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+
+
+                                                                        </div>
+
+                                                                        <!-- Modal footer -->
+                                                                        <!--                                                                    <div class="modal-footer">-->
+                                                                        <!--                                                                        <p><-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;G-O-O-D&#45;&#45;J-O-B-!&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;</p>-->
+                                                                        <!--                                                                    </div>-->
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+
+
+
+                                                    <div style="height: 35px;" class="col-2">
+                                                        <a th:if="${listHD.trangThai == 0}">
+                                                            <button data-toggle="modal"
+                                                                    data-target="#myModal2"
+                                                                    style="background:orangered;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                    type="button" class="btn btn-labeled shadow-button">
                                                             <span style="margin-bottom: 3px;color: white;"
                                                                   class="btn-icon">
-                                                               <i class="fa-solid fa-xmark fa-fade fa-lg"></i>
+                                                                <i class="fa-solid fa-xmark fa-fade fa-lg"></i>
                                                             </span>
-                                                            <span style="margin-bottom: 3px;color: white;"
-                                                                  class="separator">|</span>
-                                                            <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold"
-                                                                  ;
-                                                                  class="btn-text">Hủy đơn hàng</span>
-                                                        </button>
-                                                    </a>
-                                                </div>
+                                                                <span style="margin-bottom: 3px;color: white;"
+                                                                      class="separator">|</span>
+                                                                <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold"
+                                                                      class="btn-text">Hủy đơn hàng</span>
+                                                            </button>
+                                                        </a>
 
-                                                <div style="height: 35px;"
-                                                     class="col-3">
-                                                    <a th:href="@{/hoa-don/xac-nhan-giao-hang/{id} (id=${listHD.id})}">
-                                                        <button data-toggle="tooltip"
-                                                                title="Làm mới" &#xE254; height="22px"
-                                                                style="background:yellow;border-radius: 50px;border:1px solid black;justify-items: center;"
-                                                                type="button" class="btn btn-labeled shadow-button">
-                                                            <span style="margin-bottom: 3px;color: black;"
+                                                        <form th:object="${listHD}" th:action="@{/hoa-don/huy-don/{id} (id=${listHD.id})}"
+                                                              method="get">
+
+                                                            <!--                                                            <input th:field="*{id}" hidden="true">-->
+                                                            <input th:field="*{lichSuHoaDon.id}" hidden="true">
+                                                            <input th:field="*{maHoaDon}" hidden="true">
+                                                            <input th:field="*{ngayTao}" hidden="true">
+                                                            <input th:field="*{ngayThanhToan}" hidden="true">
+                                                            <input th:field="*{tongTien}" hidden="true">
+                                                            <input th:field="*{tongTienSauKhiGiam}" hidden="true">
+                                                            <input th:field="*{trangThai}" hidden="true">
+                                                            <input th:field="*{ngayShip}" hidden="true">
+                                                            <input th:field="*{ngayDuKienNhan}" hidden="true">
+                                                            <input th:field="*{tienShip}" hidden="true">
+                                                            <input th:field="*{ngaySua}" hidden="true">
+                                                            <input th:field="*{nguoiTaoHoaDon}" hidden="true">
+                                                            <input th:field="*{ngayNhan}" hidden="true">
+                                                            <input th:field="*{loaiDon}" hidden="true">
+
+                                                            <div class="modal" id="myModal2">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+
+                                                                        <!-- Modal Header -->
+                                                                        <div class="modal-header">
+                                                                            <h4 style="margin-left: 25px"
+                                                                                class="modal-title w-100 text-center">Thêm ghi chú</h4>
+                                                                            <button type="button" class="close"
+                                                                                    data-dismiss="modal">&times;
+                                                                            </button>
+                                                                        </div>
+
+                                                                        <!-- Modal body -->
+                                                                        <div class="modal-body">
+                                                                            <!-- adding Bootstrap Form here -->
+                                                                            <form id="myForm2">
+                                                                                <div class="container">
+
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-12">
+                                                                                            <textarea class="form-control"
+                                                                                                      rows="4"
+                                                                                                      placeholder=""
+                                                                                                      th:field="*{ghiChu}" ></textarea>
+                                                                                            <!--                                                                                            <div class="invalid-feedback">-->
+                                                                                            <!--                                                                                                Không được để trống!-->
+                                                                                            <!--                                                                                            </div>-->
+                                                                                        </div>
+                                                                                    </div>
+
+
+                                                                                    <div class="text-center">
+                                                                                        <button height="24px"
+                                                                                                style="background:deepskyblue;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                                                type="submit"
+                                                                                                class="btn btn-labeled shadow-button">
+
+                                                                                <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold";
+                                                                                      class="btn-text">Ghi chú</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+
+
+                                                                        </div>
+
+                                                                        <!-- Modal footer -->
+                                                                        <!--                                                                    <div class="modal-footer">-->
+                                                                        <!--                                                                        <p><-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;G-O-O-D&#45;&#45;J-O-B-!&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;</p>-->
+                                                                        <!--                                                                    </div>-->
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+                                                    <div style="height: 35px;" class="col-2">
+                                                        <a th:if="${listHD.trangThai == 1}">
+                                                            <button data-toggle="modal"
+                                                                    data-target="#myModal3"
+                                                                    style="background:yellow;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                    type="button" class="btn btn-labeled shadow-button">
+                                                                <span style="margin-bottom: 3px;color: black;"
+                                                                      class="btn-icon">
+                                                                    <i class="fa-regular fa-square-check fa-beat fa-lg"></i>
+                                                                </span>
+                                                                <span style="margin-bottom: 3px;color: black;"
+                                                                      class="separator">|</span>
+                                                                <span style="margin-bottom: 3px;color: black;font-size: 15px;font-weight: bold"
+                                                                      class="btn-text">Xác nhận giao hàng</span>
+                                                            </button>
+                                                        </a>
+
+                                                        <form th:object="${listHD}" th:action="@{/hoa-don/xac-nhan-giao-hang/{id} (id=${listHD.id})}"
+                                                              method="get">
+
+                                                            <!--                                                            <input th:field="*{id}" hidden="true">-->
+                                                            <input th:field="*{lichSuHoaDon.id}" hidden="true">
+                                                            <input th:field="*{maHoaDon}" hidden="true">
+                                                            <input th:field="*{ngayTao}" hidden="true">
+                                                            <input th:field="*{ngayThanhToan}" hidden="true">
+                                                            <input th:field="*{tongTien}" hidden="true">
+                                                            <input th:field="*{tongTienSauKhiGiam}" hidden="true">
+                                                            <input th:field="*{trangThai}" hidden="true">
+                                                            <input th:field="*{ngayShip}" hidden="true">
+                                                            <input th:field="*{ngayDuKienNhan}" hidden="true">
+                                                            <input th:field="*{tienShip}" hidden="true">
+                                                            <input th:field="*{ngaySua}" hidden="true">
+                                                            <input th:field="*{nguoiTaoHoaDon}" hidden="true">
+                                                            <input th:field="*{ngayNhan}" hidden="true">
+                                                            <input th:field="*{loaiDon}" hidden="true">
+
+                                                            <div class="modal" id="myModal3">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+
+                                                                        <!-- Modal Header -->
+                                                                        <div class="modal-header">
+                                                                            <h4 style="margin-left: 25px"
+                                                                                class="modal-title w-100 text-center">Thêm ghi chú</h4>
+                                                                            <button type="button" class="close"
+                                                                                    data-dismiss="modal">&times;
+                                                                            </button>
+                                                                        </div>
+
+                                                                        <!-- Modal body -->
+                                                                        <div class="modal-body">
+                                                                            <!-- adding Bootstrap Form here -->
+                                                                            <form id="myForm3">
+                                                                                <div class="container">
+
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-12">
+                                                                                            <textarea class="form-control"
+                                                                                                      rows="4"
+                                                                                                      placeholder=""
+                                                                                                      th:field="*{ghiChu}" ></textarea>
+                                                                                            <!--                                                                                            <div class="invalid-feedback">-->
+                                                                                            <!--                                                                                                Không được để trống!-->
+                                                                                            <!--                                                                                            </div>-->
+                                                                                        </div>
+                                                                                    </div>
+
+
+                                                                                    <div class="text-center">
+                                                                                        <button height="24px"
+                                                                                                style="background:deepskyblue;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                                                type="submit"
+                                                                                                class="btn btn-labeled shadow-button">
+
+                                                                                <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold";
+                                                                                      class="btn-text">Ghi chú</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+
+
+                                                                        </div>
+
+                                                                        <!-- Modal footer -->
+                                                                        <!--                                                                    <div class="modal-footer">-->
+                                                                        <!--                                                                        <p><-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;G-O-O-D&#45;&#45;J-O-B-!&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;</p>-->
+                                                                        <!--                                                                    </div>-->
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+                                                    <div style="height: 35px;" class="col-3">
+                                                        <a th:if="${listHD.trangThai == 4}">
+                                                            <button data-toggle="modal"
+                                                                    data-target="#myModal4"
+                                                                    style="background:#FF00FF;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                    type="button" class="btn btn-labeled shadow-button">
+                                                            <span style="margin-bottom: 3px;color: white;"
                                                                   class="btn-icon">
                                                                 <i class="fa-regular fa-square-check fa-beat fa-lg"></i>
                                                             </span>
-                                                            <span style="margin-bottom: 3px;color: black;"
-                                                                  class="separator">|</span>
-                                                            <span style="margin-bottom: 3px;color: black;font-size: 15px;font-weight: bold"
-                                                                  ;
-                                                                  class="btn-text">Xác nhận giao hàng</span>
-                                                        </button>
-                                                    </a>
-                                                </div>
+                                                                <span style="margin-bottom: 3px;color: white;"
+                                                                      class="separator">|</span>
+                                                                <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold"
+                                                                      class="btn-text">Xác nhận thanh toán</span>
+                                                            </button>
+                                                        </a>
 
-                                                <div style="height: 35px;"
-                                                     class="col-3">
-                                                    <a th:href="@{/hoa-don/xac-nhan-thanh-toan/{id} (id=${listHD.id})}">
-                                                        <button data-toggle="tooltip"
-                                                                title="Làm mới" &#xE254; height="22px"
+                                                        <form th:object="${listHD}" th:action="@{/hoa-don/xac-nhan-thanh-toan/{id} (id=${listHD.id})}"
+                                                              method="get">
+
+                                                            <!--                                                            <input th:field="*{id}" hidden="true">-->
+                                                            <input th:field="*{lichSuHoaDon.id}" hidden="true">
+                                                            <input th:field="*{maHoaDon}" hidden="true">
+                                                            <input th:field="*{ngayTao}" hidden="true">
+                                                            <input th:field="*{ngayThanhToan}" hidden="true">
+                                                            <input th:field="*{tongTien}" hidden="true">
+                                                            <input th:field="*{tongTienSauKhiGiam}" hidden="true">
+                                                            <input th:field="*{trangThai}" hidden="true">
+                                                            <input th:field="*{ngayShip}" hidden="true">
+                                                            <input th:field="*{ngayDuKienNhan}" hidden="true">
+                                                            <input th:field="*{tienShip}" hidden="true">
+                                                            <input th:field="*{ngaySua}" hidden="true">
+                                                            <input th:field="*{nguoiTaoHoaDon}" hidden="true">
+                                                            <input th:field="*{ngayNhan}" hidden="true">
+                                                            <input th:field="*{loaiDon}" hidden="true">
+
+                                                            <div class="modal" id="myModal4">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+
+                                                                        <!-- Modal Header -->
+                                                                        <div class="modal-header">
+                                                                            <h4 style="margin-left: 25px"
+                                                                                class="modal-title w-100 text-center">Thêm ghi chú</h4>
+                                                                            <button type="button" class="close"
+                                                                                    data-dismiss="modal">&times;
+                                                                            </button>
+                                                                        </div>
+
+                                                                        <!-- Modal body -->
+                                                                        <div class="modal-body">
+                                                                            <!-- adding Bootstrap Form here -->
+                                                                            <form id="myForm4">
+                                                                                <div class="container">
+
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-sm-12">
+                                                                                            <textarea class="form-control"
+                                                                                                      rows="4"
+                                                                                                      placeholder=""
+                                                                                                      th:field="*{ghiChu}" ></textarea>
+                                                                                            <!--                                                                                            <div class="invalid-feedback">-->
+                                                                                            <!--                                                                                                Không được để trống!-->
+                                                                                            <!--                                                                                            </div>-->
+                                                                                        </div>
+                                                                                    </div>
+
+
+                                                                                    <div class="text-center">
+                                                                                        <button height="24px"
+                                                                                                style="background:deepskyblue;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                                                type="submit"
+                                                                                                class="btn btn-labeled shadow-button">
+
+                                                                                <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold";
+                                                                                      class="btn-text">Ghi chú</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+
+
+                                                                        </div>
+
+                                                                        <!-- Modal footer -->
+                                                                        <!--                                                                    <div class="modal-footer">-->
+                                                                        <!--                                                                        <p><-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;G-O-O-D&#45;&#45;J-O-B-!&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;</p>-->
+                                                                        <!--                                                                    </div>-->
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+                                                <div style="height: 35px;" class="col-2">
+                                                    <a>
+                                                        <button data-toggle="modal"
+                                                                data-target="#myModal5"
                                                                 style="background:deepskyblue;border-radius: 50px;border:1px solid black;justify-items: center;"
                                                                 type="button" class="btn btn-labeled shadow-button">
                                                             <span style="margin-bottom: 3px;color: black;"
                                                                   class="btn-icon">
-                                                                <i class="fa-regular fa-square-check fa-beat fa-lg"></i>
+                                                                <i class="fa-solid fa-info fa-bounce fa-lg"></i>
                                                             </span>
                                                             <span style="margin-bottom: 3px;color: black;"
                                                                   class="separator">|</span>
                                                             <span style="margin-bottom: 3px;color: black;font-size: 15px;font-weight: bold"
-                                                                  ;
-                                                                  class="btn-text">Xác nhận thanh toán</span>
+                                                                  class="btn-text">Chi tiết</span>
                                                         </button>
                                                     </a>
+
+                                                    <form th:object="${listHD}" method="get">
+
+                                                        <!--                                                            <input th:field="*{id}" hidden="true">-->
+                                                        <input th:field="*{lichSuHoaDon.id}" hidden="true">
+                                                        <input th:field="*{maHoaDon}" hidden="true">
+                                                        <input th:field="*{ngayTao}" hidden="true">
+                                                        <input th:field="*{ngayThanhToan}" hidden="true">
+                                                        <input th:field="*{tongTien}" hidden="true">
+                                                        <input th:field="*{tongTienSauKhiGiam}" hidden="true">
+                                                        <input th:field="*{trangThai}" hidden="true">
+                                                        <input th:field="*{ngayShip}" hidden="true">
+                                                        <input th:field="*{ngayDuKienNhan}" hidden="true">
+                                                        <input th:field="*{tienShip}" hidden="true">
+                                                        <input th:field="*{ngaySua}" hidden="true">
+                                                        <input th:field="*{nguoiTaoHoaDon}" hidden="true">
+                                                        <input th:field="*{ngayNhan}" hidden="true">
+                                                        <input th:field="*{loaiDon}" hidden="true">
+
+                                                        <div class="modal" id="myModal5">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+
+                                                                    <!-- Modal Header -->
+                                                                    <div class="modal-header">
+                                                                        <h4 style="margin-left: 25px"
+                                                                            class="modal-title w-100 text-center">Chi tiết đơn hàng</h4>
+                                                                        <button type="button" class="close"
+                                                                                data-dismiss="modal">&times;
+                                                                        </button>
+                                                                    </div>
+
+                                                                    <!-- Modal body -->
+                                                                    <div class="modal-body">
+                                                                        <!-- adding Bootstrap Form here -->
+                                                                        <form id="myForm5">
+                                                                            <div class="container">
+
+                                                                                <div class="form-group row">
+<!--                                                                                   viet table ///-->
+                                                                                    <section class="navbar-expand-lg navbar-light bg-light">
+                                                                                    <table class="table" style="text-align: center;">
+                                                                                        <thead>
+                                                                                        <tr style="text-align: center;">
+                                                                                            <th>Trạng Thái</th>
+                                                                                            <th>Thời gian</th>
+                                                                                            <th>Người xác nhận</th>
+                                                                                            <th>Ghi chú</th>
+                                                                                        </tr>
+                                                                                        </thead>
+                                                                                        <tbody style="text-align:center;">
+                                                                                        <tr>
+                                                                                            <td></td>
+                                                                                            <td></td>
+                                                                                            <td></td>
+                                                                                            <td></td>
+                                                                                        </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                    </section>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </form>
+
+
+                                                                    </div>
+
+                                                                    <!-- Modal footer -->
+                                                                    <!--                                                                    <div class="modal-footer">-->
+                                                                    <!--                                                                        <p><-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;G-O-O-D&#45;&#45;J-O-B-!&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;</p>-->
+                                                                    <!--                                                                    </div>-->
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
                                                 </div>
 
-                                            </div>
+
+                                                </div>
+
 
 
                                         </div>
@@ -551,7 +952,8 @@
                                             </div>
                                             <div class="col-5"
                                                  style="display: flex; justify-content: end;justify-self: center;justify-items: center">
-                                                <button data-toggle="modal" data-target="#myModal"
+                                                <button th:if="${listHD.trangThai==0}" data-toggle="modal"
+                                                        data-target="#myModal"
                                                         style="background:black;border-radius: 50px;border:1px solid black;height: 35px;width: 110px;display: flex;justify-items: center"
                                                         type="submit"
                                                         class="btn btn-labeled shadow-button">
@@ -611,9 +1013,7 @@
 
                                                                         <div class="form-group row">
                                                                             <label for="id"
-                                                                                   class="col-sm-3 col-form-label">Họ
-                                                                                Và
-                                                                                Tên:</label>
+                                                                                   class="col-sm-3 col-form-label">Họ Và Tên:</label>
                                                                             <div class="col-sm-9">
                                                                                 <input type="text"
                                                                                        class="form-control"
@@ -961,7 +1361,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
 
 
 </body>
