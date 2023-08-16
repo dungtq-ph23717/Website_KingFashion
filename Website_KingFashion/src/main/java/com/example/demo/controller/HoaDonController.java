@@ -14,10 +14,12 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,11 +32,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 @Controller
 @RequestMapping("/hoa-don")
 public class HoaDonController {
+    @Autowired
+    private ConversionService conversionService;
+
     @Autowired
     private HoaDonService hoaDonService;
 
@@ -62,7 +69,9 @@ public class HoaDonController {
     @GetMapping("/search")
     public String search(Model model, @ModelAttribute("searchHD") HoaDon hoaDon,
                          @RequestParam(name = "page", defaultValue = "0") Integer page,
-                         @RequestParam(value = "xapXep", defaultValue = "0") Integer xapXep) {
+                         @RequestParam(value = "xapXep", defaultValue = "0") Integer xapXep,
+                         @RequestParam(value = "tuNgay", defaultValue = "", required = false) LocalDateTime tuNgay,
+                         @RequestParam(value = "denNgay", defaultValue = "", required = false) LocalDateTime denNgay) {
         Map<Integer, Sort> sortMapping = new HashMap<>();
         sortMapping.put(1, Sort.by("ngayTao").descending());
         sortMapping.put(2, Sort.by("ngayTao").ascending());
@@ -81,7 +90,12 @@ public class HoaDonController {
         Pageable pageable = PageRequest.of(page, 5, sort);
 
         Page<HoaDon> listHD = hoaDonService.searchHD(hoaDon.getMaHoaDon(), hoaDon.getNguoiNhan(), hoaDon.getTongTienSauKhiGiam(),
-                hoaDon.getTrangThai(), hoaDon.getNgayTao(), hoaDon.getLoaiDon(), pageable);
+                hoaDon.getTrangThai(), tuNgay != null ? Date.from(tuNgay.atZone(ZoneId.systemDefault()).toInstant()) : null,
+                denNgay != null ? Date.from(denNgay.atZone(ZoneId.systemDefault()).toInstant()) : null,
+                hoaDon.getLoaiDon(), pageable);
+
+        model.addAttribute("tuNgay",tuNgay);
+        model.addAttribute("denNgay",denNgay);
 
         model.addAttribute("listHD", listHD);
         return "hoadon/hoadon";
@@ -133,13 +147,13 @@ public class HoaDonController {
             ngayThanhToanCell.setCellStyle(dateCellStyle);
             row.createCell(2).setCellValue(hoaDon.getTongTienSauKhiGiam() + " VND");
             row.createCell(3).setCellValue(hoaDon.getTrangThai() == 0 ? "Đang chờ xác nhận"
-                            : (hoaDon.getTrangThai() == 1 ? "Đã xác nhận"
-                            : (hoaDon.getTrangThai() == 2 ? "Đã hủy đơn"
-                            : (hoaDon.getTrangThai() == 3 ? "Chờ giao hàng"
-                            : (hoaDon.getTrangThai() == 4 ? "Đang giao hàng"
-                            : (hoaDon.getTrangThai() == 5 ? "Giao hàng thành công"
-                            : (hoaDon.getTrangThai() == 6 ? "Giao hàng thất bại"
-                            : "Thanh toán thành công")))))));
+                    : (hoaDon.getTrangThai() == 1 ? "Đã xác nhận"
+                    : (hoaDon.getTrangThai() == 2 ? "Đã hủy đơn"
+                    : (hoaDon.getTrangThai() == 3 ? "Chờ giao hàng"
+                    : (hoaDon.getTrangThai() == 4 ? "Đang giao hàng"
+                    : (hoaDon.getTrangThai() == 5 ? "Giao hàng thành công"
+                    : (hoaDon.getTrangThai() == 6 ? "Giao hàng thất bại"
+                    : "Thanh toán thành công")))))));
             row.createCell(4).setCellValue(hoaDon.getNguoiNhan());
             Cell ngayShipCell = row.createCell(5);
             ngayShipCell.setCellValue(hoaDon.getNgayShip());

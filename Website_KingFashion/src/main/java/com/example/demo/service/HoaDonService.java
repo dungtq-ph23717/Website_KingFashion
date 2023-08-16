@@ -26,5 +26,5 @@ public interface HoaDonService {
     void updateHD(HoaDon hoaDon);
 
     Page<HoaDon> searchHD(String maHoaDon, String nguoiNhan, Double tongTienSauKhiGiam, Integer trangThai,
-                          Date ngayTao, Integer loaiDon, Pageable pageable);
+                          Date tuNgay,Date denNgay, Integer loaiDon, Pageable pageable);
 }

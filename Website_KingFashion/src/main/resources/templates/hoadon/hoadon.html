@@ -509,16 +509,29 @@
 
                                                         <div class="col-2">
                                                             <label class="input">
-                                                                <input style="width: 150px;border-radius: 8px;" type="datetime-local"
-                                                                       class="input__field"
-                                                                       th:field="*{ngayTao}">
-                                                                <span style="font-size: 13px;font-weight: bold;"
-                                                                      class="input__label">Ngày tạo đơn:</span>
+                                                                <input style="width: 150px; border-radius: 8px;" type="datetime-local" class="input__field"
+                                                                        name="tuNgay" id="tuNgay" onchange="updateURL()">
+                                                                <span style="font-size: 13px; font-weight: bold;" class="input__label">Từ ngày:</span>
                                                             </label>
                                                         </div>
 
                                                         <div class="col-2">
                                                             <label class="input">
+                                                                <input style="width: 150px; border-radius: 8px;" type="datetime-local" class="input__field"
+                                                                        name="denNgay" id="denNgay" onchange="updateURL()">
+                                                                <span style="font-size: 13px; font-weight: bold;" class="input__label">Đến ngày:</span>
+                                                            </label>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <br>
+                                                    <br>
+                                                    <div class="col-12 row container d-flex justify-content-center flex-wrap">
+
+                                                        <div class="col-3">
+                                                            <label style="float: right;" class="input">
                                                                 <select style="font-size: 14px;width: 150px;border-radius: 20px;" class="input__field"
                                                                         th:field="*{loaiDon}">
                                                                     <option value="">Tất Cả</option>
@@ -529,12 +542,6 @@
                                                                       class="input__label">Loại đơn:</span>
                                                             </label>
                                                         </div>
-                                                    </div>
-
-                                                    <br>
-                                                    <br>
-                                                    <div class="col-12 row container"
-                                                         style="display: flex;justify-content: center;">
 
                                                         <div class="col-3">
                                                             <div style="float: right;">
@@ -778,20 +785,20 @@
                                         <ul class="pagination">
                                             <li class="page-item" th:classappend="${listHD.number == 0} ? disabled">
                                                 <a class="page-link"
-                                                   th:href="@{/hoa-don/hien-thi(page=0, size=${listHD.size})}">Trang
+                                                   th:href="@{/hoa-don/search(page=0, size=${listHD.size}, maHoaDon=${param.maHoaDon}, nguoiNhan=${param.nguoiNhan}, tongTienSauKhiGiam=${param.tongTienSauKhiGiam}, trangThai=${param.trangThai}, tuNgay=${param.tuNgay}, denNgay=${param.denNgay}, loaiDon=${param.loaiDon}, xapXep=${param.xapXep})}">Trang
                                                     đầu</a>
                                             </li>
                                             <li class="page-item"
                                                 th:classappend="${listHD.number == 0} ? disabled">
                                                 <a class="page-link"
-                                                   th:href="@{/hoa-don/hien-thi(page=${listHD.number - 1})}">
+                                                   th:href="@{/hoa-don/search(page=${listHD.number - 1}, maHoaDon=${param.maHoaDon}, nguoiNhan=${param.nguoiNhan}, tongTienSauKhiGiam=${param.tongTienSauKhiGiam}, trangThai=${param.trangThai}, tuNgay=${param.tuNgay}, denNgay=${param.denNgay}, loaiDon=${param.loaiDon}, xapXep=${param.xapXep})}">
                                                     <i class="fa-solid fa-angles-left fa-lg"></i>
                                                 </a>
                                             </li>
                                             <li class="page-item"
                                                 th:each="pageNumber : ${#numbers.sequence(0, listHD.totalPages - 1)}">
                                                 <a class="page-link"
-                                                   th:href="@{/hoa-don/hien-thi(page=${pageNumber})}"
+                                                   th:href="@{/hoa-don/search(page=${pageNumber}, maHoaDon=${param.maHoaDon}, nguoiNhan=${param.nguoiNhan}, tongTienSauKhiGiam=${param.tongTienSauKhiGiam}, trangThai=${param.trangThai}, tuNgay=${param.tuNgay}, denNgay=${param.denNgay}, loaiDon=${param.loaiDon}, xapXep=${param.xapXep})}"
                                                    th:text="${pageNumber + 1}"
                                                    th:classappend="${pageNumber == listHD.number} ? active">
                                                 </a>
@@ -799,14 +806,14 @@
                                             <li class="page-item"
                                                 th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled">
                                                 <a class="page-link"
-                                                   th:href="@{/hoa-don/hien-thi(page=${listHD.number + 1})}">
+                                                   th:href="@{/hoa-don/search(page=${listHD.number + 1}, maHoaDon=${param.maHoaDon}, nguoiNhan=${param.nguoiNhan}, tongTienSauKhiGiam=${param.tongTienSauKhiGiam}, trangThai=${param.trangThai}, tuNgay=${param.tuNgay}, denNgay=${param.denNgay}, loaiDon=${param.loaiDon}, xapXep=${param.xapXep})}">
                                                     <i class="fa-solid fa-angles-right fa-lg"></i>
                                                 </a>
                                             </li>
                                             <li class="page-item"
                                                 th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled"><a
                                                     class="page-link"
-                                                    th:href="@{/hoa-don/hien-thi(page=${listHD.totalPages - 1}, size=${listHD.size})}">Trang
+                                                    th:href="@{/hoa-don/search(page=${listHD.totalPages - 1}, size=${listHD.size}, maHoaDon=${param.maHoaDon}, nguoiNhan=${param.nguoiNhan}, tongTienSauKhiGiam=${param.tongTienSauKhiGiam}, trangThai=${param.trangThai}, tuNgay=${param.tuNgay}, denNgay=${param.denNgay}, loaiDon=${param.loaiDon}, xapXep=${param.xapXep})}">Trang
                                                 cuối</a>
                                             </li>
                                         </ul>
@@ -862,71 +869,134 @@
 <!-- App js -->
 <script src="../../static/assets\js\app.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
-<script>
-    function showValue(value) {
-        document.getElementById("rangeValue").innerHTML = value;
-    }
 
-    function showValue1(value) {
-        document.getElementById("rangeValue1").innerHTML = value;
-    }
 
-    const form = document.querySelector('.form-row');
-    const rangeInputs = form.querySelectorAll('input[type="range"]');
-    const datetimeInputs = form.querySelectorAll('input[type="datetime-local"]');
-    const radioInputs = form.querySelectorAll('input[type="radio"]');
-    const searchInput = form.querySelector('input[type="search"]');
 
-    rangeInputs.forEach(input => {
-        input.addEventListener('mousemove', () => {
-            form.submit();
-        });
-    });
-
-    datetimeInputs.forEach(input => {
-        input.addEventListener('change', () => {
-            form.submit();
-        });
-    });
-
-    radioInputs.forEach(input => {
-        input.addEventListener('change', () => {
-            form.submit();
-        });
-    });
-
-    searchInput.addEventListener('keyup', (event) => {
-        if (event.key === 'Enter') {
-            form.submit();
+<th:block id="js-resources">
+    <script>
+        function showValue(value) {
+            document.getElementById("rangeValue").innerHTML = value;
         }
-    });
-</script>
-<script>
-    function searchAndUpdate() {
-        var xapXepValue = document.getElementById("xapXep").value;
-        var encodedXapXepValue = encodeURIComponent(xapXepValue);
 
-        // Lưu trữ giá trị xapXepValue vào localStorage
-        localStorage.setItem("selectedXapXepValue", xapXepValue);
-
-        window.location.href = "http://localhost:8080/hoa-don/search?xapXep=" + encodedXapXepValue;
-    }
-
-    // Khôi phục giá trị lựa chọn sau khi trang được load lại
-    window.onload = function() {
-        var selectedXapXepValue = localStorage.getItem("selectedXapXepValue");
-        if (selectedXapXepValue) {
-            document.getElementById("xapXep").value = selectedXapXepValue;
+        function showValue1(value) {
+            document.getElementById("rangeValue1").innerHTML = value;
         }
-    };
-    function refreshPage() {
-        // Xóa giá trị đã lưu trữ trong localStorage
-        localStorage.removeItem("selectedXapXepValue");
 
-        // Làm mới trang
-        location.reload();
-    };
-</script>
+        const form = document.querySelector('.form-row');
+        const rangeInputs = form.querySelectorAll('input[type="range"]');
+        const datetimeInputs = form.querySelectorAll('input[type="datetime-local"]');
+        const radioInputs = form.querySelectorAll('input[type="radio"]');
+        const searchInput = form.querySelector('input[type="search"]');
+
+        rangeInputs.forEach(input => {
+            input.addEventListener('mousemove', () => {
+                form.submit();
+            });
+        });
+
+        datetimeInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                form.submit();
+            });
+        });
+
+        radioInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                form.submit();
+            });
+        });
+
+        searchInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                form.submit();
+            }
+        });
+    </script>
+    <script>
+        function searchAndUpdate() {
+            var xapXepValue = document.getElementById("xapXep").value;
+            var encodedXapXepValue = encodeURIComponent(xapXepValue);
+
+            // Lưu trữ giá trị xapXepValue vào localStorage
+            localStorage.setItem("selectedXapXepValue", xapXepValue);
+
+            window.location.href = "http://localhost:8080/hoa-don/search?xapXep=" + encodedXapXepValue;
+        }
+
+        // Khôi phục giá trị lựa chọn sau khi trang được load lại
+        window.onload = function() {
+            var selectedXapXepValue = localStorage.getItem("selectedXapXepValue");
+            if (selectedXapXepValue) {
+                document.getElementById("xapXep").value = selectedXapXepValue;
+            }
+        };
+    </script>
+    <script th:inline="javascript">
+        function updateURL() {
+            var tuNgay = document.getElementById("tuNgay").value;
+            var denNgay = document.getElementById("denNgay").value;
+
+            var currentURL = window.location.href;
+            var updatedURL = updateQueryStringParameter(currentURL, "tuNgay", tuNgay);
+            updatedURL = updateQueryStringParameter(updatedURL, "denNgay", denNgay);
+            window.location.href = updatedURL;
+        }
+
+        var urlParams = new URLSearchParams(window.location.search);
+
+        var urlParamFields = {
+            "tuNgay": document.getElementById("tuNgay"),
+            "denNgay": document.getElementById("denNgay")
+        };
+
+        Object.keys(urlParamFields).forEach(function (key) {
+            if (urlParams.has(key)) {
+                urlParamFields[key].value = urlParams.get(key);
+                localStorage.setItem(key, urlParams.get(key)); // Lưu giá trị vào localStorage
+            } else if (localStorage.getItem(key)) {
+                urlParamFields[key].value = localStorage.getItem(key); // Khôi phục giá trị từ localStorage
+            }
+        });
+
+        function updateQueryStringParameter(url, key, value) {
+            var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+            var separator = url.indexOf('?') !== -1 ? "&" : "?";
+            return url.match(re) ? url.replace(re, '$1' + key + "=" + value + '$2') : url + separator + key + "=" + value;
+        }
+
+        function handleSearch() {
+            // Get the value of the input field
+            var timKiemValue = document.getElementById("timKiem").value;
+
+            // Perform the search here, for example, by submitting the form
+            // You can use JavaScript to submit the form or handle the search via AJAX
+            // For simplicity, I'll demonstrate form submission.
+            document.getElementById("yourFormId").submit(); // Replace "yourFormId" with the actual ID of your form.
+        }
+
+        document.getElementById("tuNgay").addEventListener("change", function() {
+            localStorage.setItem("tuNgay", this.value); // Lưu giá trị vào localStorage khi thay đổi
+        });
+
+        document.getElementById("denNgay").addEventListener("change", function() {
+            localStorage.setItem("denNgay", this.value); // Lưu giá trị vào localStorage khi thay đổi
+        });
+
+        function refreshPage() {
+            document.getElementById("tuNgay").value = "";
+            document.getElementById("denNgay").value = "";
+
+            localStorage.removeItem("tuNgay"); // Xóa giá trị trong localStorage
+            localStorage.removeItem("denNgay");
+
+            // Xóa giá trị đã lưu trữ trong localStorage
+            localStorage.removeItem("selectedXapXepValue");
+
+            // Làm mới trang
+            location.reload();
+        }
+    </script>
+</th:block>
 
 </body>
 </html>

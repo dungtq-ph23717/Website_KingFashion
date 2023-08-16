@@ -22,12 +22,13 @@ public interface HoaDonRepository  extends JpaRepository<HoaDon, UUID> {
             "AND (:nguoiNhan IS NULL OR h.nguoiNhan LIKE CONCAT('%', :nguoiNhan, '%')) " +
             "AND (:tongTienSauKhiGiam IS NULL OR h.tongTienSauKhiGiam = :tongTienSauKhiGiam) " +
             "AND (:trangThai IS NULL OR h.trangThai = :trangThai) " +
-            "AND (:ngayTao IS NULL OR h.ngayTao <= :ngayTao) " +
+            "AND (:tuNgay IS NULL OR h.ngayTao >= :tuNgay) " +
+            "AND (:denNgay IS NULL OR h.ngayTao <= :denNgay) " +
             "AND (:loaiDon IS NULL OR h.loaiDon = :loaiDon)")
     Page<HoaDon> searchHD(@Param("maHoaDon") String maHoaDon, @Param("nguoiNhan") String tenNguoiNhan,
-                         @Param("tongTienSauKhiGiam") Double tongTienSauKhiGiam,
-                          @Param("trangThai") Integer trangThai,@Param("ngayTao") Date ngayTao,
-                          @Param("loaiDon") Integer loaiDon,
+                          @Param("tongTienSauKhiGiam") Double tongTienSauKhiGiam,
+                          @Param("trangThai") Integer trangThai, @Param("tuNgay") Date tuNgay,
+                          @Param("denNgay") Date denNgay, @Param("loaiDon") Integer loaiDon,
                           Pageable pageable);
 
 }
