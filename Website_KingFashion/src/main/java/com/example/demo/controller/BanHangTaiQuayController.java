@@ -13,15 +13,15 @@ import com.example.demo.service.HoaDonService;
 import com.example.demo.service.TaiKhoanService;
 import com.example.demo.service.VaiTroService;
 import com.example.demo.service.impl.VoucherServiceImpl;
-import jakarta.validation.Valid;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.NonUniqueResultException;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,14 +67,14 @@ public class BanHangTaiQuayController {
     private VoucherServiceImpl voucherService;
 
     @GetMapping("hien-thi")
-    public String hienThiTable(Model model){
-        model.addAttribute("hdctlist",hoaDonChiTietService.getALl());
-        model.addAttribute("hdct",new HoaDonChiTiet());
+    public String hienThiTable(Model model) {
+        model.addAttribute("hdctlist", hoaDonChiTietService.getALl());
+        model.addAttribute("hdct", new HoaDonChiTiet());
         return "BanHangTaiQuay/BanHangTaiQuay";
     }
 
     @PostMapping("carts")
-    public String addDonhang(@ModelAttribute("hdct") HoaDonChiTiet hoaDonChiTiet, RedirectAttributes redirectAttributes, Model model){
+    public String addDonhang(@ModelAttribute("hdct") HoaDonChiTiet hoaDonChiTiet, RedirectAttributes redirectAttributes, Model model) {
 
         HoaDon hoaDon = new HoaDon();
         String ma = "HD" + new Random().nextInt(100000);
@@ -86,38 +86,75 @@ public class BanHangTaiQuayController {
         hoaDonChiTiet.setHoaDon(hoaDon);
 
         hoaDonChiTietService.add(hoaDonChiTiet);
-        model.addAttribute("hdct",hoaDonChiTiet);
-        redirectAttributes.addAttribute("id", hoaDonChiTiet.getId());
+        model.addAttribute("hdct", hoaDonChiTiet);
+        redirectAttributes.addAttribute("id", hoaDon.getId());
         return "redirect:/ban-hang-tai-quay/viewcart/{id}";
     }
 
-    @PostMapping("update")
-    public String update(@ModelAttribute("hdct") HoaDonChiTiet hoaDonChiTiet,
-                         @RequestParam("id")UUID id,
-                         RedirectAttributes redirectAttributes, Model model){
-        ChiTietSanPham chiTietSanPham = chiTietSanPhamService.detail(id);
+    @PostMapping("viewcart")
+    public String updateOrCreate(@ModelAttribute("hdct") HoaDonChiTiet hoaDonChiTiet,
+                                 @RequestParam("idctsp") UUID idctsp,
+                                 @RequestParam("id") UUID id,
+                                 @RequestParam("soLuong") int soLuong,
+                                 RedirectAttributes redirectAttributes, Model model) {
+        ChiTietSanPham chiTietSanPham = chiTietSanPhamService.detail(idctsp);
+        List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietService.getHoaDonChiTietByHoaDonId(id);
+        HoaDon hoaDon = hoaDonService.detail(id);
 
-        hoaDonChiTiet.setChiTietSanPham(chiTietSanPham);
-        hoaDonChiTietService.add(hoaDonChiTiet);
+        boolean foundExistingChiTiet = false;
 
-        model.addAttribute("ctsp",chiTietSanPham);
-        model.addAttribute("hdct",hoaDonChiTiet);
+        for (HoaDonChiTiet hdt : hoaDonChiTietList) {
+            if (hdt.getChiTietSanPham() == null) {
+                // Nếu tìm thấy chi tiết hóa đơn bị null, set thông tin và thoát vòng lặp
+                hdt.setChiTietSanPham(chiTietSanPham);
+                hdt.setHoaDon(hoaDon);
+                hdt.setSoLuong(soLuong);
+                hdt.setDonGia(Double.valueOf(chiTietSanPham.getGiaBan()));
+                foundExistingChiTiet = true;
+                break;
+            } else if (hdt.getChiTietSanPham().getId().equals(idctsp)) {
+                // Nếu tìm thấy chi tiết hóa đơn với cùng idctsp, cộng dồn số lượng
+                hdt.setSoLuong(hdt.getSoLuong() + soLuong);
+                hdt.setDonGia(Double.valueOf(chiTietSanPham.getGiaBan()));
+                foundExistingChiTiet = true;
+                break;
+            }
+        }
 
-        redirectAttributes.addAttribute("idd", hoaDonChiTiet.getId());
-        return "redirect:/ban-hang-tai-quay/viewcart/{idd}";
+        if (!foundExistingChiTiet) {
+            // Tạo mới một chi tiết hóa đơn và set thông tin
+            HoaDonChiTiet newHoaDonChiTiet = new HoaDonChiTiet();
+            newHoaDonChiTiet.setChiTietSanPham(chiTietSanPham);
+            newHoaDonChiTiet.setHoaDon(hoaDon);
+            newHoaDonChiTiet.setSoLuong(soLuong);
+            newHoaDonChiTiet.setDonGia(Double.valueOf(chiTietSanPham.getGiaBan()));
+            // Lưu chi tiết hóa đơn mới
+            hoaDonChiTietService.add(newHoaDonChiTiet);
+        }
+
+        // Cập nhật chi tiết hóa đơn ban đầu hoặc điều hướng tới trang bạn muốn
+        hoaDonChiTietService.addAll(hoaDonChiTietList);
+        redirectAttributes.addAttribute("id", hoaDon.getId());
+        return "redirect:/ban-hang-tai-quay/viewcart/{id}";
     }
 
+    
+
     @GetMapping("viewcart/{id}")
-    public String showSanPham(@PathVariable UUID id, Model model){
+    public String showSanPham(@PathVariable UUID id, Model model) {
         List<ChiTietSanPham> list = chiTietSanPhamService.getAll();
+        List<HoaDonChiTiet> listhdct = hoaDonChiTietService.getALl();
         List<TaiKhoan> list1 = taiKhoanService.getAll();
         List<Voucher> list2 = voucherService.getAll();
+        Double tongTien = hoaDonChiTietService.tongTien(id);
         ChiTietSanPham chiTietSanPham = chiTietSanPhamService.detail(id);
-        model.addAttribute("hdct",new HoaDonChiTiet());
-        model.addAttribute("ctsp",chiTietSanPham);
+        model.addAttribute("hdct", new HoaDonChiTiet());
+        model.addAttribute("ctsp", chiTietSanPham);
         model.addAttribute("list1", list1);
         model.addAttribute("list2", list2);
-        model.addAttribute("list",list);
+        model.addAttribute("list", list);
+        model.addAttribute("listhdct", listhdct);
+        model.addAttribute("TongTien", tongTien);
         return "BanHangTaiQuay/TaoDonHang";
     }
 
