@@ -176,13 +176,16 @@
             word-wrap: break-word;
             color: blueviolet;
         }
-        .h3{
+
+        .h3 {
             font-size: 17px;
         }
+
         .box {
             width: 1150px;
             height: 300px;
         }
+
         .container1 {
             display: flex;
             flex-wrap: wrap;
@@ -200,7 +203,7 @@
             /* Xóa padding và border-radius, để stage tràn ra hết chiều rộng */
             text-align: center;
             background-color: #fff;
-            box-shadow: 0px 3px 3px rgba(0,0,0,0.1), 0px 3px 3px rgba(0,0,0,0.1);
+            box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1), 0px 3px 3px rgba(0, 0, 0, 0.1);
             padding: 20px;
             border-radius: 0;
         }
@@ -268,15 +271,20 @@
 
 
                                             <!--  timeline-->
-
                                             <div style="display: flex;justify-content:center" class="container1">
                                                 <div class="box">
                                                     <div class="container1-fluid scrollmenu">
-                                                        <div class="row text-centre">
+                                                        <div class="row text-centre" th:each="hd : ${listHD}">
                                                             <div class="scroll-data">
 
-                                                                <div class="col-3 stage active">
-                                                                    <div class="content">
+                                                                <div th:if="${hd.trangThai == 0 ||
+                                                                       hd.trangThai == 1 || hd.trangThai == 2
+                                                                       || hd.trangThai == 3 || hd.trangThai == 4
+                                                                       || hd.trangThai == 5 ||
+                                                                       hd.trangThai == 6 || hd.trangThai == 7}"
+                                                                     class="col-3 stage"
+                                                                     th:style="${hd.trangThai == 0 ? 'background-color: yellow;color:black' : ''}">
+                                                                    <div class="content" >
                                                                         <h3 class="h3">
                                                                             Đang chờ xác nhận
                                                                         </h3>
@@ -284,14 +292,17 @@
                                                                             <i class="fa-solid fa-spinner fa-spin-pulse fa-xl"></i>
                                                                         </p>
                                                                         <div class="stage-text hidden">
-                                                                            <p>
-                                                                                10/10/2003
-                                                                            </p>
+                                                                            <p th:text="${#dates.format(hd.ngayTao, 'dd/MM/yyyy HH:mm')}"></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-3 stage">
+                                                                <div th:if="${hd.trangThai == 1 || hd.trangThai == 2
+                                                                        || hd.trangThai == 3 || hd.trangThai == 4
+                                                                        || hd.trangThai == 5 ||
+                                                                        hd.trangThai == 6 || hd.trangThai == 7}"
+                                                                     class="col-3 stage"
+                                                                     th:classappend="${hd.trangThai == 1 ? 'stage active' : ''}">
                                                                     <div class="content">
                                                                         <h3 class="h3">
                                                                             Đã xác nhận
@@ -300,14 +311,17 @@
                                                                             <i class="fa-regular fa-circle-check fa-beat fa-xl"></i>
                                                                         </p>
                                                                         <div class="stage-text hidden">
-                                                                            <p>
-                                                                                10/10/2003
-                                                                            </p>
+                                                                            <p th:text="${#dates.format(hd.ngaySua, 'dd/MM/yyyy HH:mm')}"></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-3 stage" >
+                                                                <div th:if="${hd.trangThai == 2
+                                                                || hd.trangThai ==3|| hd.trangThai == 4
+                                                                  || hd.trangThai == 5 ||
+                                                                  hd.trangThai == 6 || hd.trangThai == 7 }"
+                                                                     class="col-3 stage"
+                                                                     th:style="${hd.trangThai == 2 ? 'background-color: red;color:white' : ''}">
                                                                     <div class="content">
                                                                         <h3 class="h3">
                                                                             Đã hủy đơn
@@ -316,14 +330,17 @@
                                                                             <i class="fa-solid fa-rectangle-xmark fa-fade fa-xl"></i>
                                                                         </p>
                                                                         <div class="stage-text hidden">
-                                                                            <p>
-                                                                                10/10/2003
-                                                                            </p>
+                                                                            <p th:text="${#dates.format(hd.ngaySua, 'dd/MM/yyyy HH:mm')}"></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-3 stage" >
+                                                                <div th:if="${hd.trangThai == 3
+                                                                 || hd.trangThai == 4
+                                                                  || hd.trangThai == 5 ||
+                                                                  hd.trangThai == 6 || hd.trangThai == 7}"
+                                                                     class="col-3 stage"
+                                                                     th:style="${hd.trangThai == 3 ? 'background-color: green;color:white' : ''}">
                                                                     <div class="content">
                                                                         <h3 class="h3">
                                                                             Chờ giao hàng
@@ -332,15 +349,17 @@
                                                                             <i class="fa-solid fa-arrows-rotate fa-spin fa-xl"></i>
                                                                         </p>
                                                                         <div class="stage-text hidden">
-                                                                            <p>
-                                                                                10/10/2003
-                                                                            </p>
+                                                                            <p th:text="${#dates.format(hd.ngaySua, 'dd/MM/yyyy HH:mm')}"></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
 
-                                                                <div class="col-3 stage" >
+                                                                <div th:if="${hd.trangThai == 4
+                                                                || hd.trangThai == 5 ||
+                                                                  hd.trangThai == 6 || hd.trangThai == 7}"
+                                                                     class="col-3 stage"
+                                                                     th:style="${hd.trangThai == 4 ? 'background-color: yellow;color:black' : ''}">
                                                                     <div class="content">
                                                                         <h3 class="h3">
                                                                             Đang giao hàng
@@ -349,15 +368,17 @@
                                                                             <i class="fa-solid fa-truck-fast fa-beat-fade fa-xl"></i>
                                                                         </p>
                                                                         <div class="stage-text hidden">
-                                                                            <p>
-                                                                                10/10/2003
-                                                                            </p>
+                                                                            <p th:text="${#dates.format(hd.ngaySua, 'dd/MM/yyyy HH:mm')}"></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
 
-                                                                <div class="col-3 stage" >
+                                                                <div th:if="${hd.trangThai == 5 ||
+                                                                  hd.trangThai == 6
+                                                                  || hd.trangThai == 7}"
+                                                                     class="col-3 stage"
+                                                                     th:classappend="${hd.trangThai == 5 ? 'stage active' : ''}">
                                                                     <div class="content">
                                                                         <h3 class="h3">
                                                                             Giao hàng thành công
@@ -366,15 +387,16 @@
                                                                             <i class="fa-regular fa-circle-check fa-beat fa-xl"></i>
                                                                         </p>
                                                                         <div class="stage-text hidden">
-                                                                            <p>
-                                                                                10/10/2003
-                                                                            </p>
+                                                                            <p th:text="${#dates.format(hd.ngaySua, 'dd/MM/yyyy HH:mm')}"></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
 
-                                                                <div class="col-3 stage" >
+                                                                <div th:if="${hd.trangThai == 6
+                                                                || hd.trangThai == 7}"
+                                                                     class="col-3 stage"
+                                                                     th:style="${hd.trangThai == 6 ? 'background-color: red;color:white' : ''}">
                                                                     <div class="content">
                                                                         <h3 class="h3">
                                                                             Giao hàng thất bại
@@ -383,15 +405,14 @@
                                                                             <i class="fa-solid fa-rectangle-xmark fa-fade fa-xl"></i>
                                                                         </p>
                                                                         <div class="stage-text hidden">
-                                                                            <p>
-                                                                                10/10/2003
-                                                                            </p>
+                                                                            <p th:text="${#dates.format(hd.ngaySua, 'dd/MM/yyyy HH:mm')}"></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
 
-                                                                <div class="col-3 stage" >
+                                                                <div th:if="${hd.trangThai == 7}" class="col-3 stage"
+                                                                     th:classappend="${hd.trangThai == 7 ? 'stage active' : ''}">
                                                                     <div class="content">
                                                                         <h3 class="h3">
                                                                             Thanh toán thành công
@@ -400,9 +421,7 @@
                                                                             <i class="fa-regular fa-circle-check fa-beat fa-xl"></i>
                                                                         </p>
                                                                         <div class="stage-text hidden">
-                                                                            <p>
-                                                                                10/10/2003
-                                                                            </p>
+                                                                            <p th:text="${#dates.format(hd.ngaySua, 'dd/MM/yyyy HH:mm')}"></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -416,6 +435,93 @@
 
 
                                             <!--//timeline-->
+
+
+                                            <div class="col-12 row">
+
+                                                <div style="height: 35px;"
+                                                     class="col-3">
+                                                    <a th:href="@{/hoa-don/xac-nhan-don/{id} (id=${listHD.id})}">
+                                                        <button data-toggle="tooltip"
+                                                                title="Làm mới" &#xE254; height="22px"
+                                                                style="background:#0ad406;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                type="button" class="btn btn-labeled shadow-button">
+                                                            <span style="margin-bottom: 3px;color: black;"
+                                                                  class="btn-icon">
+                                                                <i class="fa-regular fa-square-check fa-beat fa-lg"></i>
+                                                            </span>
+                                                            <span style="margin-bottom: 3px;color: black;"
+                                                                  class="separator">|</span>
+                                                            <span style="margin-bottom: 3px;color: black;font-size: 15px;font-weight: bold"
+                                                                  ;
+                                                                  class="btn-text">Xác nhận đơn hàng</span>
+                                                        </button>
+                                                    </a>
+                                                </div>
+
+                                                <div style="height: 35px;"
+                                                     class="col-3">
+                                                    <a th:href="@{/hoa-don/huy-don/{id} (id=${listHD.id})}">
+                                                        <button data-toggle="tooltip"
+                                                                title="Làm mới" &#xE254; height="22px"
+                                                                style="background:orangered;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                type="button" class="btn btn-labeled shadow-button">
+                                                            <span style="margin-bottom: 3px;color: white;"
+                                                                  class="btn-icon">
+                                                               <i class="fa-solid fa-xmark fa-fade fa-lg"></i>
+                                                            </span>
+                                                            <span style="margin-bottom: 3px;color: white;"
+                                                                  class="separator">|</span>
+                                                            <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold"
+                                                                  ;
+                                                                  class="btn-text">Hủy đơn hàng</span>
+                                                        </button>
+                                                    </a>
+                                                </div>
+
+                                                <div style="height: 35px;"
+                                                     class="col-3">
+                                                    <a th:href="@{/hoa-don/xac-nhan-giao-hang/{id} (id=${listHD.id})}">
+                                                        <button data-toggle="tooltip"
+                                                                title="Làm mới" &#xE254; height="22px"
+                                                                style="background:yellow;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                type="button" class="btn btn-labeled shadow-button">
+                                                            <span style="margin-bottom: 3px;color: black;"
+                                                                  class="btn-icon">
+                                                                <i class="fa-regular fa-square-check fa-beat fa-lg"></i>
+                                                            </span>
+                                                            <span style="margin-bottom: 3px;color: black;"
+                                                                  class="separator">|</span>
+                                                            <span style="margin-bottom: 3px;color: black;font-size: 15px;font-weight: bold"
+                                                                  ;
+                                                                  class="btn-text">Xác nhận giao hàng</span>
+                                                        </button>
+                                                    </a>
+                                                </div>
+
+                                                <div style="height: 35px;"
+                                                     class="col-3">
+                                                    <a th:href="@{/hoa-don/xac-nhan-thanh-toan/{id} (id=${listHD.id})}">
+                                                        <button data-toggle="tooltip"
+                                                                title="Làm mới" &#xE254; height="22px"
+                                                                style="background:deepskyblue;border-radius: 50px;border:1px solid black;justify-items: center;"
+                                                                type="button" class="btn btn-labeled shadow-button">
+                                                            <span style="margin-bottom: 3px;color: black;"
+                                                                  class="btn-icon">
+                                                                <i class="fa-regular fa-square-check fa-beat fa-lg"></i>
+                                                            </span>
+                                                            <span style="margin-bottom: 3px;color: black;"
+                                                                  class="separator">|</span>
+                                                            <span style="margin-bottom: 3px;color: black;font-size: 15px;font-weight: bold"
+                                                                  ;
+                                                                  class="btn-text">Xác nhận thanh toán</span>
+                                                        </button>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -855,124 +961,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-<script>
-    // Generated by LiveScript 1.6.0
-    (function(){
-        window.onload = function(){
-            var stages, i$, len$, i, stage, results$ = [];
-            stages = document.querySelectorAll('.stage');
-            for (i$ = 0, len$ = stages.length; i$ < len$; ++i$) {
-                i = i$;
-                stage = stages[i$];
-                if (stage) {
-                    results$.push(stage.addEventListener('click', fn$));
-                }
-            }
-            return results$;
-            function fn$(e){
-                var active;
-                e.preventDefault();
-                active = document.querySelector('.active');
-                if (active && deepEq$(active, this, '===')) {
-                    active.classList.remove('active');
-                    return active.querySelector('.stage-text').classList.add('hidden');
-                } else {
-                    if (active) {
-                        active.classList.remove('active');
-                        active.querySelector('.stage-text').classList.add('hidden');
-                    }
-                    this.classList.add('active');
-                    return this.querySelector('.stage-text').classList.remove('hidden');
-                }
-            }
-        };
-        function deepEq$(x, y, type){
-            var toString = {}.toString, hasOwnProperty = {}.hasOwnProperty,
-                has = function (obj, key) { return hasOwnProperty.call(obj, key); };
-            var first = true;
-            return eq(x, y, []);
-            function eq(a, b, stack) {
-                var className, length, size, result, alength, blength, r, key, ref, sizeB;
-                if (a == null || b == null) { return a === b; }
-                if (a.__placeholder__ || b.__placeholder__) { return true; }
-                if (a === b) { return a !== 0 || 1 / a == 1 / b; }
-                className = toString.call(a);
-                if (toString.call(b) != className) { return false; }
-                switch (className) {
-                    case '[object String]': return a == String(b);
-                    case '[object Number]':
-                        return a != +a ? b != +b : (a == 0 ? 1 / a == 1 / b : a == +b);
-                    case '[object Date]':
-                    case '[object Boolean]':
-                        return +a == +b;
-                    case '[object RegExp]':
-                        return a.source == b.source &&
-                            a.global == b.global &&
-                            a.multiline == b.multiline &&
-                            a.ignoreCase == b.ignoreCase;
-                }
-                if (typeof a != 'object' || typeof b != 'object') { return false; }
-                length = stack.length;
-                while (length--) { if (stack[length] == a) { return true; } }
-                stack.push(a);
-                size = 0;
-                result = true;
-                if (className == '[object Array]') {
-                    alength = a.length;
-                    blength = b.length;
-                    if (first) {
-                        switch (type) {
-                            case '===': result = alength === blength; break;
-                            case '<==': result = alength <= blength; break;
-                            case '<<=': result = alength < blength; break;
-                        }
-                        size = alength;
-                        first = false;
-                    } else {
-                        result = alength === blength;
-                        size = alength;
-                    }
-                    if (result) {
-                        while (size--) {
-                            if (!(result = size in a == size in b && eq(a[size], b[size], stack))){ break; }
-                        }
-                    }
-                } else {
-                    if ('constructor' in a != 'constructor' in b || a.constructor != b.constructor) {
-                        return false;
-                    }
-                    for (key in a) {
-                        if (has(a, key)) {
-                            size++;
-                            if (!(result = has(b, key) && eq(a[key], b[key], stack))) { break; }
-                        }
-                    }
-                    if (result) {
-                        sizeB = 0;
-                        for (key in b) {
-                            if (has(b, key)) { ++sizeB; }
-                        }
-                        if (first) {
-                            if (type === '<<=') {
-                                result = size < sizeB;
-                            } else if (type === '<==') {
-                                result = size <= sizeB
-                            } else {
-                                result = size === sizeB;
-                            }
-                        } else {
-                            first = false;
-                            result = size === sizeB;
-                        }
-                    }
-                }
-                stack.pop();
-                return result;
-            }
-        }
-    }).call(this);
-
-</script>
 
 
 

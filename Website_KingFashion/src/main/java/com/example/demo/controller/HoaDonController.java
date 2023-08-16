@@ -184,33 +184,39 @@ public class HoaDonController {
     }
 
     @GetMapping("/huy-don/{id}")
-    public String huyDonHang(@PathVariable(name = "id") UUID id, @ModelAttribute("listHD") HoaDon hoaDonGhiChu, RedirectAttributes redirectAttributes) {
+    public String huyDonHang(@PathVariable(name = "id") UUID id, @ModelAttribute("listHD") HoaDon hoaDonGhiChu,
+                             RedirectAttributes redirectAttributes) {
         HoaDon hoaDon = this.hoaDonService.detail(id);
         hoaDon.setTrangThai(2);
         hoaDon.setGhiChu(hoaDonGhiChu.getGhiChu());
         hoaDonService.updateHD(hoaDon);
         lichSuHoaDonService.createLichSuDonHang(hoaDon);
-        return "redirect:/hoa-don/view-hoa-don/" + id;
+        redirectAttributes.addAttribute("id", hoaDon.getId());
+        return "redirect:/hoa-don/view-hoa-don/{id}";
     }
 
     @GetMapping("/xac-nhan-don/{id}")
-    public String xacNhanDonHang(@PathVariable(name = "id") UUID id, @ModelAttribute("listHD") HoaDon hoaDonGhiChu) {
-        HoaDon hoaDon = this.hoaDonService.detail(id);
+    public String xacNhanDonHang(@PathVariable(name = "id") UUID id, @ModelAttribute("listHD") HoaDon hoaDonGhiChu,
+                                 RedirectAttributes redirectAttributes) {
+        HoaDon hoaDon = hoaDonService.detail(id);
         hoaDon.setTrangThai(1);
         hoaDon.setGhiChu(hoaDonGhiChu.getGhiChu());
         hoaDonService.updateHD(hoaDon);
         lichSuHoaDonService.createLichSuDonHang(hoaDon);
-        return "redirect:/hoa-don/view-hoa-don/" + id;
+        redirectAttributes.addAttribute("id", hoaDon.getId());
+        return "redirect:/hoa-don/view-hoa-don/{id}";
     }
 
     @GetMapping("/xac-nhan-giao-hang/{id}")
-    public String xacNhanGiaoHang(@PathVariable(name = "id") UUID id, @ModelAttribute("listHD") HoaDon hoaDonGhiChu) {
+    public String xacNhanGiaoHang(@PathVariable(name = "id") UUID id, @ModelAttribute("listHD") HoaDon hoaDonGhiChu,
+                                  RedirectAttributes redirectAttributes) {
         HoaDon hoaDon = this.hoaDonService.detail(id);
         hoaDon.setTrangThai(4);
         hoaDon.setGhiChu(hoaDonGhiChu.getGhiChu());
         hoaDonService.updateHD(hoaDon);
         lichSuHoaDonService.createLichSuDonHang(hoaDon);
-        return "redirect:/hoa-don/view-hoa-don/" + id;
+        redirectAttributes.addAttribute("id", hoaDon.getId());
+        return "redirect:/hoa-don/view-hoa-don/{id}";
     }
 
     @GetMapping("/xac-nhan-thanh-toan/{id}")

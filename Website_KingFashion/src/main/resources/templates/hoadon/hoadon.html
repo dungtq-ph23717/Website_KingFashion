@@ -528,9 +528,9 @@
 
                                                     <br>
                                                     <br>
-                                                    <div class="col-12 row container d-flex justify-content-center flex-wrap">
+                                                    <div class="col-12 row container d-flex  align-content-around flex-wrap">
 
-                                                        <div class="col-3">
+                                                        <div class="col-4">
                                                             <label style="float: right;" class="input">
                                                                 <select style="font-size: 14px;width: 150px;border-radius: 20px;" class="input__field"
                                                                         th:field="*{loaiDon}">
@@ -664,8 +664,8 @@
                                                             <th>Tên Khách Hàng</th>
                                                             <th>Ngày Đặt Hàng</th>
                                                             <th>Tổng Tiền</th>
-                                                            <th style="text-align: center;">Loại Đơn</th>
-                                                            <th style="text-align: center;">Trạng Thái</th>
+                                                            <th>Loại Đơn Hàng</th>
+                                                            <th>Trạng Thái</th>
                                                             <th>Hành Động</th>
                                                         </tr>
                                                         </thead>
@@ -689,7 +689,7 @@
                                                                 th:text="${#numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').substring(0, #numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').length()-4)} + ' đ'">
                                                             </td>
 
-                                                            <td style="font-size: 14px;font-weight: bold"
+                                                            <td style="font-size: 14px;font-weight: bold;display: flex;justify-content:center;"
                                                                 class="align-middle">
                                                                 <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.loaiDon == 0 || hd.loaiDon == null}"
@@ -699,7 +699,7 @@
                                                                       class="btn btn-labeled shadow-button btn btn-info status-completed">Đặt hàng online</span>
                                                             </td>
 
-                                                            <td style="font-size: 14px;font-weight: bold"
+                                                            <td style="font-size: 14px;font-weight: bold;justify-content:center;"
                                                                 class="align-middle">
                                                                 <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 0 }"
@@ -759,7 +759,6 @@
                                                         </tbody>
                                                     </table>
 
-
                                                 </section>
                                             </div> <!-- end container-fluid -->
 
@@ -798,7 +797,11 @@
                                             <li class="page-item"
                                                 th:each="pageNumber : ${#numbers.sequence(0, listHD.totalPages - 1)}">
                                                 <a class="page-link"
-                                                   th:href="@{/hoa-don/search(page=${pageNumber}, maHoaDon=${param.maHoaDon}, nguoiNhan=${param.nguoiNhan}, tongTienSauKhiGiam=${param.tongTienSauKhiGiam}, trangThai=${param.trangThai}, tuNgay=${param.tuNgay}, denNgay=${param.denNgay}, loaiDon=${param.loaiDon}, xapXep=${param.xapXep})}"
+                                                   th:href="@{/hoa-don/search(page=${pageNumber},
+                                                    maHoaDon=${param.maHoaDon}, nguoiNhan=${param.nguoiNhan},
+                                                    tongTienSauKhiGiam=${param.tongTienSauKhiGiam}, trangThai=${param.trangThai},
+                                                    tuNgay=${param.tuNgay}, denNgay=${param.denNgay}, loaiDon=${param.loaiDon},
+                                                     xapXep=${param.xapXep})}"
                                                    th:text="${pageNumber + 1}"
                                                    th:classappend="${pageNumber == listHD.number} ? active">
                                                 </a>
