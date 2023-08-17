@@ -4,6 +4,7 @@ import com.example.demo.entity.TaiKhoan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -30,5 +31,9 @@ public interface TaiKhoanService {
     List<TaiKhoan> getByKeyWord(String keyword);
 
     List<TaiKhoan> getTrangThai(Integer trangthai);
+
+    TaiKhoan getAllKhachHang(UUID id);
+
+    TaiKhoan findByHoaDonId(UUID id);
 
 }

@@ -43,10 +43,10 @@ public class HoaDonServiceImpl implements HoaDonService {
         return hoaDonRepository.getHoaDonById(id);
     }
 
-//    @Override
-//    public void add(HoaDon hoaDon) {
-//        hoaDonRepository.save(hoaDon);
-//    }
+    @Override
+    public void add(HoaDon hoaDon) {
+        hoaDonRepository.save(hoaDon);
+    }
 
     @Override
     public void updateHD(HoaDon hoaDon) {
@@ -63,4 +63,21 @@ public class HoaDonServiceImpl implements HoaDonService {
         System.out.println(result);
         return result;
     }
+
+    @Override
+    public HoaDon getHoaDonByHoaDonChiTietId(UUID id) {
+        return hoaDonRepository.getHoaDonByHoaDonChiTietId(id);
+    }
+
+    @Override
+    public HoaDon findByHoaDonChiTietId(UUID id) {
+        return hoaDonRepository.findByHoaDonChiTietId(id);
+    }
+
+    @Override
+    public Double tongTienSauGiam(UUID id) {
+        return hoaDonRepository.tongTienSauGiam(id);
+    }
+
+
 }

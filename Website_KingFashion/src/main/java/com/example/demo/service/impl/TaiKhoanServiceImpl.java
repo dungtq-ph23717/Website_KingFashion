@@ -79,6 +79,16 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
     public List<TaiKhoan> getTrangThai(Integer trangthai) {
         return taiKhoanRepository.findByTrangThai(trangthai);
     }
+
+    @Override
+    public TaiKhoan getAllKhachHang(UUID id) {
+        return taiKhoanRepository.getAllKhachHang(id);
+    }
+
+    @Override
+    public TaiKhoan findByHoaDonId(UUID id) {
+        return taiKhoanRepository.findByHoaDonId(id);
+    }
 };
 
 
