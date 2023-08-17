@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Table(name = "TaiKhoan")
@@ -75,9 +76,11 @@ public class TaiKhoan {
     @Column(name = "mat_khau")
     private String matKhau;
 
-
     @Column(name = "trang_thai")
     private Integer trangThai;
+
+    @OneToMany(mappedBy = "taiKhoan",fetch = FetchType.LAZY)
+    private List<HoaDon> hoaDonList;
 
 
 }

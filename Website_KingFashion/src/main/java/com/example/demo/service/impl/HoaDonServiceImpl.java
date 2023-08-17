@@ -55,5 +55,20 @@ public class HoaDonServiceImpl implements HoaDonService {
         return result;
     }
 
+    @Override
+    public HoaDon getHoaDonByHoaDonChiTietId(UUID id) {
+        return hoaDonRepository.getHoaDonByHoaDonChiTietId(id);
+    }
+
+    @Override
+    public HoaDon findByHoaDonChiTietId(UUID id) {
+        return hoaDonRepository.findByHoaDonChiTietId(id);
+    }
+
+    @Override
+    public Double tongTienSauGiam(UUID id) {
+        return hoaDonRepository.tongTienSauGiam(id);
+    }
+
 
 }

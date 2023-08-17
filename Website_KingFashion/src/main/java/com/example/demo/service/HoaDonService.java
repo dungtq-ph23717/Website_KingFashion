@@ -25,4 +25,9 @@ public interface HoaDonService {
 
     Page<HoaDon> searchHD(String maHoaDon, String nguoiNhan, Double tongTienSauKhiGiam, Integer trangThai,
                           Date ngayTao, Integer loaiDon, Pageable pageable);
+    HoaDon getHoaDonByHoaDonChiTietId(UUID id);
+
+    HoaDon findByHoaDonChiTietId(UUID id);
+
+    Double tongTienSauGiam(UUID id);
 }

@@ -6,12 +6,14 @@ import com.example.demo.entity.HoaDon;
 import com.example.demo.entity.HoaDonChiTiet;
 import com.example.demo.entity.TaiKhoan;
 import com.example.demo.entity.Voucher;
+import com.example.demo.entity.Voucher_HoaDon;
 import com.example.demo.service.AnhService;
 import com.example.demo.service.ChiTietSanPhamService;
 import com.example.demo.service.HoaDonChiTietService;
 import com.example.demo.service.HoaDonService;
 import com.example.demo.service.TaiKhoanService;
 import com.example.demo.service.VaiTroService;
+import com.example.demo.service.VoucherHoaDonService;
 import com.example.demo.service.impl.VoucherServiceImpl;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.NonUniqueResultException;
@@ -66,10 +68,15 @@ public class BanHangTaiQuayController {
     @Autowired
     private VoucherServiceImpl voucherService;
 
+    @Autowired
+    private VoucherHoaDonService voucherHoaDonService;
+
     @GetMapping("hien-thi")
     public String hienThiTable(Model model) {
         model.addAttribute("hdctlist", hoaDonChiTietService.getALl());
+        model.addAttribute("hdlist", hoaDonService.getAll());
         model.addAttribute("hdct", new HoaDonChiTiet());
+        model.addAttribute("hd", new HoaDon());
         return "BanHangTaiQuay/BanHangTaiQuay";
     }
 
@@ -121,6 +128,14 @@ public class BanHangTaiQuayController {
             }
         }
 
+        double totalDiscountAmount = hoaDon.getVoucher_hoaDonList().stream()
+                .mapToDouble(vchd -> vchd.getVoucher().getMucGiam())
+                .sum();
+
+        double totalAmount = hoaDonChiTietList.stream()
+                .mapToDouble(hdt -> hdt.getSoLuong() * hdt.getDonGia())
+                .sum();
+
         if (!foundExistingChiTiet) {
             // Tạo mới một chi tiết hóa đơn và set thông tin
             HoaDonChiTiet newHoaDonChiTiet = new HoaDonChiTiet();
@@ -128,9 +143,15 @@ public class BanHangTaiQuayController {
             newHoaDonChiTiet.setHoaDon(hoaDon);
             newHoaDonChiTiet.setSoLuong(soLuong);
             newHoaDonChiTiet.setDonGia(Double.valueOf(chiTietSanPham.getGiaBan()));
-            // Lưu chi tiết hóa đơn mới
             hoaDonChiTietService.add(newHoaDonChiTiet);
+
+            // Cập nhật lại tổng tiền sau khi giảm sau khi thêm mới chi tiết hóa đơn
+            totalAmount += newHoaDonChiTiet.getSoLuong() * newHoaDonChiTiet.getDonGia();
         }
+
+        double totalAmountAfterDiscount = totalAmount - totalDiscountAmount;
+        hoaDon.setTongTienSauKhiGiam(totalAmountAfterDiscount);
+        hoaDon.setTongTien(totalAmount);
 
         // Cập nhật chi tiết hóa đơn ban đầu hoặc điều hướng tới trang bạn muốn
         hoaDonChiTietService.addAll(hoaDonChiTietList);
@@ -138,7 +159,119 @@ public class BanHangTaiQuayController {
         return "redirect:/ban-hang-tai-quay/viewcart/{id}";
     }
 
-    
+
+
+    @PostMapping("viewKhachHang")
+    public String themKhachHang(@ModelAttribute("hd") HoaDon hoaDon,
+                                @RequestParam("idtk") UUID idtk,
+                                @RequestParam("id") UUID id,
+                                RedirectAttributes redirectAttributes, Model model) {
+        TaiKhoan taiKhoan = taiKhoanService.getAllKhachHang(idtk);
+        hoaDon = hoaDonService.detail(id);
+        hoaDon.setTaiKhoan(taiKhoan);
+        hoaDonService.add(hoaDon);
+        // Cập nhật chi tiết hóa đơn ban đầu hoặc điều hướng tới trang bạn muốn
+        redirectAttributes.addAttribute("id", hoaDon.getId());
+        return "redirect:/ban-hang-tai-quay/viewcart/{id}";
+    }
+
+    @PostMapping("viewVoucher")
+    public String themVoucher(@ModelAttribute("voucher") Voucher_HoaDon voucher_hoaDon,
+                              @RequestParam("id") UUID id,
+                              @RequestParam("idvc") UUID idvc,
+                              RedirectAttributes redirectAttributes, Model model) {
+        Voucher voucher = voucherService.detail(idvc);
+        HoaDon hoaDon = hoaDonService.detail(id);
+
+        List<HoaDonChiTiet> hoaDonChiTietList = hoaDon.getHoaDonChiTietList();
+        double totalAmount = 0.0;
+
+        for (HoaDonChiTiet hdct : hoaDonChiTietList) {
+            totalAmount += hdct.getDonGia() * hdct.getSoLuong();
+        }
+
+
+        if (totalAmount >= voucher.getTien()) {
+            List<Voucher_HoaDon> voucher_hoaDons = voucherHoaDonService.getVoucher_HoaDonByHoaDonId(id);
+
+            boolean foundExistingvc = false;
+
+            for (Voucher_HoaDon vchd : voucher_hoaDons) {
+                if (vchd.getVoucher() == null) {
+                    vchd.setVoucher(voucher);
+                    vchd.setHoaDon(hoaDon);
+                    foundExistingvc = true;
+                    break;
+                }
+            }
+            if (!foundExistingvc) {
+                // Tạo mới một chi tiết hóa đơn và set thông tin
+                Voucher_HoaDon newHoavchd = new Voucher_HoaDon();
+                newHoavchd.setVoucher(voucher);
+                newHoavchd.setHoaDon(hoaDon);
+                // Lưu chi tiết hóa đơn mới
+                voucherHoaDonService.add(newHoavchd);
+            }
+
+            double totalDiscountAmount = 0.0;
+            for (Voucher_HoaDon vchd : hoaDon.getVoucher_hoaDonList()) {
+                totalDiscountAmount += vchd.getVoucher().getMucGiam();
+            }
+            // Cập nhật tổng tiền hóa đơn sau khi áp dụng voucher
+            double totalAmountAfterDiscount = totalAmount - totalDiscountAmount;
+            hoaDon.setTongTienSauKhiGiam(totalAmountAfterDiscount);
+            hoaDon.setTongTien(totalAmount);
+
+            // Lưu hoaDon
+            hoaDonService.add(hoaDon);
+
+            voucherHoaDonService.addAll(voucher_hoaDons);
+
+            redirectAttributes.addAttribute("id", hoaDon.getId());
+            return "redirect:/ban-hang-tai-quay/viewcart/{id}";
+        } else {
+            redirectAttributes.addAttribute("id", hoaDon.getId());
+            return "redirect:/ban-hang-tai-quay/viewcart/{id}";
+        }
+    }
+
+
+    @GetMapping("viewcart/delete/{id}")
+    public String delete(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
+        HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.findById(id);
+
+        if (hoaDonChiTiet != null) {
+            HoaDon hoaDon = hoaDonChiTiet.getHoaDon();
+            UUID hoaDonId = hoaDon.getId();
+
+            // Xóa chi tiết hóa đơn
+            hoaDonChiTietService.delete(id);
+
+            // Lấy danh sách chi tiết hóa đơn còn lại
+            List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietService.getHoaDonChiTietByHoaDonId(hoaDonId);
+
+            // Tính lại tổng tiền sau khi xóa chi tiết hóa đơn
+            double totalDiscountAmount = hoaDon.getVoucher_hoaDonList().stream()
+                    .mapToDouble(vchd -> vchd.getVoucher().getMucGiam())
+                    .sum();
+
+            double totalAmount = hoaDonChiTietList.stream()
+                    .mapToDouble(hdt -> (hdt.getSoLuong() * hdt.getDonGia()))
+                    .sum();
+
+            double totalAmountAfterDiscount = totalAmount - totalDiscountAmount;
+            hoaDon.setTongTienSauKhiGiam(totalAmountAfterDiscount);
+            hoaDon.setTongTien(totalAmount);
+
+            // Cập nhật tổng tiền của hóa đơn sau khi xóa
+            hoaDonService.add(hoaDon);
+
+            redirectAttributes.addAttribute("id", hoaDonId);
+        }
+
+        return "redirect:/ban-hang-tai-quay/viewcart/{id}";
+    }
+
 
     @GetMapping("viewcart/{id}")
     public String showSanPham(@PathVariable UUID id, Model model) {
@@ -146,15 +279,25 @@ public class BanHangTaiQuayController {
         List<HoaDonChiTiet> listhdct = hoaDonChiTietService.getALl();
         List<TaiKhoan> list1 = taiKhoanService.getAll();
         List<Voucher> list2 = voucherService.getAll();
-        Double tongTien = hoaDonChiTietService.tongTien(id);
         ChiTietSanPham chiTietSanPham = chiTietSanPhamService.detail(id);
+        TaiKhoan taiKhoan = taiKhoanService.findByHoaDonId(id);
+
+        Double tongTien = hoaDonChiTietService.tongTien(id);
+        Double tongMucGiam = voucherHoaDonService.tongTienMucGiam(id);
+        Double tongTienSauGiam = hoaDonService.tongTienSauGiam(id);
+
+
         model.addAttribute("hdct", new HoaDonChiTiet());
+        model.addAttribute("hd", new HoaDon());
+        model.addAttribute("taiKhoan", taiKhoan);
         model.addAttribute("ctsp", chiTietSanPham);
         model.addAttribute("list1", list1);
         model.addAttribute("list2", list2);
         model.addAttribute("list", list);
         model.addAttribute("listhdct", listhdct);
         model.addAttribute("TongTien", tongTien);
+        model.addAttribute("TongTienMucGiam", tongMucGiam);
+        model.addAttribute("tongTienSauGiam", tongTienSauGiam);
         return "BanHangTaiQuay/TaoDonHang";
     }
 

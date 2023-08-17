@@ -91,9 +91,13 @@
                                 th:text="${#dates.format(l.thoiGianKetThuc, 'dd/MM/yyyy HH:mm')}"></td>
                             <td class="align-middle"
                                 th:text="${l.trangThai == 1 ? 'Đang diễn ra' : ( l.trangThai==2 ? 'Sắp diễn ra' : 'Kết thúc')}"></td>
-                            <td class="align-middle">
-                                <button type="button" class="btn btn-outline-success">Chọn</button>
-                            </td>
+                            <form th:action="@{/ban-hang-tai-quay/viewVoucher(id=${id})}" method="post"
+                                  th:object="${voucher}">
+                                <input type="hidden" th:name="idvc" th:value="${l.id}"/>
+                                <td class="align-middle">
+                                    <button type="submit" class="btn btn-outline-success">Chọn</button>
+                                </td>
+                            </form>
                         </tr>
 
                         </tbody>
@@ -142,9 +146,14 @@
                             <td th:text="${l.ngaySinh}"></td>
                             <!--                                                    <td th:text="${l.vaiTro.tenVaiTro}"></td>-->
                             <td th:text="${l.trangThai == 1 ? 'Hoạt động' : 'Không hoạt động'}"></td>
+                            <form th:action="@{/ban-hang-tai-quay/viewKhachHang(id=${id})}" method="post"
+                                  th:object="${hd}">
+                                <input type="hidden" th:value="*{ngayTao}">
+                                <input type="hidden" th:name="idtk" th:value="${l.id}" />
                             <td>
-                                <button type="button" class="btn btn-outline-success">Chọn</button>
+                                    <button type="submit" class="btn btn-outline-success">Chọn</button>
                             </td>
+                            </form>
                         </tr>
                         </tbody>
                     </table>
@@ -212,22 +221,6 @@
                     </table>
                     <button type="button" id="closeDialogButton1">Đóng</button>
                 </dialog>
-                <!--End Dialog Sản Phẩm-->
-
-                <!--                Begin Dialog Chọn Sản Phẩm-->
-                <!--                <dialog id="myDialogChonSanPham" style="width: 500px;height: 400px;align-content: space-around">-->
-                <!--                    <div class="row">-->
-                <!--                        <div class="col-6">-->
-                <!--                            <img style="height: 150px; width: 150px" id="chon-sanpham-image">-->
-                <!--                        </div>-->
-                <!--                        <div class="col-6">-->
-                <!--                            <h3 id="chon-sanpham-name"></h3>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                    <button type="button" id="closeDialogChonSanPham">Đóng</button>-->
-                <!--                </dialog>-->
-
-                <!--                End Dialog Chọn Sản Phẩm-->
 
                 <div class="row">
                     <div class="col-12">
@@ -303,7 +296,10 @@
                                                 </div>
                                             </td>
                                             <td class="align-middle">
-
+                                                <a class="edit" th:href="@{delete/{id}(id=${l.id})}">
+                                                    <i class="material-icons" data-toggle="tooltip"
+                                                       title="Edit">&#xE254;</i>
+                                                </a>
                                             </td>
                                         </tr>
                                         <tr th:if="${listhdct.size() == 0}">
@@ -351,15 +347,24 @@
                                 </div>
 
                                 <div class="col-sm-12" style="align-content: space-around">
-                                    <h6 style="width: 200px">Tên khách hàng</h6> <br>
+                                    <h6 style="width: 200px">Tên khách hàng: </h6>
+                                    <p th:if="${taiKhoan != null}" th:text="${taiKhoan.tenTaiKhoan}"></p>
+                                    <p th:unless="${taiKhoan != null}">Khách hàng lẻ</p>
+                                    <br>
                                     <h6 style="width: 200px">Tên Tài Khoản </h6> <br>
-                                    <h6 style="width: 200px">Email</h6><br>
+                                    <h6 style="width: 200px">Email </h6>
+                                    <p th:if="${taiKhoan != null}" th:text="${taiKhoan.email}"></p>
+                                    <p th:unless="${taiKhoan != null}"></p>
+                                    <br>
                                 </div>
+
+
                             </div>
                             <!-- End Tài Khoản -->
                         </div>
                     </div>
                 </div>
+
 
                 <!-- Begin Khách Hàng-->
                 <div class="row">
@@ -398,14 +403,9 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <h6 style="width: 200px">Tiền Hàng</h6>
-                                                    <h6 style="width: 200px">Giảm giá </h6>
-                                                    <h4 style="width: 200px">Tổng số tiền</h4>
-                                                </div>
-                                                <div class="col-6" style="text-align: right">
-                                                    <h6 style="width: 280px">đ</h6>
-                                                    <h6 style="width: 280px">đ</h6>
-                                                    <h4 style="width: 280px; color: red">đ</h4>
+                                                    <h6 style="width: 200px">Tiền Hàng <p th:text="${TongTien}"></p></h6>
+                                                    <h6 style="width: 200px">Giảm giá <p th:text="${TongTienMucGiam}"></p></h6>
+                                                    <h4 style="width: 200px">Tổng số tiền <p th:text="${tongTienSauGiam}"></p></h4>
                                                 </div>
                                             </div>
 
