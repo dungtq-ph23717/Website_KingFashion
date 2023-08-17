@@ -391,6 +391,7 @@
         }
     </style>
 
+
 </head>
 
 <body>
@@ -441,18 +442,31 @@
                                         <div class="col-xl-12">
                                             <div style="margin-left: 20px;" class="dataTables_filter">
 
-                                                <form th:object="${searchHD}" th:action="@{/hoa-don/search}"
-                                                      class="row form-row justify-content-between">
+                                                <form th:object="${searchHD}"
+                                                      th:action="@{/hoa-don/hien-thi-page-search}"
+                                                      class="row form-row justify-content-between" id="searchForm">
 
                                                     <div class="col-12 row container">
+
+                                                        <!-- Các trường input ẩn để lưu trữ giá trị tìm kiếm -->
+                                                        <!--                                                        <input type="hidden" >-->
+                                                        <!--                                                        <input type="hidden" >-->
+                                                        <!--                                                        <input type="hidden" >-->
+                                                        <!--                                                        <input type="hidden" name="trangThaiHidden" id="trangThaiHidden">-->
+                                                        <!--                                                        <input type="hidden" name="tuNgayHidden" id="tuNgayHidden">-->
+                                                        <!--                                                        <input type="hidden" name="denNgayHidden" id="denNgayHidden">-->
+                                                        <!--                                                        <input type="hidden" name="loaiDonHidden" id="loaiDonHidden">-->
+
 
                                                         <div class=" col-2">
 
                                                             <label class="input">
-                                                                <input style="height:28px;border-radius: 8px;width: 150px" type="search"
+                                                                <input style="height:28px;border-radius: 8px;width: 150px"
+                                                                       type="search"
                                                                        class="input__field"
                                                                        th:field="*{maHoaDon}"
-                                                                       name="maHoaDon">
+
+                                                                       name="maHoaDon" id="maHoaDon">
                                                                 <span style="font-size: 13px;font-weight: bold;"
                                                                       class="input__label">Mã hóa đơn</span>
                                                             </label>
@@ -462,10 +476,12 @@
 
                                                         <div class=" col-2">
                                                             <label class="input">
-                                                                <input class="input__field" style="height:28px;border-radius: 8px;width: 150px"
+                                                                <input class="input__field"
+                                                                       style="height:28px;border-radius: 8px;width: 150px"
                                                                        type="search"
                                                                        th:field="*{nguoiNhan}"
-                                                                       name="nguoiNhan">
+                                                                       name="nguoiNhan" id="nguoiNhan"
+                                                                >
                                                                 <span class="input__label"
                                                                       style="font-size: 13px;font-weight: bold;"
                                                                 >Tên khách hàng:</span>
@@ -474,11 +490,13 @@
 
                                                         <div class=" col-2">
                                                             <label class="input">
-                                                                <input style="height:28px;width: 150px;border-radius: 8px;" type="number"
+                                                                <input style="height:28px;width: 150px;border-radius: 8px;"
+                                                                       type="number"
                                                                        class="input__field"
                                                                        min="0" max="9000000" value="0"
                                                                        th:field="*{tongTienSauKhiGiam}"
-                                                                       name="tongTienSauKhiGiam">
+                                                                       name="tongTienSauKhiGiam"
+                                                                       id="tongTienSauKhiGiam">
                                                                 <span style="font-size: 13px;font-weight: bold;"
                                                                       class="input__label">Tổng tiền:</span>
                                                             </label>
@@ -486,8 +504,10 @@
 
                                                         <div class="col-2">
                                                             <label class="input">
-                                                                <select style="font-size: 14px;width: 150px;border-radius: 20px;" class="input__field"
-                                                                        th:field="*{trangThai}" name="trangThai">
+                                                                <select style="font-size: 14px;width: 150px;border-radius: 20px;"
+                                                                        class="input__field"
+                                                                        th:field="*{trangThai}" name="trangThai"
+                                                                        id="trangThai">
                                                                     <option value="">Tất Cả</option>
                                                                     <option value="0">Đang chờ xác nhận</option>
                                                                     <option value="1">Đã xác nhận</option>
@@ -507,18 +527,38 @@
 
                                                         <div class="col-2">
                                                             <label class="input">
-                                                                <input style="width: 150px;border-radius: 8px;" type="datetime-local"
-                                                                       class="input__field"
-                                                                       th:field="*{ngayTao}">
-                                                                <span style="font-size: 13px;font-weight: bold;"
-                                                                      class="input__label">Ngày tạo đơn:</span>
+                                                                <input style="width: 150px; border-radius: 8px;"
+                                                                       type="datetime-local" class="input__field"
+                                                                       name="tuNgay" id="tuNgay" onchange="updateURL()">
+                                                                <span style="font-size: 13px; font-weight: bold;"
+                                                                      class="input__label">Từ ngày:</span>
                                                             </label>
                                                         </div>
 
                                                         <div class="col-2">
                                                             <label class="input">
-                                                                <select style="font-size: 14px;width: 150px;border-radius: 20px;" class="input__field"
-                                                                        th:field="*{loaiDon}">
+                                                                <input style="width: 150px; border-radius: 8px;"
+                                                                       type="datetime-local" class="input__field"
+                                                                       name="denNgay" id="denNgay"
+                                                                       onchange="updateURL()">
+                                                                <span style="font-size: 13px; font-weight: bold;"
+                                                                      class="input__label">Đến ngày:</span>
+                                                            </label>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <br>
+                                                    <br>
+                                                    <div class="col-12 row container d-flex  align-content-around flex-wrap">
+
+                                                        <div class="col-4">
+                                                            <label style="float: right;" class="input">
+                                                                <select style="font-size: 14px;width: 150px;border-radius: 20px;"
+                                                                        class="input__field"
+                                                                        th:field="*{loaiDon}" name="loaiDon"
+                                                                        id="loaiDon">
                                                                     <option value="">Tất Cả</option>
                                                                     <option value="0">Tại quầy</option>
                                                                     <option value="1">Đặt hàng online</option>
@@ -527,26 +567,36 @@
                                                                       class="input__label">Loại đơn:</span>
                                                             </label>
                                                         </div>
-                                                    </div>
-
-                                                    <br>
-                                                    <br>
-                                                    <div class="col-12 row container"
-                                                         style="display: flex;justify-content: center;">
 
                                                         <div class="col-3">
                                                             <div style="float: right;">
                                                                 <label class="input">
 
-                                                                    <select onchange="searchAndUpdate()" style="font-size: 14px;width: 150px;height: 30px;border-radius: 20px;"
-                                                                            class="input__field" name="xapXep" th:value="${xapXep}" id="xapXep">
-                                                                        <option value="" th:selected="${xapXep == null}">Mặc định</option>
-                                                                        <option value="1" th:selected="${xapXep == 1}">Mới nhất</option>
-                                                                        <option value="2" th:selected="${xapXep == 2}">Cũ nhất</option>
-                                                                        <option value="3" th:selected="${xapXep == 3}">Giá cao nhất</option>
-                                                                        <option value="4" th:selected="${xapXep == 4}">Giá thấp nhất</option>
-                                                                        <option value="5" th:selected="${xapXep == 5}">Từ (A-Z)</option>
-                                                                        <option value="6" th:selected="${xapXep == 6}">Từ (Z-A)</option>
+                                                                    <select onchange="searchAndUpdate()"
+                                                                            style="font-size: 14px;width: 150px;height: 30px;border-radius: 20px;"
+                                                                            class="input__field" name="xapXep"
+                                                                            th:value="${xapXep}" id="xapXep">
+                                                                        <option value=""
+                                                                                th:selected="${xapXep == null}">Mặc định
+                                                                        </option>
+                                                                        <option value="1" th:selected="${xapXep == 1}">
+                                                                            Mới nhất
+                                                                        </option>
+                                                                        <option value="2" th:selected="${xapXep == 2}">
+                                                                            Cũ nhất
+                                                                        </option>
+                                                                        <option value="3" th:selected="${xapXep == 3}">
+                                                                            Giá cao nhất
+                                                                        </option>
+                                                                        <option value="4" th:selected="${xapXep == 4}">
+                                                                            Giá thấp nhất
+                                                                        </option>
+                                                                        <option value="5" th:selected="${xapXep == 5}">
+                                                                            Từ (A-Z)
+                                                                        </option>
+                                                                        <option value="6" th:selected="${xapXep == 6}">
+                                                                            Từ (Z-A)
+                                                                        </option>
                                                                     </select>
                                                                     <span class="input__label"
                                                                           style="font-size: 13px;font-weight: bold;">Sắp xếp: </span>
@@ -555,7 +605,7 @@
                                                         </div>
 
                                                         <div style="height: 35px;float: right;" class="col-2">
-                                                            <button data-toggle="tooltip"
+                                                            <button onclick="searchAndUpdate3()" data-toggle="tooltip"
                                                                     title="Tìm kiếm" &#xE254; height="22px"
                                                                     style="background:blue;border-radius: 50px;border:1px solid black;justify-content: center;"
                                                                     type="submit" class="btn btn-labeled shadow-button">
@@ -571,11 +621,12 @@
 
                                                         <div style="height: 35px;"
                                                              class="col-2">
-                                                            <a th:href="@{/hoa-don/hien-thi}">
+                                                            <a th:href="@{/hoa-don/hien-thi-page-search}">
                                                                 <button onclick="refreshPage()" data-toggle="tooltip"
                                                                         title="Làm mới" &#xE254; height="22px"
                                                                         style="background:#0ad406;border-radius: 50px;border:1px solid black;justify-items: center;"
-                                                                        type="button" class="btn btn-labeled shadow-button">
+                                                                        type="button"
+                                                                        class="btn btn-labeled shadow-button">
                                                             <span style="margin-bottom: 3px;color: white;"
                                                                   class="btn-icon">
                                                                 <i class="fa-solid fa-arrows-rotate fa-spin fa-lg"></i>
@@ -595,7 +646,7 @@
 
                                                 <div style=" margin-top: 30px; height: 35px;display: flex;justify-content: space-between;"
                                                      class="col-12">
-                                                    <a th:href="@{/hoa-don/view-add}">
+                                                    <form th:href="@{/ban-hang-tai-quay/add}" method="post">
                                                         <button data-toggle="tooltip"
                                                                 title="Tạo hóa đơn" &#xE254; height="24px"
                                                                 style="background:black;border-radius: 50px;border:1px solid black;justify-items: center;"
@@ -609,7 +660,7 @@
                                                                   ;
                                                                   class="btn-text">Tạo hóa đơn</span>
                                                         </button>
-                                                    </a>
+                                                    </form>
 
                                                     <form class="export-form"
                                                           th:action="@{/hoa-don/export-excel}"
@@ -638,8 +689,8 @@
                             </div>
 
 
-                            <!--                            <br>-->
-                            <!--                        <br>-->
+                            <!--<br>-->
+                            <!--<br>-->
 
                             <div class="row">
                                 <div class="col-12">
@@ -655,7 +706,7 @@
                                                             <th>Tên Khách Hàng</th>
                                                             <th>Ngày Đặt Hàng</th>
                                                             <th>Tổng Tiền</th>
-                                                            <th>Loại Đơn</th>
+                                                            <th>Loại Đơn Hàng</th>
                                                             <th>Trạng Thái</th>
                                                             <th>Hành Động</th>
                                                         </tr>
@@ -680,40 +731,41 @@
                                                                 th:text="${#numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').substring(0, #numbers.formatDecimal(hd.tongTienSauKhiGiam, 0 , 'COMMA',3,'POINT').length()-4)} + ' đ'">
                                                             </td>
 
-                                                            <td style="font-size: 14px;font-weight: bold"
-                                                                class="align-middle">
-                                                                <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
-                                                                      th:if="${hd.loaiDon == 0 || hd.loaiDon == null}"
-                                                                      class="btn btn-labeled shadow-button btn btn-dark status-completed">Tại quầy</span>
-                                                                <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
-                                                                      th:if="${hd.loaiDon != 0}"
-                                                                      class="btn btn-labeled shadow-button btn btn-info status-completed">Đặt hàng online</span>
+                                                            <td style="font-size: 14px; font-weight: bold; text-align: center; vertical-align: middle;">
+                                                                <div style="display: inline-block; text-align: left;">
+                                                                    <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                          th:if="${hd.loaiDon == 0 || hd.loaiDon == null}"
+                                                                          class="btn btn-labeled shadow-button btn btn-dark status-completed">Tại quầy</span>
+                                                                    <span style="width: 165px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                          th:if="${hd.loaiDon != 0}"
+                                                                          class="btn btn-labeled shadow-button btn btn-info status-completed">Đặt hàng online</span>
+                                                                </div>
                                                             </td>
 
-                                                            <td style="font-size: 14px;font-weight: bold"
+                                                            <td style="font-size: 14px;font-weight: bold;display: flex;justify-content:center;"
                                                                 class="align-middle">
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 0 }"
                                                                       class="btn btn-labeled shadow-button btn btn-warning status-pending">Đang chờ xác nhận</span>
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 1}"
                                                                       class="btn btn-labeled shadow-button btn btn-success status-completed">Đã xác nhận</span>
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 2 }"
                                                                       class="btn btn-labeled shadow-button btn btn-danger status-cancelled">Đã hủy đơn</span>
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 3 }"
                                                                       class="btn btn-labeled shadow-button btn btn-warning status-pending">Chờ giao hàng</span>
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 4 }"
                                                                       class="btn btn-labeled shadow-button btn btn-warning status-pending">Đang giao hàng</span>
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 5 }"
                                                                       class="btn btn-labeled shadow-button btn btn-success status-completed">Giao hàng thành công</span>
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 6 }"
                                                                       class="btn btn-labeled shadow-button btn btn-danger status-cancelled">Giao hàng thất bại</span>
-                                                                <span style="width: 190px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
                                                                       th:if="${hd.trangThai == 7 }"
                                                                       class="btn btn-labeled shadow-button btn btn-success status-completed">Thanh toán thành công</span>
                                                             </td>
@@ -742,7 +794,7 @@
                                                                         <div class="start-icon far fa-times-circle faa-pulse animated fa-times">
                                                                             <strong style="font-family: Arial"
                                                                                     class="font__weight-semibold ">Không
-                                                                                có dữ liệu !</strong></div>
+                                                                                tìm thấy dữ liệu !</strong></div>
                                                                     </div>
                                                                 </td>
                                                             </div>
@@ -750,6 +802,20 @@
                                                         </tbody>
                                                     </table>
 
+                                                    <label class="input">
+
+                                                        <select onchange="searchAndUpdate2()"
+                                                                style="font-size: 14px;width: 50px;height: 30px;border-radius: 10px;"
+                                                                class="input__field" name="size"
+                                                                th:value="${size}" id="size">
+                                                            <option value="5" th:selected="${size == 5}">5</option>
+                                                            <option value="10" th:selected="${size == 10}">10</option>
+                                                            <option value="25" th:selected="${size == 25}">25</option>
+                                                            <option value="50" th:selected="${size == 50}">50</option>
+                                                            <option value="100" th:selected="${size == 100}">100
+                                                            </option>
+                                                        </select>
+                                                    </label>
 
                                                 </section>
                                             </div> <!-- end container-fluid -->
@@ -776,20 +842,30 @@
                                         <ul class="pagination">
                                             <li class="page-item" th:classappend="${listHD.number == 0} ? disabled">
                                                 <a class="page-link"
-                                                   th:href="@{/hoa-don/hien-thi(page=0, size=${listHD.size})}">Trang
+                                                   th:href="@{/hoa-don/hien-thi-page-search(page=0, size=${listHD.size},
+                                                    maHoaDon=${param.maHoaDon}, nguoiNhan=${param.nguoiNhan}, tongTienSauKhiGiam=${param.tongTienSauKhiGiam},
+                                                     trangThai=${param.trangThai}, tuNgay=${param.tuNgay}, denNgay=${param.denNgay}, loaiDon=${param.loaiDon},
+                                                      xapXep=${param.xapXep},size=${param.size})}">Trang
                                                     đầu</a>
                                             </li>
                                             <li class="page-item"
                                                 th:classappend="${listHD.number == 0} ? disabled">
                                                 <a class="page-link"
-                                                   th:href="@{/hoa-don/hien-thi(page=${listHD.number - 1})}">
+                                                   th:href="@{/hoa-don/hien-thi-page-search(page=${listHD.number - 1}, maHoaDon=${param.maHoaDon},
+                                                   nguoiNhan=${param.nguoiNhan}, tongTienSauKhiGiam=${param.tongTienSauKhiGiam},
+                                                    trangThai=${param.trangThai}, tuNgay=${param.tuNgay}, denNgay=${param.denNgay},
+                                                     loaiDon=${param.loaiDon}, xapXep=${param.xapXep},size=${param.size})}">
                                                     <i class="fa-solid fa-angles-left fa-lg"></i>
                                                 </a>
                                             </li>
                                             <li class="page-item"
                                                 th:each="pageNumber : ${#numbers.sequence(0, listHD.totalPages - 1)}">
                                                 <a class="page-link"
-                                                   th:href="@{/hoa-don/hien-thi(page=${pageNumber})}"
+                                                   th:href="@{/hoa-don/hien-thi-page-search(page=${pageNumber},
+                                                    maHoaDon=${param.maHoaDon}, nguoiNhan=${param.nguoiNhan},
+                                                    tongTienSauKhiGiam=${param.tongTienSauKhiGiam}, trangThai=${param.trangThai},
+                                                    tuNgay=${param.tuNgay}, denNgay=${param.denNgay}, loaiDon=${param.loaiDon},
+                                                     xapXep=${param.xapXep},size=${param.size})}"
                                                    th:text="${pageNumber + 1}"
                                                    th:classappend="${pageNumber == listHD.number} ? active">
                                                 </a>
@@ -797,14 +873,20 @@
                                             <li class="page-item"
                                                 th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled">
                                                 <a class="page-link"
-                                                   th:href="@{/hoa-don/hien-thi(page=${listHD.number + 1})}">
+                                                   th:href="@{/hoa-don/hien-thi-page-search(page=${listHD.number + 1}, maHoaDon=${param.maHoaDon},
+                                                    nguoiNhan=${param.nguoiNhan}, tongTienSauKhiGiam=${param.tongTienSauKhiGiam},
+                                                     trangThai=${param.trangThai},tuNgay=${param.tuNgay}, denNgay=${param.denNgay},
+                                                      loaiDon=${param.loaiDon},xapXep=${param.xapXep},size=${param.size})}">
                                                     <i class="fa-solid fa-angles-right fa-lg"></i>
                                                 </a>
                                             </li>
                                             <li class="page-item"
                                                 th:classappend="${listHD.number == listHD.totalPages - 1} ? disabled"><a
                                                     class="page-link"
-                                                    th:href="@{/hoa-don/hien-thi(page=${listHD.totalPages - 1}, size=${listHD.size})}">Trang
+                                                    th:href="@{/hoa-don/hien-thi-page-search(page=${listHD.totalPages - 1}, size=${listHD.size}, maHoaDon=${param.maHoaDon},
+                                                     nguoiNhan=${param.nguoiNhan}, tongTienSauKhiGiam=${param.tongTienSauKhiGiam}, trangThai=${param.trangThai},
+                                                      tuNgay=${param.tuNgay}, denNgay=${param.denNgay},
+                                                       loaiDon=${param.loaiDon}, xapXep=${param.xapXep},size=${param.size})}">Trang
                                                 cuối</a>
                                             </li>
                                         </ul>
@@ -860,71 +942,217 @@
 <!-- App js -->
 <script src="../../static/assets\js\app.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
-<script>
-    function showValue(value) {
-        document.getElementById("rangeValue").innerHTML = value;
-    }
 
-    function showValue1(value) {
-        document.getElementById("rangeValue1").innerHTML = value;
-    }
 
-    const form = document.querySelector('.form-row');
-    const rangeInputs = form.querySelectorAll('input[type="range"]');
-    const datetimeInputs = form.querySelectorAll('input[type="datetime-local"]');
-    const radioInputs = form.querySelectorAll('input[type="radio"]');
-    const searchInput = form.querySelector('input[type="search"]');
-
-    rangeInputs.forEach(input => {
-        input.addEventListener('mousemove', () => {
-            form.submit();
-        });
-    });
-
-    datetimeInputs.forEach(input => {
-        input.addEventListener('change', () => {
-            form.submit();
-        });
-    });
-
-    radioInputs.forEach(input => {
-        input.addEventListener('change', () => {
-            form.submit();
-        });
-    });
-
-    searchInput.addEventListener('keyup', (event) => {
-        if (event.key === 'Enter') {
-            form.submit();
+<th:block id="js-resources">
+    <script>
+        function showValue(value) {
+            document.getElementById("rangeValue").innerHTML = value;
         }
-    });
-</script>
-<script>
-    function searchAndUpdate() {
-        var xapXepValue = document.getElementById("xapXep").value;
-        var encodedXapXepValue = encodeURIComponent(xapXepValue);
 
-        // Lưu trữ giá trị xapXepValue vào localStorage
-        localStorage.setItem("selectedXapXepValue", xapXepValue);
-
-        window.location.href = "http://localhost:8080/hoa-don/search?xapXep=" + encodedXapXepValue;
-    }
-
-    // Khôi phục giá trị lựa chọn sau khi trang được load lại
-    window.onload = function() {
-        var selectedXapXepValue = localStorage.getItem("selectedXapXepValue");
-        if (selectedXapXepValue) {
-            document.getElementById("xapXep").value = selectedXapXepValue;
+        function showValue1(value) {
+            document.getElementById("rangeValue1").innerHTML = value;
         }
-    };
-    function refreshPage() {
-        // Xóa giá trị đã lưu trữ trong localStorage
-        localStorage.removeItem("selectedXapXepValue");
 
-        // Làm mới trang
-        location.reload();
-    };
-</script>
+        const form = document.querySelector('.form-row');
+        const rangeInputs = form.querySelectorAll('input[type="range"]');
+        const datetimeInputs = form.querySelectorAll('input[type="datetime-local"]');
+        const radioInputs = form.querySelectorAll('input[type="radio"]');
+        const searchInput = form.querySelector('input[type="search"]');
+
+        rangeInputs.forEach(input => {
+            input.addEventListener('mousemove', () => {
+                form.submit();
+            });
+        });
+
+        datetimeInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                form.submit();
+            });
+        });
+
+        radioInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                form.submit();
+            });
+        });
+
+        searchInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                form.submit();
+            }
+        });
+    </script>
+
+    <script>
+        function searchAndUpdate() {
+            var xapXepValue = document.getElementById("xapXep").value;
+            var encodedXapXepValue = encodeURIComponent(xapXepValue);
+
+            // Lưu trữ giá trị xapXepValue vào localStorage
+            localStorage.setItem("selectedXapXepValue", xapXepValue);
+
+            // Lấy giá trị từ các trường lọc
+            var maHoaDon = document.getElementById('maHoaDon').value;
+            var nguoiNhan = document.getElementById('nguoiNhan').value;
+            var tongTienSauKhiGiam = document.getElementById('tongTienSauKhiGiam').value;
+            var trangThai = document.getElementById('trangThai').value;
+            var tuNgay = document.getElementById('tuNgay').value;
+            var denNgay = document.getElementById('denNgay').value;
+            var loaiDon = document.getElementById('loaiDon').value;
+
+            // Tạo URL tìm kiếm với các tham số lọc
+            var searchUrl = "http://localhost:8080/hoa-don/hien-thi-page-search?";
+            searchUrl += "maHoaDon=" + encodeURIComponent(maHoaDon);
+            searchUrl += "&nguoiNhan=" + encodeURIComponent(nguoiNhan);
+            searchUrl += "&tongTienSauKhiGiam=" + encodeURIComponent(tongTienSauKhiGiam);
+            searchUrl += "&trangThai=" + encodeURIComponent(trangThai);
+            searchUrl += "&tuNgay=" + encodeURIComponent(tuNgay);
+            searchUrl += "&denNgay=" + encodeURIComponent(denNgay);
+            searchUrl += "&loaiDon=" + encodeURIComponent(loaiDon);
+            searchUrl += "&xapXep=" + encodedXapXepValue;
+
+            // Chuyển hướng đến URL tìm kiếm với các tham số lọc
+            window.location.href = searchUrl;
+        }
+
+        function searchAndUpdate2() {
+            var sizeValue = document.getElementById("size").value;
+            var encodedSizeValue = encodeURIComponent(sizeValue);
+
+            // Lưu trữ giá trị sizeValue vào localStorage
+            localStorage.setItem("selectedSizeValue", sizeValue);
+
+            // Lấy giá trị từ các trường lọc
+            var maHoaDon = document.getElementById('maHoaDon').value;
+            var nguoiNhan = document.getElementById('nguoiNhan').value;
+            var tongTienSauKhiGiam = document.getElementById('tongTienSauKhiGiam').value;
+            var trangThai = document.getElementById('trangThai').value;
+            var tuNgay = document.getElementById('tuNgay').value;
+            var denNgay = document.getElementById('denNgay').value;
+            var loaiDon = document.getElementById('loaiDon').value;
+            var xapXepValue = document.getElementById('xapXep').value;
+
+            // Tạo URL tìm kiếm với các tham số lọc
+            var searchUrl = "http://localhost:8080/hoa-don/hien-thi-page-search?";
+            searchUrl += "maHoaDon=" + encodeURIComponent(maHoaDon);
+            searchUrl += "&nguoiNhan=" + encodeURIComponent(nguoiNhan);
+            searchUrl += "&tongTienSauKhiGiam=" + encodeURIComponent(tongTienSauKhiGiam);
+            searchUrl += "&trangThai=" + encodeURIComponent(trangThai);
+            searchUrl += "&tuNgay=" + encodeURIComponent(tuNgay);
+            searchUrl += "&denNgay=" + encodeURIComponent(denNgay);
+            searchUrl += "&loaiDon=" + encodeURIComponent(loaiDon);
+            searchUrl += "&xapXep=" + encodeURIComponent(xapXepValue);
+            searchUrl += "&size=" + encodedSizeValue;
+
+            // Chuyển hướng đến URL tìm kiếm với các tham số lọc
+            window.location.href = searchUrl;
+        }
+
+        // Khôi phục giá trị lựa chọn sau khi trang được load lại
+        window.onload = function () {
+            var selectedXapXepValue = localStorage.getItem("selectedXapXepValue");
+            if (selectedXapXepValue) {
+                document.getElementById("xapXep").value = selectedXapXepValue
+            }
+
+            var selectedSizeValue = localStorage.getItem("selectedSizeValue");
+            if (selectedSizeValue) {
+                document.getElementById("size").value = selectedSizeValue;
+            }
+        };
+
+        function resetFilters() {
+            // Xóa giá trị từ các trường nhập liệu
+            document.getElementById('maHoaDon').value = '';
+            document.getElementById('nguoiNhan').value = '';
+            document.getElementById('tongTienSauKhiGiam').value = '';
+            document.getElementById('trangThai').value = '';
+            document.getElementById('tuNgay').value = '';
+            document.getElementById('denNgay').value = '';
+            document.getElementById('loaiDon').value = '';
+
+            // // Xóa giá trị từ các trường input ẩn
+            // document.getElementById('maHoaDonHidden').value = '';
+            // document.getElementById('nguoiNhanHidden').value = '';
+            // document.getElementById('tongTienSauKhiGiamHidden').value = '';
+            // document.getElementById('trangThaiHidden').value = '';
+            // document.getElementById('tuNgayHidden').value = '';
+            // document.getElementById('denNgayHidden').value = '';
+            // document.getElementById('loaiDonHidden').value = '';
+
+            // Submit form để làm mới
+            document.getElementById('searchForm').submit();
+        }
+    </script>
+    <script th:inline="javascript">
+        function updateURL() {
+            var tuNgay = document.getElementById("tuNgay").value;
+            var denNgay = document.getElementById("denNgay").value;
+
+            var currentURL = window.location.href;
+            var updatedURL = updateQueryStringParameter(currentURL, "tuNgay", tuNgay);
+            updatedURL = updateQueryStringParameter(updatedURL, "denNgay", denNgay);
+            window.location.href = updatedURL;
+        }
+
+        var urlParams = new URLSearchParams(window.location.search);
+
+        var urlParamFields = {
+            "tuNgay": document.getElementById("tuNgay"),
+            "denNgay": document.getElementById("denNgay")
+        };
+
+        Object.keys(urlParamFields).forEach(function (key) {
+            if (urlParams.has(key)) {
+                urlParamFields[key].value = urlParams.get(key);
+                localStorage.setItem(key, urlParams.get(key)); // Lưu giá trị vào localStorage
+            } else if (localStorage.getItem(key)) {
+                urlParamFields[key].value = localStorage.getItem(key); // Khôi phục giá trị từ localStorage
+            }
+        });
+
+        function updateQueryStringParameter(url, key, value) {
+            var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+            var separator = url.indexOf('?') !== -1 ? "&" : "?";
+            return url.match(re) ? url.replace(re, '$1' + key + "=" + value + '$2') : url + separator + key + "=" + value;
+        }
+
+        function handleSearch() {
+            // Get the value of the input field
+            var timKiemValue = document.getElementById("timKiem").value;
+
+            // Perform the search here, for example, by submitting the form
+            // You can use JavaScript to submit the form or handle the search via AJAX
+            // For simplicity, I'll demonstrate form submission.
+            document.getElementById("yourFormId").submit(); // Replace "yourFormId" with the actual ID of your form.
+        }
+
+        document.getElementById("tuNgay").addEventListener("change", function () {
+            localStorage.setItem("tuNgay", this.value); // Lưu giá trị vào localStorage khi thay đổi
+        });
+
+        document.getElementById("denNgay").addEventListener("change", function () {
+            localStorage.setItem("denNgay", this.value); // Lưu giá trị vào localStorage khi thay đổi
+        });
+
+        function refreshPage() {
+            document.getElementById("tuNgay").value = "";
+            document.getElementById("denNgay").value = "";
+
+            localStorage.removeItem("tuNgay"); // Xóa giá trị trong localStorage
+            localStorage.removeItem("denNgay");
+
+            // Xóa giá trị đã lưu trữ trong localStorage
+            localStorage.removeItem("selectedXapXepValue");
+            localStorage.removeItem("selectedSizeValue");
+
+            // Làm mới trang
+            location.reload();
+        }
+    </script>
+</th:block>
 
 </body>
 </html>
