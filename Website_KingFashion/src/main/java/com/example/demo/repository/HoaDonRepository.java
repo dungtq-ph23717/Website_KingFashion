@@ -32,4 +32,13 @@ public interface HoaDonRepository  extends JpaRepository<HoaDon, UUID> {
                           @Param("trangThai") Integer trangThai, @Param("tuNgay") Date tuNgay,
                           @Param("denNgay") Date denNgay, @Param("loaiDon") Integer loaiDon,
                           Pageable pageable);
+    @Query(value = "select HoaDon.id from HoaDon join HoaDonChiTiet on HoaDon.id = HoaDonChiTiet.id_hd where HoaDonChiTiet.id like ?1", nativeQuery = true)
+    HoaDon getHoaDonByHoaDonChiTietId(UUID id);
+
+    @Query("SELECT hd FROM HoaDon hd JOIN hd.hoaDonChiTietList hdt WHERE hdt.id = :id")
+    HoaDon findByHoaDonChiTietId(@Param("id") UUID id);
+
+    @Query(value = "select hd.tongTienSauKhiGiam from HoaDon hd where hd.id = ?1")
+    Double tongTienSauGiam(UUID id);
+
 }
