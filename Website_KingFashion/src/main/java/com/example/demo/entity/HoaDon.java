@@ -33,14 +33,8 @@ public class HoaDon {
     @JoinColumn(name = "id_tk", referencedColumnName = "id")
     private TaiKhoan taiKhoan;
 
-    @ManyToOne
-    @JoinColumn(name = "id_lichsuhd", referencedColumnName = "id")
-    private LichSuHoaDon lichSuHoaDon;
-
-
     @Column(name = "ma")
     private String maHoaDon;
-
 
     @Column(name = "ngay_tao")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
