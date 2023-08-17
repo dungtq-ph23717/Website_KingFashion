@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.HoaDon;
 
+import com.example.demo.entity.LichSuHoaDon;
 import com.example.demo.entity.Voucher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +24,13 @@ public interface HoaDonService {
 
     void add(HoaDon hoaDon);
 
-    Page<HoaDon> searchHD(String maHoaDon, String nguoiNhan, Double tongTienSauKhiGiam, Integer trangThai,
-                          Date ngayTao, Integer loaiDon, Pageable pageable);
+    void updateHD(HoaDon hoaDon);
+
+    Page<HoaDon> searchHD(String maHoaDon, String nguoiNhan, Double tongTienSauKhiGiam, Integer trangThai, Date tuNgay, Date denNgay, Integer loaiDon, Pageable pageable);
+
+    HoaDon getHoaDonByHoaDonChiTietId(UUID id);
+
+    HoaDon findByHoaDonChiTietId(UUID id);
+
+    Double tongTienSauGiam(UUID id);
 }

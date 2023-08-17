@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.HoaDon;
 import com.example.demo.entity.TaiKhoan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +30,12 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, UUID> {
 
     @Query("SELECT t FROM TaiKhoan t JOIN t.vaiTro v WHERE v.tenVaiTro LIKE lower(CONCAT('%', 'Khách hàng', '%'))")
     Page<TaiKhoan> getAllNhanVien(Pageable pageable);
+
+    @Query("SELECT t FROM TaiKhoan t JOIN t.vaiTro v WHERE t.id = ?1 and v.tenVaiTro LIKE lower(CONCAT('%', 'Khách hàng', '%'))")
+    TaiKhoan getAllKhachHang(UUID id);
+
+    @Query("SELECT t FROM TaiKhoan t JOIN t.hoaDonList hd WHERE hd.id = :id")
+    TaiKhoan findByHoaDonId(@Param("id") UUID id);
 
     @Query(value = "SELECT tk.id, tk.ma, tk.dia_chi, tk.email, tk.sdt, tk.ten, tk.ngay_sinh, tk.ngay_tao, tk.ngay_sua, tk.nguoi_tao,\n" +
             "       tk.nguoi_sua, tk.mat_khau, tk.trang_thai, tk.id_vt\n" +

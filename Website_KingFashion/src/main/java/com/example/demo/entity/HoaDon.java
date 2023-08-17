@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Table(name = "HoaDon")
@@ -32,14 +33,8 @@ public class HoaDon {
     @JoinColumn(name = "id_tk", referencedColumnName = "id")
     private TaiKhoan taiKhoan;
 
-    @ManyToOne
-    @JoinColumn(name = "id_lichsuhd", referencedColumnName = "id")
-    private LichSuHoaDon lichSuHoaDon;
-
-
     @Column(name = "ma")
     private String maHoaDon;
-
 
     @Column(name = "ngay_tao")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
@@ -50,7 +45,6 @@ public class HoaDon {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ngayThanhToan;
-
 
     @Column(name = "tong_tien")
     private Double tongTien;
@@ -74,13 +68,11 @@ public class HoaDon {
 
     @Column(name = "ngay_ship")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    @NotNull(message = "Không được để trống")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ngayShip;
 
     @Column(name = "ngay_du_kien_nhan")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    @NotNull(message = "Không được để trống")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ngayDuKienNhan;
 
@@ -106,4 +98,10 @@ public class HoaDon {
 
     @Column(name = "loai_don")
     private Integer loaiDon;
+
+    @OneToMany(mappedBy = "hoaDon",fetch = FetchType.LAZY)
+    private List<HoaDonChiTiet> hoaDonChiTietList;
+
+    @OneToMany(mappedBy = "hoaDon",fetch = FetchType.LAZY)
+    private List<Voucher_HoaDon> voucher_hoaDonList;
 }
