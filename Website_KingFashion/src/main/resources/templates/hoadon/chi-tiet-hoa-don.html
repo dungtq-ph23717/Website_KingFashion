@@ -333,41 +333,41 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div th:if="${lshd.trangThai == 3 ||
-                                                                  lshd.trangThai == 4 || lshd.trangThai == 5 ||
-                                                                  lshd.trangThai == 6 || lshd.trangThai == 7}"
-                                                                     class="col-3 stage"
-                                                                     th:style="${lshd.trangThai == 3 ? 'background-color: green;color:white' : ''}">
-                                                                    <div class="content">
-                                                                        <h3 class="h3">
-                                                                            Chờ giao hàng
-                                                                        </h3>
-                                                                        <p>
-                                                                            <i class="fa-solid fa-arrows-rotate fa-spin fa-xl"></i>
-                                                                        </p>
-                                                                        <div class="stage-text hidden">
-                                                                            <p th:text="${#dates.format(lshd.ngayTao, 'dd/MM/yyyy HH:mm')}"></p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+<!--                                                                <div th:if="${lshd.trangThai == 3 ||-->
+<!--                                                                  lshd.trangThai == 4 || lshd.trangThai == 5 ||-->
+<!--                                                                  lshd.trangThai == 6 || lshd.trangThai == 7}"-->
+<!--                                                                     class="col-3 stage"-->
+<!--                                                                     th:style="${lshd.trangThai == 3 ? 'background-color: green;color:white' : ''}">-->
+<!--                                                                    <div class="content">-->
+<!--                                                                        <h3 class="h3">-->
+<!--                                                                            Chờ giao hàng-->
+<!--                                                                        </h3>-->
+<!--                                                                        <p>-->
+<!--                                                                            <i class="fa-solid fa-arrows-rotate fa-spin fa-xl"></i>-->
+<!--                                                                        </p>-->
+<!--                                                                        <div class="stage-text hidden">-->
+<!--                                                                            <p th:text="${#dates.format(lshd.ngayTao, 'dd/MM/yyyy HH:mm')}"></p>-->
+<!--                                                                        </div>-->
+<!--                                                                    </div>-->
+<!--                                                                </div>-->
 
 
-                                                                <div th:if="${lshd.trangThai == 4 || lshd.trangThai == 5 ||
-                                                                  lshd.trangThai == 6 || lshd.trangThai == 7}"
-                                                                     class="col-3 stage"
-                                                                     th:style="${lshd.trangThai == 4 ? 'background-color: yellow;color:black' : ''}">
-                                                                    <div class="content">
-                                                                        <h3 class="h3">
-                                                                            Đang giao hàng
-                                                                        </h3>
-                                                                        <p>
-                                                                            <i class="fa-solid fa-truck-fast fa-beat-fade fa-xl"></i>
-                                                                        </p>
-                                                                        <div class="stage-text hidden">
-                                                                            <p th:text="${#dates.format(lshd.ngayTao, 'dd/MM/yyyy HH:mm')}"></p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+<!--                                                                <div th:if="${lshd.trangThai == 4 || lshd.trangThai == 5 ||-->
+<!--                                                                  lshd.trangThai == 6 || lshd.trangThai == 7}"-->
+<!--                                                                     class="col-3 stage"-->
+<!--                                                                     th:style="${lshd.trangThai == 4 ? 'background-color: yellow;color:black' : ''}">-->
+<!--                                                                    <div class="content">-->
+<!--                                                                        <h3 class="h3">-->
+<!--                                                                            Đang giao hàng-->
+<!--                                                                        </h3>-->
+<!--                                                                        <p>-->
+<!--                                                                            <i class="fa-solid fa-truck-fast fa-beat-fade fa-xl"></i>-->
+<!--                                                                        </p>-->
+<!--                                                                        <div class="stage-text hidden">-->
+<!--                                                                            <p th:text="${#dates.format(lshd.ngayTao, 'dd/MM/yyyy HH:mm')}"></p>-->
+<!--                                                                        </div>-->
+<!--                                                                    </div>-->
+<!--                                                                </div>-->
 
 
                                                                 <div th:if="${lshd.trangThai == 5 ||
@@ -626,103 +626,103 @@
                                                         </form>
                                                     </div>
 
-                                                    <div style="height: 35px;" class="col-2">
-                                                        <a  th:if="${listHD.trangThai == 1}">
-                                                            <button data-toggle="modal"
-                                                                    data-target="#myModal3"
-                                                                    style="background:yellow;border-radius: 50px;border:1px solid black;justify-items: center;"
-                                                                    type="button" class="btn btn-labeled shadow-button">
-                                                                <span style="margin-bottom: 3px;color: black;"
-                                                                      class="btn-icon">
-                                                                    <i class="fa-regular fa-square-check fa-beat fa-lg"></i>
-                                                                </span>
-                                                                <span style="margin-bottom: 3px;color: black;"
-                                                                      class="separator">|</span>
-                                                                <span style="margin-bottom: 3px;color: black;font-size: 15px;font-weight: bold"
-                                                                      class="btn-text">Xác nhận giao hàng</span>
-                                                            </button>
-                                                        </a>
+<!--                                                    <div style="height: 35px;" class="col-2">-->
+<!--                                                        <a  th:if="${listHD.trangThai == 1}">-->
+<!--                                                            <button data-toggle="modal"-->
+<!--                                                                    data-target="#myModal3"-->
+<!--                                                                    style="background:yellow;border-radius: 50px;border:1px solid black;justify-items: center;"-->
+<!--                                                                    type="button" class="btn btn-labeled shadow-button">-->
+<!--                                                                <span style="margin-bottom: 3px;color: black;"-->
+<!--                                                                      class="btn-icon">-->
+<!--                                                                    <i class="fa-regular fa-square-check fa-beat fa-lg"></i>-->
+<!--                                                                </span>-->
+<!--                                                                <span style="margin-bottom: 3px;color: black;"-->
+<!--                                                                      class="separator">|</span>-->
+<!--                                                                <span style="margin-bottom: 3px;color: black;font-size: 15px;font-weight: bold"-->
+<!--                                                                      class="btn-text">Xác nhận giao hàng</span>-->
+<!--                                                            </button>-->
+<!--                                                        </a>-->
 
-                                                        <form th:object="${listHD}" th:action="@{/hoa-don/xac-nhan-giao-hang/{id} (id=${listHD.id})}"
-                                                              method="post">
+<!--                                                        <form th:object="${listHD}" th:action="@{/hoa-don/xac-nhan-giao-hang/{id} (id=${listHD.id})}"-->
+<!--                                                              method="post">-->
 
-                                                            <!--                                                            <input th:field="*{id}" hidden="true">-->
-<!--                                                            <input th:field="*{lichSuHoaDon.id}" hidden="true">-->
-<!--                                                            <input th:field="*{maHoaDon}" hidden="true">-->
-<!--                                                            <input th:field="*{ngayTao}" hidden="true">-->
-<!--                                                            <input th:field="*{ngayThanhToan}" hidden="true">-->
-<!--                                                            <input th:field="*{tongTien}" hidden="true">-->
-<!--                                                            <input th:field="*{tongTienSauKhiGiam}" hidden="true">-->
-<!--                                                            <input th:field="*{trangThai}" hidden="true">-->
-<!--                                                            <input th:field="*{ngayShip}" hidden="true">-->
-<!--                                                            <input th:field="*{ngayDuKienNhan}" hidden="true">-->
-<!--                                                            <input th:field="*{tienShip}" hidden="true">-->
-<!--                                                            <input th:field="*{ngaySua}" hidden="true">-->
-<!--                                                            <input th:field="*{nguoiTaoHoaDon}" hidden="true">-->
-<!--                                                            <input th:field="*{ngayNhan}" hidden="true">-->
-<!--                                                            <input th:field="*{loaiDon}" hidden="true">-->
+<!--                                                            &lt;!&ndash;                                                            <input th:field="*{id}" hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <input th:field="*{lichSuHoaDon.id}" hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <input th:field="*{maHoaDon}" hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <input th:field="*{ngayTao}" hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <input th:field="*{ngayThanhToan}" hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <input th:field="*{tongTien}" hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <input th:field="*{tongTienSauKhiGiam}" hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <input th:field="*{trangThai}" hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <input th:field="*{ngayShip}" hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <input th:field="*{ngayDuKienNhan}" hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <input th:field="*{tienShip}" hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <input th:field="*{ngaySua}" hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <input th:field="*{nguoiTaoHoaDon}" hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <input th:field="*{ngayNhan}" hidden="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <input th:field="*{loaiDon}" hidden="true">&ndash;&gt;-->
 
-                                                            <div class="modal" id="myModal3">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
+<!--                                                            <div class="modal" id="myModal3">-->
+<!--                                                                <div class="modal-dialog">-->
+<!--                                                                    <div class="modal-content">-->
 
-                                                                        <!-- Modal Header -->
-                                                                        <div class="modal-header">
-                                                                            <h4 style="margin-left: 25px"
-                                                                                class="modal-title w-100 text-center">Thêm ghi chú</h4>
-                                                                            <button type="button" class="close"
-                                                                                    data-dismiss="modal">&times;
-                                                                            </button>
-                                                                        </div>
+<!--                                                                        &lt;!&ndash; Modal Header &ndash;&gt;-->
+<!--                                                                        <div class="modal-header">-->
+<!--                                                                            <h4 style="margin-left: 25px"-->
+<!--                                                                                class="modal-title w-100 text-center">Thêm ghi chú</h4>-->
+<!--                                                                            <button type="button" class="close"-->
+<!--                                                                                    data-dismiss="modal">&times;-->
+<!--                                                                            </button>-->
+<!--                                                                        </div>-->
 
-                                                                        <!-- Modal body -->
-                                                                        <div class="modal-body">
-                                                                            <!-- adding Bootstrap Form here -->
-                                                                            <form id="myForm3">
-                                                                                <div class="container">
+<!--                                                                        &lt;!&ndash; Modal body &ndash;&gt;-->
+<!--                                                                        <div class="modal-body">-->
+<!--                                                                            &lt;!&ndash; adding Bootstrap Form here &ndash;&gt;-->
+<!--                                                                            <form id="myForm3">-->
+<!--                                                                                <div class="container">-->
 
-                                                                                    <div class="form-group row">
-                                                                                        <div class="col-sm-12">
-                                                                                            <textarea class="form-control"
-                                                                                                      rows="4"
-                                                                                                      placeholder=""
-                                                                                                      name="ghiChu" ></textarea>
-                                                                                            <!--                                                                                            <div class="invalid-feedback">-->
-                                                                                            <!--                                                                                                Không được để trống!-->
-                                                                                            <!--                                                                                            </div>-->
-                                                                                        </div>
-                                                                                    </div>
-
-
-                                                                                    <div class="text-center">
-                                                                                        <button height="24px"
-                                                                                                style="background:deepskyblue;border-radius: 50px;border:1px solid black;justify-items: center;"
-                                                                                                type="submit"
-                                                                                                class="btn btn-labeled shadow-button">
-
-                                                                                <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold";
-                                                                                      class="btn-text">Ghi chú</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </form>
+<!--                                                                                    <div class="form-group row">-->
+<!--                                                                                        <div class="col-sm-12">-->
+<!--                                                                                            <textarea class="form-control"-->
+<!--                                                                                                      rows="4"-->
+<!--                                                                                                      placeholder=""-->
+<!--                                                                                                      name="ghiChu" ></textarea>-->
+<!--                                                                                            &lt;!&ndash;                                                                                            <div class="invalid-feedback">&ndash;&gt;-->
+<!--                                                                                            &lt;!&ndash;                                                                                                Không được để trống!&ndash;&gt;-->
+<!--                                                                                            &lt;!&ndash;                                                                                            </div>&ndash;&gt;-->
+<!--                                                                                        </div>-->
+<!--                                                                                    </div>-->
 
 
-                                                                        </div>
+<!--                                                                                    <div class="text-center">-->
+<!--                                                                                        <button height="24px"-->
+<!--                                                                                                style="background:deepskyblue;border-radius: 50px;border:1px solid black;justify-items: center;"-->
+<!--                                                                                                type="submit"-->
+<!--                                                                                                class="btn btn-labeled shadow-button">-->
 
-                                                                        <!-- Modal footer -->
-                                                                        <!--                                                                    <div class="modal-footer">-->
-                                                                        <!--                                                                        <p><-------------------------G-O-O-D--J-O-B-!----------------------&ndash;&gt;</p>-->
-                                                                        <!--                                                                    </div>-->
+<!--                                                                                <span style="margin-bottom: 3px;color: white;font-size: 15px;font-weight: bold";-->
+<!--                                                                                      class="btn-text">Ghi chú</span>-->
+<!--                                                                                        </button>-->
+<!--                                                                                    </div>-->
+<!--                                                                                </div>-->
+<!--                                                                            </form>-->
 
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
+
+<!--                                                                        </div>-->
+
+<!--                                                                        &lt;!&ndash; Modal footer &ndash;&gt;-->
+<!--                                                                        &lt;!&ndash;                                                                    <div class="modal-footer">&ndash;&gt;-->
+<!--                                                                        &lt;!&ndash;                                                                        <p><-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;G-O-O-D&#45;&#45;J-O-B-!&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;</p>&ndash;&gt;-->
+<!--                                                                        &lt;!&ndash;                                                                    </div>&ndash;&gt;-->
+
+<!--                                                                    </div>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                        </form>-->
+<!--                                                    </div>-->
 
                                                     <div style="height: 35px;" class="col-3">
-                                                        <a th:if="${listHD.trangThai == 4}">
+                                                        <a th:if="${listHD.trangThai == 1}">
                                                             <button data-toggle="modal"
                                                                     data-target="#myModal4"
                                                                     style="background:#FF00FF;border-radius: 50px;border:1px solid black;justify-items: center;"
@@ -852,7 +852,7 @@
 <!--                                                        <input th:field="*{loaiDon}" hidden="true">-->
 
                                                         <div class="modal" id="myModal5">
-                                                            <div class="modal-dialog">
+                                                            <div style="width: 600px;" class="modal-dialog">
                                                                 <div class="modal-content">
 
                                                                     <!-- Modal Header -->
@@ -883,11 +883,37 @@
                                                                                         </tr>
                                                                                         </thead>
                                                                                         <tbody style="text-align:center;">
-                                                                                        <tr th:each="lshd : ${listLSHD}">
-                                                                                            <td th:text="${lshd.trangThai}"></td>
-                                                                                            <td th:text="${lshd.ngayTao}"></td>
+                                                                                        <tr th:each="hd : ${listLSHD}">
+                                                                                            <td style="font-size: 14px;font-weight: bold;display: flex;justify-content:center;"
+                                                                                                class="align-middle">
+                                                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                                                      th:if="${hd.trangThai == 0 }"
+                                                                                                      class="btn btn-labeled shadow-button btn btn-warning status-pending">Đang chờ xác nhận</span>
+                                                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                                                      th:if="${hd.trangThai == 1}"
+                                                                                                      class="btn btn-labeled shadow-button btn btn-success status-completed">Đã xác nhận</span>
+                                                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                                                      th:if="${hd.trangThai == 2 }"
+                                                                                                      class="btn btn-labeled shadow-button btn btn-danger status-cancelled">Đã hủy đơn</span>
+                                                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                                                      th:if="${hd.trangThai == 3 }"
+                                                                                                      class="btn btn-labeled shadow-button btn btn-warning status-pending">Chờ giao hàng</span>
+                                                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                                                      th:if="${hd.trangThai == 4 }"
+                                                                                                      class="btn btn-labeled shadow-button btn btn-warning status-pending">Đang giao hàng</span>
+                                                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                                                      th:if="${hd.trangThai == 5 }"
+                                                                                                      class="btn btn-labeled shadow-button btn btn-success status-completed">Giao hàng thành công</span>
+                                                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                                                      th:if="${hd.trangThai == 6 }"
+                                                                                                      class="btn btn-labeled shadow-button btn btn-danger status-cancelled">Giao hàng thất bại</span>
+                                                                                                <span style="width: 200px; pointer-events: none; height: 30px; border-radius: 20px; display: flex; align-items: center; justify-content: center;"
+                                                                                                      th:if="${hd.trangThai == 7 }"
+                                                                                                      class="btn btn-labeled shadow-button btn btn-success status-completed">Thanh toán thành công</span>
+                                                                                            </td>
+                                                                                            <td th:text="${hd.ngayTao}"></td>
                                                                                             <td >Phạm Quốc Việt</td>
-                                                                                            <td th:text="${lshd.ghiChu}"></td>
+                                                                                            <td th:text="${hd.ghiChu}"></td>
                                                                                         </tr>
                                                                                         </tbody>
                                                                                     </table>
@@ -946,7 +972,7 @@
                                             </div>
                                             <div class="col-5"
                                                  style="display: flex; justify-content: end;justify-self: center;justify-items: center">
-                                                <button   data-toggle="modal"
+                                                <button th:if="${listHD.trangThai == 0}"  data-toggle="modal"
                                                         data-target="#myModal"
                                                         style="background:black;border-radius: 50px;border:1px solid black;height: 35px;width: 110px;display: flex;justify-items: center"
                                                         type="submit"
