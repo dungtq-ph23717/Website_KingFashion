@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.HoaDon;
+import com.example.demo.entity.LichSuHoaDon;
 import com.example.demo.repository.HoaDonRepository;
 import com.example.demo.service.HoaDonService;
 import jakarta.persistence.EntityManager;

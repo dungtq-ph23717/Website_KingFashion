@@ -23,19 +23,17 @@ public class LichSuHoaDonServiceImpl  implements LichSuHoaDonService {
     }
 
     @Override
-    public List<LichSuHoaDon> detail(UUID id) {
+    public LichSuHoaDon detail(UUID id) {
         return lichSuHoaDonRepository.findLichSuHoaDonById(id);
     }
 
     @Override
-    public void createLichSuDonHang(HoaDon hoaDon) {
-        LichSuHoaDon lichSuHoaDon = new LichSuHoaDon();
-        Date now = new Date();
-        lichSuHoaDon.setNgayTao(now);
-        hoaDon.setNgaySua(now);
-        hoaDon.setTrangThai(hoaDon.getTrangThai());
-        hoaDon.setGhiChu(hoaDon.getGhiChu());
-        hoaDon.setLichSuHoaDon(lichSuHoaDon);
+    public List<LichSuHoaDon> findAllLichSuHoaDonById(UUID id) {
+        return lichSuHoaDonRepository.findLichSuHoaDonByHoaDonId(id);
+    }
+
+    @Override
+    public void createLichSuDonHang(LichSuHoaDon lichSuHoaDon) {
         lichSuHoaDonRepository.save(lichSuHoaDon);
     }
 

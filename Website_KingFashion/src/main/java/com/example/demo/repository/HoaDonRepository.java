@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.HoaDon;
+import com.example.demo.entity.LichSuHoaDon;
 import com.example.demo.entity.Voucher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -30,5 +32,4 @@ public interface HoaDonRepository  extends JpaRepository<HoaDon, UUID> {
                           @Param("trangThai") Integer trangThai, @Param("tuNgay") Date tuNgay,
                           @Param("denNgay") Date denNgay, @Param("loaiDon") Integer loaiDon,
                           Pageable pageable);
-
 }

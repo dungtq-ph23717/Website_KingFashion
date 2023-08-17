@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.HoaDon;
 
+import com.example.demo.entity.LichSuHoaDon;
 import com.example.demo.entity.Voucher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

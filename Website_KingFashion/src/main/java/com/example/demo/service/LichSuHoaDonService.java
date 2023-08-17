@@ -9,11 +9,12 @@ import java.util.UUID;
 public interface LichSuHoaDonService {
 
 
-    void createLichSuDonHang(HoaDon hoaDon);
+    void createLichSuDonHang(LichSuHoaDon lichSuHoaDon);
 
     List<LichSuHoaDon> getAll();
 
-    List<LichSuHoaDon> detail(UUID id);
+    LichSuHoaDon detail(UUID id);
 
-//    void add(LichSuHoaDon lichSuHoaDon);
+    List<LichSuHoaDon> findAllLichSuHoaDonById(UUID id);
+
 }

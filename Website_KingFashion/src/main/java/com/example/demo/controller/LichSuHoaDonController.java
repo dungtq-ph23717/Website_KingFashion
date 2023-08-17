@@ -24,20 +24,12 @@ public class LichSuHoaDonController {
 
 
 
-    @GetMapping("hien-thi")
-    public String hienThiLichSuHoaDon(Model model){
-        List<LichSuHoaDon> listLSHD = lichSuHoaDonService.getAll();
-        model.addAttribute("listLSHD", listLSHD);
-        return "hoadon/hoa-don-chi-tiet";
-    }
-
-    @GetMapping("view-lich-su-hoa-don")
-    public String viewLichSuHoaDon(@ModelAttribute("hd1") HoaDon hoaDon, @RequestParam("idlichsuhoadon") UUID id, Model model){
-        List<LichSuHoaDon> lichSuHoaDon = lichSuHoaDonService.detail(hoaDon.getLichSuHoaDon().getId());
-        model.addAttribute("lshd1", lichSuHoaDon);
-        System.out.println(hoaDon.getLichSuHoaDon().getId());
-        return "hoadon/hoa-don-chi-tiet";
-    }
+//    @GetMapping("hien-thi")
+//    public String hienThiLichSuHoaDon(Model model){
+//        List<LichSuHoaDon> listLSHD = lichSuHoaDonService.getAll();
+//        model.addAttribute("listLSHD", listLSHD);
+//        return "hoadon/hoa-don-chi-tiet";
+//    }
 
 
 }
