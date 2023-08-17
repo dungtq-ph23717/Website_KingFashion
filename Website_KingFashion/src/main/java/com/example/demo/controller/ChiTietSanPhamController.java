@@ -290,9 +290,10 @@ public class ChiTietSanPhamController {
         if (result.hasErrors()) {
             return "chitietsanpham/add-chi-tiet-san-pham";
         }
-        loaiSanPham.setNgayTao(new Date());
-        loaiSanPham.setMa("LSP01");
+        String ma = "LSP" + new Random().nextInt(100000);
+        loaiSanPham.setMa(ma);
         loaiSanPham.setTrangThai(1);
+        loaiSanPham.setNgayTao(new Date());
         model.addAttribute("lsp1", loaiSanPham);
         loaiSanPhamService.add(loaiSanPham);
         return viewAdd(model);
@@ -304,8 +305,9 @@ public class ChiTietSanPhamController {
         if (result.hasErrors()) {
             return "chitietsanpham/add-chi-tiet-san-pham";
         }
+        String ma = "MS" + new Random().nextInt(100000);
+        mauSac.setMaMauSac(ma);
         mauSac.setNgayTao(new Date());
-        mauSac.setTenMauSac("LSP01");
         mauSac.setTrangThai(1);
         model.addAttribute("ms1", mauSac);
         mauSacService.add(mauSac);
@@ -318,9 +320,10 @@ public class ChiTietSanPhamController {
         if (result.hasErrors()) {
             return "chitietsanpham/add-chi-tiet-san-pham";
         }
-        nhaSanXuat.setNgayTao(new Date());
-        nhaSanXuat.setMaNhaSanXuat("LSP01");
+        String ma = "NSX" + new Random().nextInt(100000);
+        nhaSanXuat.setMaNhaSanXuat(ma);
         nhaSanXuat.setTrangThai(1);
+        nhaSanXuat.setNgayTao(new Date());
         model.addAttribute("ms1", nhaSanXuat);
         nhaSanXuatService.add(nhaSanXuat);
         return viewAdd(model);
@@ -332,9 +335,10 @@ public class ChiTietSanPhamController {
         if (result.hasErrors()) {
             return "chitietsanpham/add-chi-tiet-san-pham";
         }
-        coAo.setNgayTao(new Date());
-        coAo.setMa("LSP01");
+        String ma = "CAO" + new Random().nextInt(100000);
+        coAo.setMa(ma);
         coAo.setTrangThai(1);
+        coAo.setNgayTao(new Date());
         model.addAttribute("ms1", coAo);
         coAoService.add(coAo);
         return viewAdd(model);
@@ -346,9 +350,10 @@ public class ChiTietSanPhamController {
         if (result.hasErrors()) {
             return "chitietsanpham/add-chi-tiet-san-pham";
         }
-        chatLieu.setNgayTao(new Date());
-        chatLieu.setMa("LSP01");
+        String ma = "CL" + new Random().nextInt(100000);
+        chatLieu.setMa(ma);
         chatLieu.setTrangThai(1);
+        chatLieu.setNgayTao(new Date());
         model.addAttribute("ms1", chatLieu);
         chatLieuService.add(chatLieu);
         return viewAdd(model);

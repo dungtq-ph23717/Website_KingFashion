@@ -3,6 +3,7 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,10 +43,12 @@ public class HoaDon {
 
     @Column(name = "ngay_tao")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date ngayTao;
 
     @Column(name = "ngay_thanh_toan")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date ngayThanhToan;
 
 
@@ -59,8 +62,8 @@ public class HoaDon {
     @Column(name = "trang_thai")
     private Integer trangThai;
 
-    @Column(name = "ten_nguoi_nhan")
-    private String tenNguoiNhan;
+//    @Column(name = "ten_nguoi_nhan")
+//    private String tenNguoiNhan;
 
     @Column(name = "dia_chi")
     private String diaChi;
@@ -71,11 +74,13 @@ public class HoaDon {
 
     @Column(name = "ngay_ship")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @NotNull(message = "Không được để trống")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ngayShip;
 
     @Column(name = "ngay_du_kien_nhan")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @NotNull(message = "Không được để trống")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ngayDuKienNhan;
 
@@ -86,12 +91,11 @@ public class HoaDon {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date ngaySua;
 
-
     @Column(name = "nguoi_tao")
     private String nguoiTaoHoaDon;
 
     @Column(name = "nguoi_nhan")
-    private String nguoiNhanHoaDon;
+    private String nguoiNhan;
 
     @Column(name = "ngay_nhan")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
@@ -100,5 +104,6 @@ public class HoaDon {
     @Column(name = "ghi_chu")
     private String ghiChu;
 
-
+    @Column(name = "loai_don")
+    private Integer loaiDon;
 }

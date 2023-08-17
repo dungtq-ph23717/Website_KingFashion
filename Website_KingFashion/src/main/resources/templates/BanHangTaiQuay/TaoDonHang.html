@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard | Uplon - Responsive Bootstrap 4 Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Responsive bootstrap 4 admin template" name="description">
+    <meta content="Coderthemes" name="author">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../../static/assets\images\favicon.ico">
+
+    <!-- App css -->
+    <link href="../../static/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
+    <link href="../../static/assets/css/icons.min.css" rel="stylesheet" type="text/css">
+    <link href="../../static/assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="../../static/js/jquery.min.js"></script>
+</head>
+
+<body>
+
+<!-- Begin page -->
+<div id="wrapper">
+
+
+    <div class="navbar-custom" th:insert="layout/nav.html :: header">
+
+    </div>
+
+    <div class="left-side-menu" th:insert="layout/slidebar.html :: header">
+
+    </div>
+
+    <div class="content-page">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-center">
+                                <h1 class="page-title" style="text-align: center; font-size: 200%">Sản Phẩm</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Begin Dialog Voucher-->
+                <dialog id="myDialogVoucher" style="width: 900px;height: 600px;align-content: space-around">
+                    <div class="title">
+                        <h3>Tìm kiếm Khách Hàng</h3>
+                    </div>
+                    <div class="form-inline" style="margin-bottom: 30px">
+                        <input type="text" th:name="ten" placeholder="Nhập tên sản phẩm"
+                               class="form-control form-control-sm" style="width: 150px; height: 40px; margin-right: 10px;"/>
+                        <button type="submit" class="btn btn-success waves-effect waves-light">
+                            <span class="btn-label"><i class="mdi mdi-search-web"></i></span>
+                            Tìm Kiếm
+                        </button>
+                    </div>
+                    <table id="datatable-buttonsss"
+                           class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                           style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                           role="grid" aria-describedby="datatable-buttons_info">
+                        <thead class="text-center">
+                        <tr>
+                            <th>Mã</th>
+                            <th>Tên</th>
+                            <th>Mức giảm</th>
+                            <th>Số tiền tối thiểu</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
+                            <th>Trạng thái</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="l,index : ${list2}" class="text-center">
+                            <td class="align-middle" th:text="${l.ma}"></td>
+                            <td class="align-middle" th:text="${l.ten}"></td>
+                            <td class="align-middle"
+                                th:text="${#numbers.formatDecimal(l.mucGiam, 0 , 'COMMA',3,'POINT').substring(0, #numbers.formatDecimal(l.mucGiam, 0 , 'COMMA',3,'POINT').length()-4)} + ' đ'"></td>
+                            <td class="align-middle"
+                                th:text="${#numbers.formatDecimal(l.tien, 0, 'COMMA', 3, 'POINT').substring(0, #numbers.formatDecimal(l.tien, 0, 'COMMA', 3, 'POINT').length() - 4)} + ' đ'"></td>
+                            <td class="align-middle"
+                                th:text="${#dates.format(l.thoiGianBatDau, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td class="align-middle"
+                                th:text="${#dates.format(l.thoiGianKetThuc, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td class="align-middle"
+                                th:text="${l.trangThai == 1 ? 'Đang diễn ra' : ( l.trangThai==2 ? 'Sắp diễn ra' : 'Kết thúc')}"></td>
+                            <td class="align-middle">
+                                <button type="button" class="btn btn-outline-success">Chọn</button>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <button type="button" id="closeDialogButton3">Đóng</button>
+                </dialog>
+                <!--End Dialog Voucher-->
+
+                <!--Begin Dialog Khach Hang-->
+                <dialog id="myDialogKhachHang" style="width: 900px;height: 600px;align-content: space-around">
+                    <div class="title">
+                        <h3>Tìm kiếm Khách Hàng</h3>
+                    </div>
+                    <div class="form-inline" style="margin-bottom: 30px">
+                        <input type="text" th:name="ten" placeholder="Nhập tên sản phẩm"
+                               class="form-control form-control-sm" style="width: 150px; height: 40px; margin-right: 10px;"/>
+                        <button type="submit" class="btn btn-success waves-effect waves-light">
+                            <span class="btn-label"><i class="mdi mdi-search-web"></i></span>
+                            Tìm Kiếm
+                        </button>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Mã</th>
+                            <th>Tên</th>
+                            <th>SĐT</th>
+                            <th>Email</th>
+                            <th>Địa chỉ</th>
+                            <th>Ngày sinh</th>
+                            <!--                                                    <th>Vai trò</th>-->
+                            <th>Trạng thái</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="l,index : ${list1}">
+                            <td th:text="${index.count}"></td>
+                            <td th:text="${l.maTaiKhoan}"></td>
+                            <td th:text="${l.tenTaiKhoan}"></td>
+                            <td th:text="${l.sdt}"></td>
+                            <td th:text="${l.email}"></td>
+                            <td th:text="${l.diaChi}"></td>
+                            <td th:text="${l.ngaySinh}"></td>
+                            <!--                                                    <td th:text="${l.vaiTro.tenVaiTro}"></td>-->
+                            <td th:text="${l.trangThai == 1 ? 'Hoạt động' : 'Không hoạt động'}"></td>
+                            <td>
+                                <button type="button" class="btn btn-outline-success">Chọn</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" id="closeDialogButton2">Đóng</button>
+                </dialog>
+                <!--End Dialog Khach Hang-->
+
+                <!--Begin Dialog Sản Phẩm-->
+                <dialog id="myDialogSanPham" style="width: 900px;height: 600px;align-content: space-around">
+                    <div class="title">
+                        <h3>Tìm kiếm sản phẩm</h3>
+                    </div>
+                    <div class="form-inline" style="margin-bottom: 30px">
+                        <input type="text" th:name="ten" placeholder="Nhập tên sản phẩm"
+                               class="form-control form-control-sm" style="width: 150px; height: 40px; margin-right: 10px;"/>
+                        <button type="submit" class="btn btn-success waves-effect waves-light">
+                            <span class="btn-label"><i class="mdi mdi-search-web"></i></span>
+                            Tìm Kiếm
+                        </button>
+                    </div>
+                    <table id="datatable-buttonss"
+                           class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                           style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                           role="grid" aria-describedby="datatable-buttons_info">
+                        <thead class="text-center">
+                        <tr>
+                            <th scope="row">STT</th>
+                            <th>Ảnh</th>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Trạng thái</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="l, row : ${list}" class="text-center">
+                            <th scope="row" class="align-middle"
+                                th:text="${row.index + 1}"></th>
+                            <td class="align-middle"><img style="height: 150px; width: 150px"
+                                                          th:src="@{${'/ban-hang-tai-quay/display?id=' + l.id}}"
+                                                          alt=""></td>
+                            <td class="align-middle" th:text="${l.sanPham.ten}"></td>
+                            <td class="align-middle" th:text="${l.giaBan}"></td>
+
+                            <td class="align-middle" th:text="${l.soLuong}"></td>
+                            <td class="align-middle" th:if="${l.trangThai == 1}">Hoạt động</td>
+                            <td class="align-middle" th:if="${l.trangThai == 0}">Không hoạt động
+                            </td>
+                            <td class="align-middle">
+                                <button type="button" class="btn btn-outline-success">Chọn</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" id="closeDialogButton1">Đóng</button>
+                </dialog>
+                <!--End Dialog Sản Phẩm-->
+
+<!--                Begin Dialog Chọn Sản Phẩm-->
+<!--                <dialog id="myDialogChonSanPham" style="width: 500px;height: 400px;align-content: space-around">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-6">-->
+<!--                            <img style="height: 150px; width: 150px" id="chon-sanpham-image">-->
+<!--                        </div>-->
+<!--                        <div class="col-6">-->
+<!--                            <h3 id="chon-sanpham-name"></h3>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <button type="button" id="closeDialogChonSanPham">Đóng</button>-->
+<!--                </dialog>-->
+
+<!--                End Dialog Chọn Sản Phẩm-->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box" style="display: flex;justify-content:center ">
+                            <div class="col-xl-8">
+                                <form>
+                                    <div class="form-inline mt-3" style="display: flex">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light">
+                                            <span class="btn-label"><i class="mdi mdi-search-web"></i></span>
+                                            Tìm Kiếm
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="dataTables_filter" style="padding-top: 17px">
+                                    <button id="openDialogButtonSanPham" class="btn btn-success waves-effect waves-light"
+                                            style="float: right; margin-left: 10px">
+                                        <span class="btn-label"><i class="mdi mdi-plus"></i></span> Thêm Sản Phẩm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box">
+                            <!-- Begin table Giỏ hàng -->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="datatable-buttons"
+                                           class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                                           style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                                           role="grid" aria-describedby="datatable-buttons_info">
+                                        <thead class="text-center">
+                                        <tr>
+                                            <th scope="row">Ảnh</th>
+                                            <th>Sản Phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá</th>
+                                            <th>Thao Tác</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="text-center">
+                                            <!--                                        <tr th:each="l, row : ${hdctlist}" class="text-center">-->
+                                            <!--                                            <th scope="row" class="align-middle"-->
+                                            <!--                                                th:text="${row.index + 1}"></th>-->
+                                            <!--                                            <td class="align-middle" th:text="${l.chiTietSanPham.soLuong}"></td>-->
+                                            <!--                                            <td class="align-middle" th:text="${l.giaBan}"></td>-->
+                                            <!--                                            <td class="align-middle" th:text="${l.ngayTao}"></td>-->
+                                            <!--                                            <td class="align-middle" th:if="${l.trangThai == 1}">Hoạt động</td>-->
+                                            <!--                                            <td class="align-middle" th:if="${l.trangThai == 0}">Không hoạt động-->
+                                            <!--                                            </td>-->
+                                            <!--                                            <td class="align-middle">-->
+                                            <!--                                                <a class="edit" th:href="@{view-update/{id}(id=${l.id})}">-->
+                                            <!--                                                    <i class="material-icons" data-toggle="tooltip"-->
+                                            <!--                                                       title="Edit">&#xE254;</i>-->
+                                            <!--                                                </a>-->
+                                            <!--                                                <a th:href="@{delete/{id}(id=${l.id})}" class="delete">-->
+                                            <!--                                                    <i class="material-icons" data-toggle="tooltip"-->
+                                            <!--                                                       title="Delete">&#xE872;</i>-->
+                                            <!--                                                </a>-->
+                                            <!--                                            </td>-->
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <label style="float: right">Tổng Số tiền: </label>
+                                </div>
+                            </div>
+                            <!-- End table Giỏ hàng -->
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box">
+                            <!-- Begin Tài Khoản-->
+                            <div class="row">
+                                <div class="col-sm-12" style="display: flex;border-bottom: 1px solid #495057">
+                                    <h2 style="width: 200px">Tài khoản</h2>
+                                    <div style="width: 500px; text-align: right; margin-left: auto; margin-top: auto; margin-bottom: auto;">
+                                        <button id="openDialogButtonKhachHang" class="btn btn-success waves-effect waves-light"
+                                                style="float: right; margin-left: 10px">
+                                            <span class="btn-label"><i class="mdi mdi-plus"></i></span> Chọn Khách Hàng
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12" style="align-content: space-around">
+                                    <h6 style="width: 200px">Tên khách hàng</h6> <br>
+                                    <h6 style="width: 200px">Tên Tài Khoản </h6> <br>
+                                    <h6 style="width: 200px">Email</h6><br>
+                                </div>
+                            </div>
+                            <!-- End Tài Khoản -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Begin Khách Hàng-->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box">
+
+                            <div class="row">
+                                <div class="col-sm-12" style="display: flex;border-bottom: 1px solid #495057">
+                                    <h2 style="width: 200px">Khách hàng</h2>
+                                    <form action="" method="get"
+                                          style="width: 500px; text-align: right; margin-left: auto; margin-top: auto; margin-bottom: auto;">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light">
+                                            Chọn Địa Chỉ
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <div class="col-sm-12" >
+                                    <!--Phần row chia thông tin khách hàng -->
+                                <div class="row">
+                                    <div class="col-7">
+                                    </div>
+                                    <div class="col-5" style="align-content: space-around; display: flex; flex-direction: column; gap: 10px;">
+                                        <label><h4>Thông tin Thanh toán</h4></label>
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="customSwitches">
+                                            <label class="custom-control-label" for="customSwitches">Giao Hàng</label>
+                                        </div>
+                                        <div class="form-inline">
+                                            <input type="text" class="form-control" placeholder="Mã Giảm Giá">
+                                            <button id="openDialogButtonVoucher" type="submit" class="btn btn-primary">Chọn mã giảm giá</button>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <h6 style="width: 200px">Tiền Hàng</h6>
+                                                <h6 style="width: 200px">Giảm giá </h6>
+                                                <h4 style="width: 200px">Tổng số tiền</h4>
+                                            </div>
+                                        <div class="col-6" style="text-align: right">
+                                            <h6 style="width: 280px">đ</h6>
+                                            <h6 style="width: 280px">đ</h6>
+                                            <h4 style="width: 280px; color: red">đ</h4>
+                                        </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                    <!--End Phần row chia thông tin khách hàng -->
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- End Khách Hàng -->
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- Footer Start -->
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                2016 - 2019 &copy; Uplon theme by <a href="">Coderthemes</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- end Footer -->
+
+
+<div class="rightbar-overlay"></div>
+
+<script>
+
+    const openDialogButtonSanPham = document.getElementById('openDialogButtonSanPham');
+    const myDialogSanPham = document.getElementById('myDialogSanPham');
+    const closeDialogButton1 = document.getElementById('closeDialogButton1');
+    openDialogButtonSanPham.addEventListener('click', () => {
+        myDialogSanPham.showModal();
+    });
+    closeDialogButton1.addEventListener('click', () => {
+        myDialogSanPham.close();
+    });
+
+    const openDialogButtonKhachHang = document.getElementById('openDialogButtonKhachHang');
+    const myDialogKhachHang = document.getElementById('myDialogKhachHang');
+    const closeDialogButton2 = document.getElementById('closeDialogButton2');
+    openDialogButtonKhachHang.addEventListener('click', () => {
+        myDialogKhachHang.showModal();
+    });
+    closeDialogButton2.addEventListener('click', () => {
+        myDialogKhachHang.close();
+    });
+
+    const openDialogButtonVoucher = document.getElementById('openDialogButtonVoucher');
+    const myDialogVoucher = document.getElementById('myDialogVoucher');
+    const closeDialogButton3 = document.getElementById('closeDialogButton3');
+    openDialogButtonVoucher.addEventListener('click', () => {
+        myDialogVoucher.showModal();
+    });
+    closeDialogButton3.addEventListener('click', () => {
+        myDialogVoucher.close();
+    });
+
+    $(document).ready(function() {
+        const openDialogButtonSanPham = document.getElementById('openDialogButtonSanPham');
+        const myDialogSanPham = document.getElementById('myDialogSanPham');
+        const openDialogButtonKhachHang = document.getElementById('openDialogButtonKhachHang');
+        const myDialogKhachHang = document.getElementById('myDialogKhachHang');
+        const openDialogButtonVoucher = document.getElementById('openDialogButtonVoucher');
+        const myDialogVoucher = document.getElementById('myDialogVoucher');
+        const tableBody1 = myDialogSanPham.querySelector('tbody1');
+        const tableBody2 = myDialogKhachHang.querySelector('tbody2');
+        const tableBody3 = myDialogVoucher.querySelector('tbody3');
+
+        openDialogButtonSanPham.addEventListener('click', () => {
+            // Gọi Ajax để tải dữ liệu
+            $.ajax({
+                url: '/ban-hang-tai-quay/viewcart', // Đường dẫn tới API hoặc trang tải dữ liệu
+                method: 'GET',
+                success: function(data) {
+                    // Cập nhật bảng trong hộp thoại với dữ liệu mới
+                    tableBody1.innerHTML = data;
+
+                    // Hiển thị hộp thoại
+                    myDialogSanPham.showModal();
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        openDialogButtonKhachHang.addEventListener('click', () => {
+            // Gọi Ajax để tải dữ liệu
+            $.ajax({
+                url: '/ban-hang-tai-quay/viewcart', // Đường dẫn tới API hoặc trang tải dữ liệu
+                method: 'GET',
+                success: function(data) {
+                    // Cập nhật bảng trong hộp thoại với dữ liệu mới
+                    tableBody2.innerHTML = data;
+
+                    // Hiển thị hộp thoại
+                    myDialogKhachHang.showModal();
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        openDialogButtonVoucher.addEventListener('click', () => {
+            // Gọi Ajax để tải dữ liệu
+            $.ajax({
+                url: '/ban-hang-tai-quay/viewcart', // Đường dẫn tới API hoặc trang tải dữ liệu
+                method: 'GET',
+                success: function(data) {
+                    // Cập nhật bảng trong hộp thoại với dữ liệu mới
+                    tableBody3.innerHTML = data;
+
+                    // Hiển thị hộp thoại
+                    myDialogVoucher.showModal();
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        // Đóng hộp thoại khi nhấp nút Đóng
+        const closeDialogButton1 = document.getElementById('closeDialogButton1');
+        closeDialogButton1.addEventListener('click', () => {
+            myDialogSanPham.close();
+        });
+
+        const closeDialogButton2 = document.getElementById('closeDialogButton2');
+        closeDialogButton2.addEventListener('click', () => {
+            myDialogKhachHang.close();
+        });
+        const closeDialogButton3 = document.getElementById('closeDialogButton3');
+        closeDialogButton3.addEventListener('click', () => {
+            myDialogVoucher.close();
+        });
+    });
+
+
+</script>
+
+
+
+
+<!-- Vendor js -->
+<script src="../../static/assets/js/vendor.min.js"></script>
+<!--Morris Chart-->
+<script src="../../static/assets/libs/morris-js/morris.min.js"></script>
+<script src="../../static/assets/libs/raphael/raphael.min.js"></script>
+
+<!-- Dashboard init js-->
+<script src="../../static/assets/js/pages/dashboard.init.js"></script>
+
+<!-- App js -->
+<script src="../../static/assets/js/app.min.js"></script>
+</body>
+</html>
