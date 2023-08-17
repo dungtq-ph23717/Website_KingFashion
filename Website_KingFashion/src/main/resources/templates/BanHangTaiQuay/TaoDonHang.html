@@ -408,7 +408,12 @@
                                                     <h4 style="width: 200px">Tổng số tiền <p th:text="${tongTienSauGiam}"></p></h4>
                                                 </div>
                                             </div>
-
+                                            <form th:action="@{/ban-hang-tai-quay/view-hoa-don/{id}(id=${id})}" method="get"
+                                                  style="width: 500px; text-align: right; margin-left: auto; margin-top: auto; margin-bottom: auto;">
+                                                <button type="submit" class="btn btn-success waves-effect waves-light">
+                                                 Xác nhận
+                                                </button>
+                                            </form>
                                         </div>
 
                                     </div>

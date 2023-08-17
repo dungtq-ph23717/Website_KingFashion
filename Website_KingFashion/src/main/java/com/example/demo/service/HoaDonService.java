@@ -22,13 +22,13 @@ public interface HoaDonService {
 
     HoaDon detail(UUID id);
 
-//    void add(HoaDon hoaDon);
+    void add(HoaDon hoaDon);
 
     void updateHD(HoaDon hoaDon);
 
-    Page<HoaDon> searchHD(String maHoaDon, String nguoiNhan, Double tongTienSauKhiGiam, Integer trangThai, Date tuNgay,Date denNgay, Integer loaiDon, Pageable pageable);
+    Page<HoaDon> searchHD(String maHoaDon, String nguoiNhan, Double tongTienSauKhiGiam, Integer trangThai, Date tuNgay, Date denNgay, Integer loaiDon, Pageable pageable);
 
- HoaDon getHoaDonByHoaDonChiTietId(UUID id);
+    HoaDon getHoaDonByHoaDonChiTietId(UUID id);
 
     HoaDon findByHoaDonChiTietId(UUID id);
 

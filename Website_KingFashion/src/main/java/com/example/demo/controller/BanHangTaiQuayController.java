@@ -4,6 +4,7 @@ import com.example.demo.entity.Anh;
 import com.example.demo.entity.ChiTietSanPham;
 import com.example.demo.entity.HoaDon;
 import com.example.demo.entity.HoaDonChiTiet;
+import com.example.demo.entity.LichSuHoaDon;
 import com.example.demo.entity.TaiKhoan;
 import com.example.demo.entity.Voucher;
 import com.example.demo.entity.Voucher_HoaDon;
@@ -11,6 +12,7 @@ import com.example.demo.service.AnhService;
 import com.example.demo.service.ChiTietSanPhamService;
 import com.example.demo.service.HoaDonChiTietService;
 import com.example.demo.service.HoaDonService;
+import com.example.demo.service.LichSuHoaDonService;
 import com.example.demo.service.TaiKhoanService;
 import com.example.demo.service.VaiTroService;
 import com.example.demo.service.VoucherHoaDonService;
@@ -71,6 +73,9 @@ public class BanHangTaiQuayController {
     @Autowired
     private VoucherHoaDonService voucherHoaDonService;
 
+    @Autowired
+    private LichSuHoaDonService lichSuHoaDonService;
+
     @GetMapping("hien-thi")
     public String hienThiTable(Model model) {
         model.addAttribute("hdctlist", hoaDonChiTietService.getALl());
@@ -87,12 +92,22 @@ public class BanHangTaiQuayController {
         String ma = "HD" + new Random().nextInt(100000);
         hoaDon.setMaHoaDon(ma);
         hoaDon.setNgayTao(new Date());
+        hoaDon.setLoaiDon(0);
         hoaDon.setTrangThai(0);
         hoaDonService.add(hoaDon);
+
+        LichSuHoaDon lichSuHoaDon = new LichSuHoaDon();
+        String mals = "LS" + new Random().nextInt(100000);
+        lichSuHoaDon.setMa(mals);
+        lichSuHoaDon.setHoaDon(hoaDon);
+        lichSuHoaDon.setNgayTao(new Date());
+        lichSuHoaDon.setTrangThai(0);
+
 
         hoaDonChiTiet.setHoaDon(hoaDon);
 
         hoaDonChiTietService.add(hoaDonChiTiet);
+        lichSuHoaDonService.createLichSuDonHang(lichSuHoaDon);
         model.addAttribute("hdct", hoaDonChiTiet);
         redirectAttributes.addAttribute("id", hoaDon.getId());
         return "redirect:/ban-hang-tai-quay/viewcart/{id}";
@@ -169,6 +184,8 @@ public class BanHangTaiQuayController {
         TaiKhoan taiKhoan = taiKhoanService.getAllKhachHang(idtk);
         hoaDon = hoaDonService.detail(id);
         hoaDon.setTaiKhoan(taiKhoan);
+        hoaDon.setLoaiDon(0);
+        hoaDon.setNguoiNhan(taiKhoan.getTenTaiKhoan());
         hoaDonService.add(hoaDon);
         // Cập nhật chi tiết hóa đơn ban đầu hoặc điều hướng tới trang bạn muốn
         redirectAttributes.addAttribute("id", hoaDon.getId());
@@ -344,6 +361,17 @@ public class BanHangTaiQuayController {
             }
             return outputStream.toByteArray();
         }
+    }
+
+    @GetMapping("view-hoa-don/{id}")
+    public String viewHoaDon(@PathVariable UUID id, Model model, RedirectAttributes redirectAttributes) {
+        HoaDon hoaDon = hoaDonService.detail(id);
+        model.addAttribute("listHD", hoaDon);
+        List<LichSuHoaDon> listLSHD = lichSuHoaDonService.findAllLichSuHoaDonById(id);
+        model.addAttribute("listLSHD",listLSHD);
+
+        redirectAttributes.addAttribute("id", hoaDon.getId());
+        return "redirect:/hoa-don/view-hoa-don/{id}";
     }
 
 }

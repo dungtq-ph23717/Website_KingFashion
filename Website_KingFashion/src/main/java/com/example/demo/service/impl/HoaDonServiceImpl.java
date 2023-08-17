@@ -43,10 +43,10 @@ public class HoaDonServiceImpl implements HoaDonService {
         return hoaDonRepository.getHoaDonById(id);
     }
 
-//    @Override
-//    public void add(HoaDon hoaDon) {
-//        hoaDonRepository.save(hoaDon);
-//    }
+    @Override
+    public void add(HoaDon hoaDon) {
+        hoaDonRepository.save(hoaDon);
+    }
 
     @Override
     public void updateHD(HoaDon hoaDon) {
