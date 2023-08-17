@@ -160,6 +160,17 @@
         .shadow-button:hover {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
         }
+        /*#myModal5 .modal-dialog {*/
+        /*    display: flex;*/
+        /*    justify-content: center;*/
+        /*    align-items: center;*/
+        /*    min-height: 100vh;*/
+        /*}*/
+
+        /*#myModal5 .modal-content {*/
+        /*    !*width: 200%;*!*/
+        /*    !*max-width: 1200px; !* Điều chỉnh độ rộng của modal theo ý muốn *!*!*/
+        /*}*/
     </style>
 
     <!-- App favicon -->
@@ -370,39 +381,39 @@
 <!--                                                                </div>-->
 
 
-                                                                <div th:if="${lshd.trangThai == 5 ||
-                                                                 lshd.trangThai == 6 || lshd.trangThai == 7}"
-                                                                     class="col-3 stage"
-                                                                     th:classappend="${lshd.trangThai == 5 ? 'stage active' : ''}">
-                                                                    <div class="content">
-                                                                        <h3 class="h3">
-                                                                            Giao hàng thành công
-                                                                        </h3>
-                                                                        <p>
-                                                                            <i class="fa-regular fa-circle-check fa-beat fa-xl"></i>
-                                                                        </p>
-                                                                        <div class="stage-text hidden">
-                                                                            <p th:text="${#dates.format(lshd.ngayTao, 'dd/MM/yyyy HH:mm')}"></p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+<!--                                                                <div th:if="${lshd.trangThai == 5 ||-->
+<!--                                                                 lshd.trangThai == 6 || lshd.trangThai == 7}"-->
+<!--                                                                     class="col-3 stage"-->
+<!--                                                                     th:classappend="${lshd.trangThai == 5 ? 'stage active' : ''}">-->
+<!--                                                                    <div class="content">-->
+<!--                                                                        <h3 class="h3">-->
+<!--                                                                            Giao hàng thành công-->
+<!--                                                                        </h3>-->
+<!--                                                                        <p>-->
+<!--                                                                            <i class="fa-regular fa-circle-check fa-beat fa-xl"></i>-->
+<!--                                                                        </p>-->
+<!--                                                                        <div class="stage-text hidden">-->
+<!--                                                                            <p th:text="${#dates.format(lshd.ngayTao, 'dd/MM/yyyy HH:mm')}"></p>-->
+<!--                                                                        </div>-->
+<!--                                                                    </div>-->
+<!--                                                                </div>-->
 
 
-                                                                <div th:if="${lshd.trangThai == 6 || lshd.trangThai == 7}"
-                                                                     class="col-3 stage"
-                                                                     th:style="${lshd.trangThai == 6 ? 'background-color: red;color:white' : ''}">
-                                                                    <div class="content">
-                                                                        <h3 class="h3">
-                                                                            Giao hàng thất bại
-                                                                        </h3>
-                                                                        <p>
-                                                                            <i class="fa-solid fa-rectangle-xmark fa-fade fa-xl"></i>
-                                                                        </p>
-                                                                        <div class="stage-text hidden">
-                                                                            <p th:text="${#dates.format(lshd.ngayTao, 'dd/MM/yyyy HH:mm')}"></p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+<!--                                                                <div th:if="${lshd.trangThai == 6 || lshd.trangThai == 7}"-->
+<!--                                                                     class="col-3 stage"-->
+<!--                                                                     th:style="${lshd.trangThai == 6 ? 'background-color: red;color:white' : ''}">-->
+<!--                                                                    <div class="content">-->
+<!--                                                                        <h3 class="h3">-->
+<!--                                                                            Giao hàng thất bại-->
+<!--                                                                        </h3>-->
+<!--                                                                        <p>-->
+<!--                                                                            <i class="fa-solid fa-rectangle-xmark fa-fade fa-xl"></i>-->
+<!--                                                                        </p>-->
+<!--                                                                        <div class="stage-text hidden">-->
+<!--                                                                            <p th:text="${#dates.format(lshd.ngayTao, 'dd/MM/yyyy HH:mm')}"></p>-->
+<!--                                                                        </div>-->
+<!--                                                                    </div>-->
+<!--                                                                </div>-->
 
 
                                                                 <div th:if="${lshd.trangThai == 7}" class="col-3 stage"
@@ -852,8 +863,8 @@
 <!--                                                        <input th:field="*{loaiDon}" hidden="true">-->
 
                                                         <div class="modal" id="myModal5">
-                                                            <div style="width: 600px;" class="modal-dialog">
-                                                                <div class="modal-content">
+                                                            <div class="modal-dialog">
+                                                                <div style="width: 200%;" class="modal-content">
 
                                                                     <!-- Modal Header -->
                                                                     <div class="modal-header">
